@@ -4,274 +4,104 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MAI TimeFlow</title>
-
-    <link
-      href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap"
-      rel="stylesheet"
-    />
-
-    <style>
-      body {
-        font-family: "Roboto", sans-serif;
-        margin: 0;
-        padding: 0;
-        background-color: #ffffff;
-        color: #333;
-      }
-
-      header {
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 20px 60px;
-        background: #ffffff;
-        border-bottom: 1px solid #e0e0e0;
-      }
-
-      header .logo {
-        display: flex;
-        align-items: center;
-        gap: 10px;
-      }
-
-      header img {
-        height: 30px;
-      }
-
-      header button {
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 10px 25px;
-        font-size: 16px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      header button:hover {
-        background-color: #0056b3;
-      }
-
-      .container {
-        max-width: 1200px;
-        margin: 0 auto;
-        padding: 50px 20px;
-        text-align: center;
-      }
-
-      h1 {
-        font-size: 28px;
-        color: #007bff;
-        margin-bottom: 10px;
-      }
-
-      p {
-        font-size: 18px;
-        color: #666;
-        margin-bottom: 40px;
-      }
-
-      h2 {
-        font-size: 24px;
-        color: #007bff;
-        margin: 50px 0 20px;
-      }
-
-      .selectors {
-        margin-bottom: 30px;
-      }
-
-      select {
-        width: 220px;
-        padding: 12px;
-        margin: 10px 5px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        appearance: none;
-        background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE0IDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNyw4IDE0LDAiIGZpbGw9IiM3N0I5RkYiLz48L3N2Zz4=")
-          no-repeat right 10px center;
-        background-size: 12px;
-        background-color: #ffffff;
-      }
-
-      .show-timetable {
-        display: inline-block;
-        margin-top: 20px;
-        background-color: #007bff;
-        color: white;
-        border: none;
-        padding: 15px 40px;
-        font-size: 16px;
-        border-radius: 10px;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      .show-timetable:hover {
-        background-color: #0056b3;
-      }
-
-      .features {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        margin-top: 50px;
-        gap: 30px;
-      }
-
-      .feature-item {
-        background: #ffffff;
-        border-radius: 15px;
-        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
-        padding: 30px;
-        width: 300px;
-        text-align: center;
-      }
-
-      .feature-item img {
-        height: 50px;
-        margin-bottom: 20px;
-      }
-
-      .feature-item p {
-        font-size: 16px;
-        color: #333;
-      }
-
-      .register-btn {
-        margin-top: 40px;
-        background-color: #007bff;
-        color: white;
-        padding: 15px 40px;
-        font-size: 18px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-        transition: background 0.3s;
-      }
-
-      .register-btn:hover {
-        background-color: #0056b3;
-      }
-
-      footer {
-        margin-top: 70px;
-        padding: 40px 20px;
-        background-color: #f5f5f5;
-        text-align: center;
-        font-size: 14px;
-        color: #666;
-      }
-
-      footer a {
-        color: #007bff;
-        text-decoration: none;
-      }
-
-      .subscribe {
-        margin-top: 20px;
-      }
-
-      .subscribe input {
-        padding: 12px;
-        width: 250px;
-        border-radius: 10px;
-        border: 1px solid #ccc;
-        font-size: 16px;
-        margin-right: 10px;
-      }
-
-      .subscribe button {
-        background-color: #007bff;
-        color: white;
-        padding: 12px 25px;
-        font-size: 16px;
-        border-radius: 10px;
-        border: none;
-        cursor: pointer;
-      }
-
-      .subscribe button:hover {
-        background-color: #0056b3;
-      }
-    </style>
+    <link rel="stylesheet" href="static/css/style.css">
   </head>
   <body>
-    <header>
-      <div class="logo">
-        <img src="logo.png" alt="MAI TimeFlow" />
-      </div>
-      <button>Начать</button>
-    </header>
-
     <div class="container">
-      <h1>Добро пожаловать в MAI TimeFlow!</h1>
-      <p>
-        Просматривайте расписание своей группы, синхронизируйте его с Google
-        Calendar и получайте уведомления об изменениях.
-      </p>
-
-      <h2>Расписание</h2>
-
-      <div class="selectors">
-        <select>
-          <option>Выберите институт</option>
-        </select>
-        <select>
-          <option>Выберите курс</option>
-        </select>
-        <select>
-          <option>Выберите степень обучения</option>
-        </select>
-        <br />
-        <select>
-          <option>Выберите вашу группу</option>
-          <option>М80-206Б-23</option>
-          <option>М80-202Б-23</option>
-          <option>М80-203Б-23</option>
-          <!-- Допиши группы -->
-        </select>
-      </div>
-
-      <button class="show-timetable">Показать расписание</button>
-
-      <h2>Почему стоит зарегистрироваться?</h2>
-
-      <div class="features">
-        <div class="feature-item">
-          <img src="google-calendar-icon.png" alt="Google Calendar" />
-          <p>Синхронизация с Google Calendar</p>
+      <header>
+        <div class="header-content">
+          <div class="header-logo">
+            <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+          </div>
+          <nav class="header-nav">
+            <a href="#">Главная</a>
+            <a href="#">Помощь</a>
+            <a href="#"><img src="/assets/images/profile.svg" alt="Профиль"></a>
+          </nav>
         </div>
-        <div class="feature-item">
-          <img src="edit-icon.png" alt="Редактировать расписание" />
-          <p>Возможность редактировать расписание</p>
-        </div>
-        <div class="feature-item">
-          <img src="notification-icon.png" alt="Уведомления" />
-          <p>Уведомления об изменениях в расписании</p>
-        </div>
-      </div>
+      </header>
 
-      <button class="register-btn">Зарегистрироваться</button>
+      <main>
+        <h1>Добро пожаловать в MAI TimeFlow!</h1>
+        <p class="intro-text">
+          Просматривайте расписание своей группы, синхронизируйте его с Google Calendar и получайте уведомления об изменениях.
+        </p>
+
+        <h2>Расписание</h2>
+
+        <div class="selectors">
+          <div class="selectors-row">
+              <select id="institute-select">
+                  <option value="">Выберите институт</option>
+                  <option value="1">Институт №1</option>
+                  <option value="2">Институт №2</option>
+                  <option value="3">Институт №3</option>
+                  <option value="4">Институт №4</option>
+                  <option value="5">Институт №5</option>
+                  <option value="6">Институт №6</option>
+                  <option value="7">Институт №7</option>
+                  <option value="8">Институт №8</option>
+              </select>
+              <select id="course-select">
+                  <option value="">Выберите курс</option>
+                  <option value="1">1 курс</option>
+                  <option value="2">2 курс</option>
+                  <option value="3">3 курс</option>
+                  <option value="4">4 курс</option>
+              </select>
+          </div>
+          <div class="selectors-row">
+              <select id="degree-select" class="wide-select">
+                  <option value="">Выберите степень обучения</option>
+                  <option value="Б">Бакалавриат</option>
+                  <option value="С">Специалитет</option>
+                  <option value="М">Магистратура</option>
+              </select>
+          </div>
+        </div>
+
+        <div id="groups-table" class="groups-table-container">
+        </div>
+
+        <button class="show-timetable">Показать расписание</button>
+
+        <h2>Почему стоит зарегистрироваться?</h2>
+
+        <div class="features">
+          <div class="feature-item">
+            <img src="/assets/images/calendar.svg" alt="Google Calendar" />
+            <p>Синхронизация с Google Calendar</p>
+          </div>
+          <div class="feature-item">
+            <img src="/assets/images/edit.svg" alt="Редактировать расписание" />
+            <p>Возможность редактировать расписание</p>
+          </div>
+          <div class="feature-item">
+            <img src="/assets/images/notifications.svg" alt="Уведомления" />
+            <p>Уведомления об изменениях в расписании</p>
+          </div>
+        </div>
+
+        <button class="register-btn">Зарегистрироваться</button>
+      </main>
+
+      <footer>
+        <p>MAI TIMEFLOW</p>
+        <p>Почта: mai@timeflow.ru | Телефон: +7 (495) 123-45-67</p>
+        <p>Адрес: Москва, Волоколамское шоссе, д.4</p>
+        <p>
+          <a href="#">Политика конфиденциальности</a> |
+          <a href="#">Условия использования</a>
+        </p>
+
+        <div class="subscribe">
+          <input type="email" placeholder="Введите вашу почту" />
+          <button>Подписаться</button>
+        </div>
+
+        <p style="margin-top: 20px">Разработано студентами МАИ, 2025 год</p>
+      </footer>
     </div>
-
-    <footer>
-      <p>MAI TIMEFLOW</p>
-      <p>Почта: mai@timeflow.ru | Телефон: +7 (495) 123-45-67</p>
-      <p>Адрес: Москва, Волоколамское шоссе, д.4</p>
-      <p>
-        <a href="#">Политика конфиденциальности</a> |
-        <a href="#">Условия использования</a>
-      </p>
-
-      <div class="subscribe">
-        <input type="email" placeholder="Введите вашу почту" />
-        <button>Подписаться</button>
-      </div>
-
-      <p style="margin-top: 20px">Разработано студентами МАИ, 2025 год</p>
-    </footer>
+    <script src="/static/js/script.js"></script>
   </body>
 </html>

@@ -1,1 +1,570 @@
+html {
+    font-family: 'Cygre', -apple-system, sans-serif;
+}
 
+body {
+    font-weight: 400;
+    margin: 0;
+    padding: 0;
+    background-color: #ffffff;
+    color: #333;
+}
+
+.container {
+    --side-padding: clamp(20px, 5vw, 100px);
+    padding-left: var(--side-padding);
+    padding-right: var(--side-padding);
+    max-width: 1600px;
+    margin: 0 auto;
+}
+
+/* хедер */
+
+header {
+    width: 100%;
+    background: #ffffff;
+}
+
+.header-content {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    width: 100%;
+    max-width: 1600px;
+    margin: 0 auto;
+    padding: 20px 0;
+    box-sizing: border-box;
+}
+
+.header-logo {
+    margin-right: auto;
+    padding-left: 0;
+}
+
+.header-logo img {
+    width: 300px;
+    height: 60px;
+    object-fit: contain;
+    display: block;
+}
+
+.header-nav {
+    display: flex;
+    align-items: center;
+    gap: 40px;
+}
+
+.header-nav a {
+    color: #333;
+    text-decoration: none;
+    font-size: clamp(20px, 2.5vw, 22px);
+    transition: color 0.3s;
+}
+
+.header-nav a:hover {
+    color: #0095DA;
+}
+
+.header-nav img {
+    width: 40px;
+    height: 40px;
+    object-fit: contain;
+}
+
+.intro-text {
+    max-width: 680px;
+    word-wrap: break-word;
+}
+
+/* Typography */
+h1 {
+    font-size: clamp(44px, 3vw, 48px);
+    color: #0095DA;
+    margin-bottom: 15px;
+    margin-top: 75px;
+    font-weight: 700;
+}
+
+p {
+    font-size: clamp(30px, 2vw, 32px);
+    margin-bottom: 40px;
+}
+
+h2 {
+    text-align: center;
+    font-size: clamp(44px, 3vw, 48px);
+    color: #0095DA;
+    margin: 50px 0 20px;
+    font-weight: 700;
+}
+
+/* Выборка */
+
+.selectors {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.selectors-row {
+    display: flex;
+    justify-content: center;
+    gap: 80px;
+    width: 100%;
+}
+
+.selectors select {
+    width: 400px;
+    height: 50px;
+    padding: 12px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    appearance: none;
+    background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE0IDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNyw4IDE0LDAiIGZpbGw9IiM3N0I5RkYiLz48L3N2Zz4=") 
+        no-repeat right 15px center/12px;
+    background-color: #ffffff;
+}
+
+.selectors select option {
+    padding: 10px 15px;
+    border-bottom: 1px solid #0095DA;
+    border-left: 1px solid #0095DA;
+    border-right: 1px solid #0095DA;
+    background-color: white;
+    color: #333;
+}
+
+.selectors select option:first-child {
+    border-top: none;
+}
+
+.selectors select option:hover {
+    background-color: #0095DA !important;
+    color: white !important;
+}
+
+.selectors select:hover {
+    background-color: #F0F9FF;
+}
+
+.selectors select:focus {
+    outline: none;
+    border-bottom: 1px solid #0095DA;
+    border-left: 1px solid #0095DA;
+    border-right: 1px solid #0095DA;
+}
+
+.custom-select-wrapper {
+    position: relative;
+    width: 400px;
+    margin: 10px 0;
+}
+
+.wide-select {
+    width: 880px;
+}
+
+.custom-select {
+    width: 100%;
+    padding: 12px 15px;
+    border: 1px solid #ccc;
+    border-radius: 10px;
+    background-color: white;
+    cursor: pointer;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.custom-select::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    right: 15px;
+    width: 0;
+    height: 0;
+    border-left: 5px solid transparent;
+    border-right: 5px solid transparent;
+    border-top: 5px solid #777;
+    transform: translateY(-50%);
+}
+
+.custom-options {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    width: calc(100% - 2px);
+    max-height: 200px;
+    overflow-y: auto;
+    border: none;
+    border-left: 1px solid #0095DA;
+    border-right: 1px solid #0095DA;
+    border-bottom: 1px solid #0095DA;
+    border-radius: 0 0 5px 5px;
+    background: white;
+    z-index: 100;
+    display: none;
+}
+
+.custom-option {
+    padding: 10px 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+}
+
+.custom-option:hover {
+    background-color: #0095DA;
+    color: white;
+}
+
+/* таблица с группами */
+
+.groups-table-container {
+    width: 880px;
+    margin: 20px auto;
+    padding: 15px;
+    background: #ffffff;
+    border-bottom: 2px solid #0095DA;
+    border-left: 2px solid #0095DA;
+    border-right: 2px solid #0095DA;
+    border-radius: 0 0 15px 15px;
+    display: none;
+    position: relative;
+    box-sizing: border-box;
+}
+
+.groups-table-container::before {
+    content: "Выберите вашу группу:";
+    position: absolute;
+    top: 8px;
+    left: 18px;
+    font-size: clamp(16px, 2vw, 20px);
+    color: #666;
+}
+
+.groups-table {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    grid-template-rows: repeat(3, 1fr);
+    gap: 10px;
+    width: 100%;
+    height: 100%;
+    padding-top: 30px;
+}
+
+.group-item {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: #EEEEEE;
+    border: 1px solid #EEEEEE;
+    border-radius: 15px;
+    cursor: pointer;
+    transition: all 0.2s;
+    font-size: clamp(12px, 2vw, 16px);
+    color: #333;
+    width: 150px;
+    height: 40px;
+    margin: 0 auto;
+}
+
+.group-item:hover {
+    background: #E0E0E0;
+}
+
+.group-item.selected {
+    background: #0095DA;
+    color: white;
+    border-color: #0095DA;
+}
+
+.show-timetable {
+    display: inline-block;
+    margin-top: 20px;
+    background-color: #0095DA;
+    color: white;
+    border: none;
+    padding: 15px 40px;
+    font-size: 16px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.show-timetable:hover {
+    background-color: #0095DA;
+}
+
+.features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-top: 50px;
+    gap: 30px;
+}
+
+.feature-item {
+    background: #ffffff;
+    border-radius: 15px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    padding: 30px;
+    width: min(300px, 100%);
+}
+
+.feature-item img {
+    height: 50px;
+    margin-bottom: 20px;
+}
+
+.feature-item p {
+    font-size: 16px;
+    color: #333;
+}
+
+.register-btn {
+    margin-top: 40px;
+    background-color: #0095DA;
+    color: white;
+    padding: 15px 40px;
+    font-size: 18px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+    transition: background 0.3s;
+}
+
+.register-btn:hover {
+    background-color: #0095DA;
+}
+
+footer {
+    margin-top: 70px;
+    padding: 40px var(--side-padding);
+    background-color: #f5f5f5;
+    text-align: center;
+    font-size: 14px;
+    color: #666;
+}
+
+footer a {
+    color: #0095DA;
+    text-decoration: none;
+}
+
+.subscribe {
+    margin-top: 20px;
+}
+
+.subscribe input {
+    padding: 12px;
+    width: min(250px, 80%);
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    font-size: 16px;
+    margin-right: 10px;
+}
+
+.subscribe button {
+    background-color: #0095DA;
+    color: white;
+    padding: 12px 25px;
+    font-size: 16px;
+    border-radius: 10px;
+    border: none;
+    cursor: pointer;
+}
+
+.subscribe button:hover {
+    background-color: #0095DA;
+}
+
+@media (max-width: 768px) {
+    .header-content {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+        padding: 15px var(--side-padding);
+    }
+    
+    .header-logo,
+    .header-actions {
+        margin: 0;
+        text-align: center;
+    }
+    
+    .header-logo img {
+        margin: 0 auto;
+    }
+    
+    .header-actions button {
+        width: 100%;
+    }
+
+    .selectors select,
+    .selectors .wide-select {
+        width: 100%;
+    }
+    
+    .groups-table-container {
+        width: 100%;
+        height: auto;
+        min-height: 220px;
+    }
+    
+    .groups-table {
+        grid-template-columns: repeat(3, 1fr);
+        grid-template-rows: repeat(5, 1fr);
+    }
+    
+    .group-item {
+        width: 120px;
+    }
+}
+
+/* шрифты, начало */
+
+@font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Thin.ttf') format('truetype');
+    font-weight: 100;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Book.ttf') format('truetype');
+    font-weight: 350;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-SemiBold.ttf') format('truetype');
+    font-weight: 600;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-ExtraBold.ttf') format('truetype');
+    font-weight: 800;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-Black.ttf') format('truetype');
+    font-weight: 900;
+    font-style: normal;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-ThinIt.ttf') format('truetype');
+    font-weight: 100;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-LightIt.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-RegularIt.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-BookIt.ttf') format('truetype');
+    font-weight: 350;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-MediumIt.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-SemiBoldIt.ttf') format('truetype');
+    font-weight: 600;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-BoldIt.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-ExtraBoldIt.ttf') format('truetype');
+    font-weight: 800;
+    font-style: italic;
+    font-display: swap;
+  }
+  
+  @font-face {
+    font-family: 'Cygre';
+    src: url('/assets/fonts/Cygre-BlackIt.ttf') format('truetype');
+    font-weight: 900;
+    font-style: italic;
+    font-display: swap;
+  }
+
+/* шрифты, конец */
