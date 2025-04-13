@@ -1,9 +1,8 @@
-# backend/app/__init__.py
 from flask import Flask
 
 from flask_cors import CORS
 
-from .routes import api_blueprint  # Добавьте этот импорт
+from .routes import api_blueprint
 
 
 def create_app():
@@ -11,7 +10,6 @@ def create_app():
 
     CORS(app, resources={r"/api/*": {"origins": "http://localhost:5500"}})
 
-    # Регистрируем blueprint
     app.register_blueprint(api_blueprint, url_prefix='/')
 
     return app
