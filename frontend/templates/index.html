@@ -65,20 +65,34 @@
 
         <button class="show-timetable">Показать расписание</button>
 
-        <h2>Почему стоит зарегистрироваться?</h2>
+        <h2 class="features-title">Почему стоит зарегистрироваться?</h2>
 
         <div class="features">
           <div class="feature-item">
-            <img src="/assets/images/calendar.svg" alt="Google Calendar" />
-            <p>Синхронизация с Google Calendar</p>
+              <div class="feature-card">
+                  <div class="feature-content">
+                      <img src="/assets/images/calendar.svg" alt="Google Calendar">
+                      <p>Синхронизация с Google Calendar</p>
+                  </div>
+              </div>
           </div>
+          
           <div class="feature-item">
-            <img src="/assets/images/edit.svg" alt="Редактировать расписание" />
-            <p>Возможность редактировать расписание</p>
+              <div class="feature-card">
+                  <div class="feature-content">
+                      <img src="/assets/images/edit.svg" alt="Редактирование">
+                      <p>Возможность редактировать расписание</p>
+                  </div>
+              </div>
           </div>
+          
           <div class="feature-item">
-            <img src="/assets/images/notifications.svg" alt="Уведомления" />
-            <p>Уведомления об изменениях в расписании</p>
+              <div class="feature-card">
+                  <div class="feature-content">
+                      <img src="/assets/images/notifications.svg" alt="Уведомления">
+                      <p>Уведомления об изменениях в расписании</p>
+                  </div>
+              </div>
           </div>
         </div>
 
@@ -86,20 +100,56 @@
       </main>
 
       <footer>
-        <p>MAI TIMEFLOW</p>
-        <p>Почта: mai@timeflow.ru | Телефон: +7 (495) 123-45-67</p>
-        <p>Адрес: Москва, Волоколамское шоссе, д.4</p>
-        <p>
-          <a href="#">Политика конфиденциальности</a> |
-          <a href="#">Условия использования</a>
-        </p>
-
-        <div class="subscribe">
-          <input type="email" placeholder="Введите вашу почту" />
-          <button>Подписаться</button>
+        <div class="footer-main-content">
+          <div class="footer-left-section">
+            <div class="footer-logo">
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow"/>
+            </div>
+            <div class="section-title">Контактная информация:</div>
+            <div class="contact-info">
+              <p class="contacts">Почта: support@mai-timeflow.ru</p>
+              <p class="contacts">Телефон: +7 (495) 123-45-67</p>
+              <p class="contacts">Адрес: Москва, Волоколамское шоссе,<br>д. 4, 125993</p>
+            </div>
+          </div>
+      
+          <div class="footer-center-section">
+            <div class="resources-title">Дополнительные ресурсы:</div>
+            <div class="resources-list">
+              <a href="#">Документация</a>
+              <a href="#">Политика конфиденциальности</a>
+              <a href="#">Условия использования</a>
+            </div>
+          </div>
+      
+          <div class="footer-right-section">
+            <div class="footer-links-wrapper">
+              <div class="footer-links">
+                <a href="#">Главная</a>
+                <a href="#">Помощь</a>
+                <a href="#">О проекте</a>
+                <a href="#">Контакты</a>
+              </div>
+              <div class="social-circles">
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+              </div>
+            </div>
+            
+            <div class="subscribe">
+              <input type="email" placeholder="Введите вашу почту" />
+              <button>Подписаться на рассылку</button>
+            </div>
+          </div>
         </div>
-
-        <p style="margin-top: 20px">Разработано студентами МАИ, 2025 год</p>
+        
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <p class="copyright">© 2025 MAI TIMEFLOW. Все права защищены.</p>
+            <p class="developed-by">Разработано студентами МАИ, 2025 год</p>
+          </div>
+        </div>
       </footer>
     </div>
     <script src="/static/js/script.js"></script>
