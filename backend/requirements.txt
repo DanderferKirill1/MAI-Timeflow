@@ -1,2 +1,12 @@
+#flask
 flask
 flask-cors
+
+#flake8
+flake8
+flake8-bugbear
+flake8-builtins
+flake8-commas
+flake8-import-order
+flake8-variables-names
+pep8-naming
