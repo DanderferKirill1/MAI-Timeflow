@@ -132,7 +132,7 @@ p {
 .selectors select {
   appearance: none;
   background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE0IDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNyw4IDE0LDAiIGZpbGw9IiM3N0I5RkYiLz48L3N2Zz4=")
-    no-repeat right 15px center/12px;
+    no-repeat right 15kpx center/12px;
 }
 
 .selectors select:hover,
@@ -280,11 +280,11 @@ p {
 /*начать*/
 .start {
   position: absolute;
-  left: 1050px;
-  top: 210px;
+  left: 1000px;
+  top: 264px;
   width: 240px;
   height: 55px;
-  font-size: 25px;
+  font-size: 30px;
   font-weight: 150;
   font-family: "Cygre", sans-serif;
   background-color: #007bff; /* Цвет фона кнопки */
@@ -294,6 +294,9 @@ p {
   border-radius: 10px;
   cursor: pointer;
   transition: background-color 0.2s ease, color 0.2s ease;
+  text-align: center;
+  padding-top: 0px; /* Отступ сверху */
+  padding-bottom: 10px;
 }
 
 .start:hover {
@@ -636,6 +639,30 @@ footer {
 .resources-list a {
   color: #666;
   text-decoration: underline;
+}
+
+/*img*/
+.plane {
+  position: absolute;
+  left: 600px;
+  top: 1260px;
+}
+
+.stipple {
+  position: absolute;
+  left: 200px;
+  top: 1150px;
+}
+.stars {
+  position: absolute;
+  left: 900px;
+  top: 970px;
+}
+
+.computer {
+  position: absolute;
+  left: 900px;
+  top: 1415px;
 }
 
 @media (max-width: 768px) {
