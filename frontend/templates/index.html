@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MAI TimeFlow</title>
-    <link rel="stylesheet" href="../static/css/style.css">
+    <link rel="stylesheet" href="static/css/style.css" />
   </head>
   <body>
     <div class="container">
@@ -16,7 +16,9 @@
           <nav class="header-nav">
             <a href="#">Главная</a>
             <a href="#">Помощь</a>
-            <a href="#"><img src="../assets/images/profile.svg" alt="Профиль"></a>
+            <a href="#"
+              ><img src="/assets/images/profile.svg" alt="Профиль"
+            /></a>
           </nav>
         </div>
       </header>
@@ -24,44 +26,45 @@
       <main>
         <h1>Добро пожаловать в MAI TimeFlow!</h1>
         <p class="intro-text">
-          Просматривайте расписание своей группы, синхронизируйте его с Google Calendar и получайте уведомления об изменениях.
+          Просматривайте расписание своей группы, синхронизируйте его с Google
+          Calendar и получайте уведомления об изменениях.
         </p>
+        <button class="start">Начать</button>
 
         <h2>Расписание</h2>
 
         <div class="selectors">
           <div class="selectors-row">
-              <select id="institute-select">
-                  <option value="">Выберите институт</option>
-                  <option value="1">Институт №1</option>
-                  <option value="2">Институт №2</option>
-                  <option value="3">Институт №3</option>
-                  <option value="4">Институт №4</option>
-                  <option value="5">Институт №5</option>
-                  <option value="6">Институт №6</option>
-                  <option value="7">Институт №7</option>
-                  <option value="8">Институт №8</option>
-              </select>
-              <select id="course-select">
-                  <option value="">Выберите курс</option>
-                  <option value="1">1 курс</option>
-                  <option value="2">2 курс</option>
-                  <option value="3">3 курс</option>
-                  <option value="4">4 курс</option>
-              </select>
+            <select id="institute-select">
+              <option value="">Выберите институт</option>
+              <option value="1">Институт №1</option>
+              <option value="2">Институт №2</option>
+              <option value="3">Институт №3</option>
+              <option value="4">Институт №4</option>
+              <option value="5">Институт №5</option>
+              <option value="6">Институт №6</option>
+              <option value="7">Институт №7</option>
+              <option value="8">Институт №8</option>
+            </select>
+            <select id="course-select">
+              <option value="">Выберите курс</option>
+              <option value="1">1 курс</option>
+              <option value="2">2 курс</option>
+              <option value="3">3 курс</option>
+              <option value="4">4 курс</option>
+            </select>
           </div>
           <div class="selectors-row">
-              <select id="degree-select" class="wide-select">
-                  <option value="">Выберите степень обучения</option>
-                  <option value="Б">Бакалавриат</option>
-                  <option value="С">Специалитет</option>
-                  <option value="М">Магистратура</option>
-              </select>
+            <select id="degree-select" class="wide-select">
+              <option value="">Выберите степень обучения</option>
+              <option value="Б">Бакалавриат</option>
+              <option value="С">Специалитет</option>
+              <option value="М">Магистратура</option>
+            </select>
           </div>
         </div>
 
-        <div id="groups-table" class="groups-table-container">
-        </div>
+        <div id="groups-table" class="groups-table-container"></div>
 
         <button class="show-timetable">Показать расписание</button>
 
@@ -69,30 +72,30 @@
 
         <div class="features">
           <div class="feature-item">
-              <div class="feature-card">
-                  <div class="feature-content">
-                      <img src="/assets/images/calendar.svg" alt="Google Calendar">
-                      <p>Синхронизация с Google Calendar</p>
-                  </div>
+            <div class="feature-card">
+              <div class="feature-content">
+                <img src="/assets/images/calendar.svg" alt="Google Calendar" />
+                <p>Синхронизация с Google Calendar</p>
               </div>
+            </div>
           </div>
-          
+
           <div class="feature-item">
-              <div class="feature-card">
-                  <div class="feature-content">
-                      <img src="/assets/images/edit.svg" alt="Редактирование">
-                      <p>Возможность редактировать расписание</p>
-                  </div>
+            <div class="feature-card">
+              <div class="feature-content">
+                <img src="/assets/images/edit.svg" alt="Редактирование" />
+                <p>Возможность редактировать расписание</p>
               </div>
+            </div>
           </div>
-          
+
           <div class="feature-item">
-              <div class="feature-card">
-                  <div class="feature-content">
-                      <img src="/assets/images/notifications.svg" alt="Уведомления">
-                      <p>Уведомления об изменениях в расписании</p>
-                  </div>
+            <div class="feature-card">
+              <div class="feature-content">
+                <img src="/assets/images/notifications.svg" alt="Уведомления" />
+                <p>Уведомления об изменениях в расписании</p>
               </div>
+            </div>
           </div>
         </div>
 
@@ -103,16 +106,18 @@
         <div class="footer-main-content">
           <div class="footer-left-section">
             <div class="footer-logo">
-              <img src="/assets/images/logo.svg" alt="MAI TimeFlow"/>
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
             </div>
             <div class="section-title">Контактная информация:</div>
             <div class="contact-info">
               <p class="contacts">Почта: support@mai-timeflow.ru</p>
               <p class="contacts">Телефон: +7 (495) 123-45-67</p>
-              <p class="contacts">Адрес: Москва, Волоколамское шоссе,<br>д. 4, 125993</p>
+              <p class="contacts">
+                Адрес: Москва, Волоколамское шоссе,<br />д. 4, 125993
+              </p>
             </div>
           </div>
-      
+
           <div class="footer-center-section">
             <div class="resources-title">Дополнительные ресурсы:</div>
             <div class="resources-list">
@@ -121,7 +126,7 @@
               <a href="#">Условия использования</a>
             </div>
           </div>
-      
+
           <div class="footer-right-section">
             <div class="footer-links-wrapper">
               <div class="footer-links">
@@ -136,14 +141,14 @@
                 <div class="social-circle"></div>
               </div>
             </div>
-            
+
             <div class="subscribe">
               <input type="email" placeholder="Введите вашу почту" />
               <button>Подписаться на рассылку</button>
             </div>
           </div>
         </div>
-        
+
         <div class="footer-bottom">
           <div class="footer-bottom-content">
             <p class="copyright">© 2025 MAI TIMEFLOW. Все права защищены.</p>
@@ -152,6 +157,6 @@
         </div>
       </footer>
     </div>
-    <script src="../static/js/script.js"></script>
+    <script src="/static/js/script.js"></script>
   </body>
 </html>
