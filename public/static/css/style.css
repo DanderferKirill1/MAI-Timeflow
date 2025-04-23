@@ -665,6 +665,60 @@ footer {
   top: 1415px;
 }
 
+/*модальное окно*/
+
+#modal {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: opacity 0.2s ease;
+  border-radius: 12px;
+  right: 65px;
+}
+
+.hidden {
+  display: none;
+}
+
+#profile-button {
+  position: relative;
+}
+
+.modal-content {
+  width: 170px;
+  height: 80px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 10px;
+}
+
+.modal-content button {
+  display: block;
+  margin: 5px 0;
+}
+
+.modal-content button.btn {
+  font-family: "Cygre", sans-serif;
+  color: #333;
+  text-decoration: none;
+  font-size: clamp(14px, 2vw, 18px);
+  transition: color 0.3s;
+  border: none;
+  background-color: transparent;
+}
+
+.modal-content button.btn:hover {
+  color: #0095da;
+}
+
 @media (max-width: 768px) {
   .header-content {
     flex-direction: column;
