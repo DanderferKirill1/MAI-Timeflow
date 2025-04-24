@@ -191,3 +191,17 @@ modal.addEventListener("mouseleave", () => {
 modal.addEventListener("mouseenter", () => {
   modal.classList.remove("hidden");
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const openLoginModalBtn = document.getElementById("openLoginModalBtn");
+  const loginModal = document.getElementById("loginModal");
+  const closeLoginModal = document.getElementById("closeLoginModal");
+
+  openLoginModalBtn.addEventListener("click", () => {
+    loginModal.classList.remove("hidden");
+  });
+
+  closeLoginModal.addEventListener("click", () => {
+    loginModal.classList.add("hidden");
+  });
+});

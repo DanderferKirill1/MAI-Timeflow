@@ -719,6 +719,99 @@ footer {
   color: #0095da;
 }
 
+/* Стили для второго модального окна (loginModal) */
+#loginModal.hidden {
+  display: none !important;
+}
+
+#loginModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#loginModal .login-modal-content {
+  background: white;
+  padding: 0px 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  font-family: "Cygre", sans-serif;
+  position: relative;
+}
+
+#loginModal .login-modal-content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 25px;
+  color: rgb(0, 0, 0);
+}
+
+#loginModal label {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0 4px;
+}
+
+#loginModal input[type="email"],
+#loginModal input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#loginModal .btn-blue {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+}
+
+#loginModal .btn-blue:hover {
+  background-color: #0056b3;
+}
+
+#loginModal p {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #444;
+}
+
+#loginModal input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  font-size: 30px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #918f8f;
+}
+
 @media (max-width: 768px) {
   .header-content {
     flex-direction: column;

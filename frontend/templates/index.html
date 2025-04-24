@@ -21,11 +21,30 @@
             /></a>
             <div id="modal" class="hidden">
               <div class="modal-content">
-                <button class="btn">Войти</button>
+                <button class="btn" id="openLoginModalBtn">Войти</button>
                 <button class="btn">Зарегистрироваться</button>
               </div>
             </div>
           </nav>
+          <div id="loginModal" class="modal hidden">
+            <div class="login-modal-content">
+              <button class="close-btn" id="closeLoginModal">&times;</button>
+              <h2>Войти или создать профиль</h2>
+
+              <label>Почта (@mai.education)</label>
+              <input type="email" placeholder="students@mai.education" />
+
+              <label>Пароль</label>
+              <input type="password" />
+
+              <button class="btn btn-blue">Авторизироваться</button>
+
+              <p>
+                <input type="checkbox" checked />
+                Соглашаюсь с условиями пользования платформой
+              </p>
+            </div>
+          </div>
         </div>
       </header>
 
