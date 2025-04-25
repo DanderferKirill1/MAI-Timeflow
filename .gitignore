@@ -13,3 +13,5 @@ node_modules/
 # IDE
 .vscode/
 .idea/
+
+backend/.env/
