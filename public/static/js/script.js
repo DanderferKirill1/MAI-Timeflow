@@ -205,3 +205,26 @@ document.addEventListener("DOMContentLoaded", () => {
     loginModal.classList.add("hidden");
   });
 });
+
+document.addEventListener("DOMContentLoaded", () => {
+  const registerBtn = document.getElementById("registerBtn");
+  const registerModal = document.getElementById("registerModal");
+  const closeBtn = registerModal.querySelector(".close-btn");
+
+  // Открытие модалки
+  registerBtn.addEventListener("click", () => {
+    registerModal.classList.remove("hidden");
+  });
+
+  // Закрытие при нажатии на крестик
+  closeBtn.addEventListener("click", () => {
+    registerModal.classList.add("hidden");
+  });
+
+  // Закрытие при клике вне окна
+  window.addEventListener("click", (e) => {
+    if (e.target === registerModal) {
+      registerModal.classList.add("hidden");
+    }
+  });
+});

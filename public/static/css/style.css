@@ -784,6 +784,7 @@ footer {
   border-radius: 12px;
   cursor: pointer;
   font-weight: bold;
+  transition: background-color 0.3s ease;
 }
 
 #loginModal .btn-blue:hover {
@@ -794,7 +795,7 @@ footer {
   margin-top: 15px;
   margin-bottom: 20px;
   font-size: 13px;
-  color: #444;
+  color: #999;
 }
 
 #loginModal input[type="checkbox"] {
@@ -806,6 +807,100 @@ footer {
   top: 2px;
   right: 5px;
   font-size: 30px;
+  font-weight: 100;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #918f8f;
+}
+
+/* Стили для третьего модального окна registrModal */
+#registerModal.hidden {
+  display: none !important;
+}
+
+#registerModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#registerModal .register-modal-content {
+  background: white;
+  padding: 0px 20px;
+  padding-top: 1px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 360px;
+  max-height: 350px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  font-family: "Cygre", sans-serif;
+  position: relative;
+}
+
+#registerModal .register-modal-content h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 1px;
+  text-align: center;
+  margin-top: 20px;
+  color: rgb(0, 0, 0);
+}
+
+#registerModal label {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0 6px;
+  color: #000;
+}
+
+#registerModal input[type="text"] {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid #007bff;
+  border-radius: 11px;
+  font-size: 10px;
+  box-sizing: border-box;
+  font-family: "Cygre", sans-serif;
+}
+
+#registerModal input[type="text"]::placeholder {
+  color: #999;
+  font-family: "Cygre", sans-serif;
+  font-size: 14px;
+}
+
+.register-btn2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.register-btn2:hover {
+  background-color: #0056b3;
+}
+#registerModal .close-btn {
+  position: absolute;
+  top: -26px;
+  right: 13px;
+  font-size: 50px;
+  font-weight: 300;
   background: none;
   border: none;
   cursor: pointer;
