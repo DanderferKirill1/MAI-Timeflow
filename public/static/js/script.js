@@ -204,8 +204,53 @@ document.addEventListener("DOMContentLoaded", () => {
   closeLoginModal.addEventListener("click", () => {
     loginModal.classList.add("hidden");
   });
-});
 
+  const emailInput = document.getElementById("emailInput");
+  const emailError = document.getElementById("emailError");
+  const passwordInput = document.getElementById("passwordInput");
+  const loginBtn = document.getElementById("loginBtn");
+  const agreeCheckbox = document.getElementById("agreeCheckbox");
+  const agreeError = document.getElementById("agreeError");
+
+  function isValidEmail(email) {
+    const maiRegex = /^[^\s@]+@mai\.education$/i;
+    return maiRegex.test(email.trim());
+  }
+
+  function validateInputs(showEmailError = false) {
+    const email = emailInput.value.trim();
+    const password = passwordInput.value.trim();
+    const isAgreed = agreeCheckbox.checked;
+
+    const isEmailValid = isValidEmail(email);
+    const isPasswordFilled = password.length > 0;
+
+    // Показываем email ошибку только если явно просим (при blur)
+    if (showEmailError) {
+      emailError.style.display = isEmailValid ? "none" : "block";
+    }
+
+    // Согласие — можно сразу проверять
+    agreeError.style.display = isAgreed ? "none" : "block";
+
+    // Кнопка активна, если всё корректно
+    loginBtn.disabled = !(isEmailValid && isPasswordFilled && isAgreed);
+  }
+
+  // Проверка при вводе
+  emailInput.addEventListener("input", () => validateInputs(false));
+  passwordInput.addEventListener("input", () => validateInputs(false));
+  agreeCheckbox.addEventListener("change", () => validateInputs(false));
+
+  // Показываем ошибку email только при уходе с поля
+  emailInput.addEventListener("blur", () => validateInputs(true));
+
+  loginBtn.addEventListener("click", () => {
+    if (loginBtn.disabled) return;
+
+    window.location.href = "index2.html";
+  });
+});
 document.addEventListener("DOMContentLoaded", () => {
   const registerBtn = document.getElementById("registerBtn");
   const registerModal = document.getElementById("registerModal");

@@ -814,6 +814,17 @@ footer {
   color: #918f8f;
 }
 
+#loginBtn:disabled {
+  background-color: #a0c4ff; /* светло-синий */
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+#loginModal p {
+  margin-bottom: 0px; /* или 0 */
+  margin-top: 5px;
+}
+
 /* Стили для третьего модального окна registrModal */
 #registerModal.hidden {
   display: none !important;

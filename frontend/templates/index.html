@@ -32,17 +32,38 @@
               <h2>Войти или создать профиль</h2>
 
               <label>Почта (@mai.education)</label>
-              <input type="email" placeholder="students@mai.education" />
+              <input
+                type="email"
+                id="emailInput"
+                placeholder="students@mai.education"
+                required
+              />
+              <small id="emailError" style="color: red; display: none">
+                Введите корректный email!
+              </small>
 
               <label>Пароль</label>
-              <input type="password" />
+              <input type="password" id="passwordInput" required />
 
-              <button class="btn btn-blue">Авторизироваться</button>
+              <button class="btn btn-blue" id="loginBtn" disabled>
+                Авторизироваться
+              </button>
 
               <p>
-                <input type="checkbox" checked />
+                <input type="checkbox" id="agreeCheckbox" checked />
                 Соглашаюсь с условиями пользования платформой
               </p>
+              <small
+                id="agreeError"
+                style="
+                  color: red;
+                  display: none;
+                  margin-top: 0px;
+                  margin-bottom: 8px;
+                "
+              >
+                Пожалуйста, подтвердите согласие с условиями
+              </small>
             </div>
           </div>
           <div id="registerModal" class="modal hidden">
