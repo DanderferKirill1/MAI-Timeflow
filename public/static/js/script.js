@@ -225,24 +225,19 @@ document.addEventListener("DOMContentLoaded", () => {
     const isEmailValid = isValidEmail(email);
     const isPasswordFilled = password.length > 0;
 
-    // Показываем email ошибку только если явно просим (при blur)
     if (showEmailError) {
       emailError.style.display = isEmailValid ? "none" : "block";
     }
 
-    // Согласие — можно сразу проверять
     agreeError.style.display = isAgreed ? "none" : "block";
 
-    // Кнопка активна, если всё корректно
     loginBtn.disabled = !(isEmailValid && isPasswordFilled && isAgreed);
   }
 
-  // Проверка при вводе
   emailInput.addEventListener("input", () => validateInputs(false));
   passwordInput.addEventListener("input", () => validateInputs(false));
   agreeCheckbox.addEventListener("change", () => validateInputs(false));
 
-  // Показываем ошибку email только при уходе с поля
   emailInput.addEventListener("blur", () => validateInputs(true));
 
   loginBtn.addEventListener("click", () => {
@@ -256,20 +251,92 @@ document.addEventListener("DOMContentLoaded", () => {
   const registerModal = document.getElementById("registerModal");
   const closeBtn = registerModal.querySelector(".close-btn");
 
-  // Открытие модалки
   registerBtn.addEventListener("click", () => {
     registerModal.classList.remove("hidden");
   });
 
-  // Закрытие при нажатии на крестик
   closeBtn.addEventListener("click", () => {
     registerModal.classList.add("hidden");
   });
 
-  // Закрытие при клике вне окна
   window.addEventListener("click", (e) => {
     if (e.target === registerModal) {
       registerModal.classList.add("hidden");
     }
   });
+});
+
+const logoutBtn = document.getElementById("logoutBtn");
+
+logoutBtn.addEventListener("click", () => {
+  window.location.href = "index.html";
+});
+
+const profileBtn = document.getElementById("profileBtn");
+
+profileBtn.addEventListener("click", () => {
+  window.location.href = "index3.html";
+});
+
+const avatarBox = document.getElementById("avatarBox");
+const avatarInput = document.getElementById("avatarInput");
+const avatarPreview = document.getElementById("avatarPreview");
+
+avatarBox.addEventListener("click", () => {
+  avatarInput.click();
+});
+
+avatarInput.addEventListener("change", () => {
+  const file = avatarInput.files[0];
+  if (file) {
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      avatarPreview.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+});
+
+document.querySelectorAll(".selectors-select").forEach((originalSelect) => {
+  const wrapper = document.createElement("div");
+  wrapper.className = "custom-select-wrapper";
+
+  const display = document.createElement("div");
+  display.className = "custom-select-display";
+  display.textContent =
+    originalSelect.options[originalSelect.selectedIndex]?.text || "Выберите";
+
+  const optionsContainer = document.createElement("div");
+  optionsContainer.className = "custom-select-options";
+
+  Array.from(originalSelect.options).forEach((option) => {
+    const optionDiv = document.createElement("div");
+    optionDiv.className = "custom-select-option";
+    optionDiv.textContent = option.text;
+    optionDiv.dataset.value = option.value;
+
+    optionDiv.addEventListener("click", () => {
+      originalSelect.value = option.value;
+      display.textContent = option.text;
+      optionsContainer.classList.remove("open");
+      originalSelect.dispatchEvent(new Event("change"));
+    });
+
+    optionsContainer.appendChild(optionDiv);
+  });
+
+  display.addEventListener("click", () => {
+    optionsContainer.classList.toggle("open");
+  });
+
+  document.addEventListener("click", (e) => {
+    if (!wrapper.contains(e.target)) {
+      optionsContainer.classList.remove("open");
+    }
+  });
+
+  wrapper.appendChild(display);
+  wrapper.appendChild(optionsContainer);
+  originalSelect.style.display = "none";
+  originalSelect.parentNode.insertBefore(wrapper, originalSelect);
 });
