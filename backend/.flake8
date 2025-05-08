@@ -1,8 +1,9 @@
 [flake8]
 max-line-length = 150
-ignore = E203, W503
+ignore = E203, W503, I201, C812
 exclude =
     .git,
     venv/,
+    app/database.py,
     __pycache__/
 max-complexity = 8

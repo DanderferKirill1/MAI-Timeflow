@@ -1,9 +1,2 @@
-import sqlite3
-
-
-def init_db():
-    conn = sqlite3.connect("database.db")
-    cursor = conn.cursor()
-    cursor.execute("CREATE TABLE IF NOT EXISTS items (id INTEGER PRIMARY KEY, name TEXT)")
-    conn.commit()
-    conn.close()
+# Этот файл больше не нужен, так как db импортируется напрямую в routes.py и models.py из __init__.py
+# Сама бд описана в models.py с помощью SQLAlchemy из __init__.py

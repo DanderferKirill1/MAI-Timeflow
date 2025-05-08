@@ -2,6 +2,7 @@
 __pycache__/
 *.pyc
 backend/venv/
+backend/.env
 
 # Node.js
 node_modules/
