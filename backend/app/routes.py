@@ -95,9 +95,9 @@ def index():
 
 @frontend_blueprint.route('/static/<path:filename>', methods=['GET'])
 def static_files(filename):
-    return send_from_directory("../../frontend/static", filename)
+    return send_from_directory("../../public/static", filename)
 
 
 @frontend_blueprint.route('/assets/<path:filename>', methods=['GET'])
 def assets_files(filename):
-    return send_from_directory("../../frontend/assets", filename)
+    return send_from_directory("../../public/assets", filename)
