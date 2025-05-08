@@ -2,15 +2,20 @@ import { defineConfig } from 'vite'
 import path from 'path'
 
 export default defineConfig({
+  root: path.resolve(__dirname, 'templates'),
+  publicDir: path.resolve(__dirname, '../public'),
   server: {
     port: 5500,
-    proxy: {
-        '/api': 'http://localhost:5000'
-      }
+    fs: {
+      allow: ['..'],
+    },
   },
-  resolve: {
-    alias: {
-      '@': path.resolve(__dirname, './static')
+  build: {
+    outDir: '../../dist',
+    rollupOptions: {
+      input: {
+        main: path.resolve(__dirname, 'templates/index.html')
+      }
     }
   }
 })

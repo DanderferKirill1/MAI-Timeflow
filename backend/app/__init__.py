@@ -10,7 +10,6 @@ jwt = JWTManager()  # объект для управления JWT
 def create_app():
     app = Flask(
         __name__,
-        # instance_relative_config=True,
         template_folder="../../frontend/templates",
         static_folder="../../frontend/static"
     )
@@ -24,7 +23,7 @@ def create_app():
 
     from .routes import api_blueprint, frontend_blueprint
 
-    app.register_blueprint(api_blueprint)  # Убрано url_prefix='/'. Нужный префикс в .routes.py
+    app.register_blueprint(api_blueprint)
     app.register_blueprint(frontend_blueprint)
 
     # Создание таблиц в бд
