@@ -240,10 +240,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   emailInput.addEventListener("blur", () => validateInputs(true));
 
-  loginBtn.addEventListener("click", () => {
+  loginBtn.addEventListener("click", async () => {
     if (loginBtn.disabled) return;
 
-    window.location.href = "index2.html";
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    try {
+      const response = await fetch(
+        "https://your-backend-domain.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert("Ошибка: " + (error.message || "Неверные данные"));
+        return;
+      }
+
+      const data = await response.json();
+      localStorage.setItem("authToken", data.token);
+      alert("Успешная авторизация!");
+      window.location.href = "index2.html";
+    } catch (err) {
+      console.error("Ошибка авторизации:", err);
+      alert("Не удалось соединиться с сервером");
+    }
   });
 });
 document.addEventListener("DOMContentLoaded", () => {
