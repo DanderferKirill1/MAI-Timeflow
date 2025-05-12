@@ -70,7 +70,11 @@
               />
 
               <label for="gender" class="profile-form-label">Пол</label>
-              <select id="gender" class="profile-form-select selectors-select">
+              <select
+                id="gender"
+                class="profile-form-select selectors-select"
+                disabled
+              >
                 <option value="">Выберите пол</option>
                 <option value="male">Мужской</option>
                 <option value="female">Женский</option>
@@ -89,19 +93,45 @@
               <div class="profile-linked-section">
                 <h3>Привязанные данные</h3>
                 <ul class="profile-linked-list">
+                  <!-- E-mail -->
                   <li class="profile-linked-item">
-                    📧 students@mai.education
-                    <span class="profile-linked-date">1 месяц назад</span>
+                    <img src="/assets/images/mail.svg" alt="" />
+                    <div class="linked-col">
+                      <!-- NEW -->
+                      <span class="linked-value">students@mai.education</span>
+                      <span class="linked-date">1&nbsp;месяц&nbsp;назад</span>
+                    </div>
                   </li>
+
+                  <!-- Telegram -->
                   <li class="profile-linked-item">
-                    📨 @mrfast1x
-                    <span class="profile-linked-date">13 дней назад</span>
+                    <img src="/assets/images/tg.svg" alt="" />
+                    <div class="linked-col">
+                      <span class="linked-value">@mrfast1x</span>
+                      <span class="linked-date">13&nbsp;дней&nbsp;назад</span>
+                    </div>
+                    <button
+                      class="delete-btn"
+                      type="button"
+                      aria-label="Удалить"
+                    ></button>
                   </li>
+
+                  <!-- GitHub -->
                   <li class="profile-linked-item">
-                    💬 fastixr
-                    <span class="profile-linked-date">только что</span>
+                    <img src="/assets/images/git.svg" alt="" />
+                    <div class="linked-col">
+                      <span class="linked-value">fastixr</span>
+                      <span class="linked-date">только&nbsp;что</span>
+                    </div>
+                    <button
+                      class="delete-btn"
+                      type="button"
+                      aria-label="Удалить"
+                    ></button>
                   </li>
                 </ul>
+
                 <button class="profile-add-btn" type="button">
                   Добавить данные
                 </button>
@@ -121,6 +151,7 @@
               <select
                 id="language"
                 class="profile-form-select selectors-select"
+                disabled
               >
                 <option value="">Выберите язык</option>
                 <option value="ru">Русский</option>

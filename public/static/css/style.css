@@ -1152,6 +1152,16 @@ select.profile-form-select {
   font-family: "Cygre", sans-serif;
 }
 
+.custom-select-wrapper.disabled .custom-select-display {
+  background: #f5f5f5;
+  color: #777;
+  cursor: not-allowed;
+}
+
+.custom-select-wrapper.disabled .custom-select-display::after {
+  color: #bbb;
+}
+
 .custom-select-display {
   padding: 12px 16px;
   border: 1px solid #ccc;
@@ -1202,6 +1212,61 @@ select.profile-form-select {
 .custom-select-option:hover {
   background-color: #f0f9ff;
   color: #007bff;
+}
+
+.delete-btn {
+  display: none; /* будет показан только в edit-режиме */
+  width: 24px;
+  height: 24px;
+  border: none;
+  background: none; /* <--  убрали background:url(...) */
+  cursor: pointer;
+  padding: 0;
+}
+
+/* ▸ псевдо-элемент рисует красный ✕ */
+.delete-btn::before {
+  content: "✕"; /* можно '\\00d7' или любой другой символ */
+  font-size: 26px;
+  line-height: 1;
+  color: #ff2b2b;
+}
+
+/* ▸ показываем кнопку, когда контейнер перешёл в edit-режим */
+.profile-linked-section.edit-mode .delete-btn {
+  display: inline-block !important;
+}
+
+/* (необязательно) прижимаем крестик вправо */
+.profile-linked-item {
+  display: flex;
+  align-items: flex-start; /* иконка + колонка текста */
+  gap: 14px;
+  margin-bottom: 20px;
+  font-size: 16px;
+}
+
+.linked-col {
+  display: flex;
+  flex-direction: column;
+}
+
+/* заголовок (верхняя строка) */
+.linked-value {
+  font-size: 16px;
+  color: #000;
+}
+
+/* дата (нижняя строка) */
+.linked-date {
+  font-size: 14px;
+  color: #888;
+  margin: 4px 0 0; /* немного места сверху */
+}
+
+/* крестику по-прежнему уезжать вправо */
+.profile-linked-item .delete-btn {
+  margin-left: auto;
 }
 
 @media (max-width: 768px) {

@@ -101,6 +101,10 @@ document.addEventListener("DOMContentLoaded", function () {
       wrapper.classList.add("wide-select");
     }
 
+    if (selectElement.disabled) {
+      wrapper.classList.add("disabled");
+    }
+
     const customSelect = document.createElement("div");
     customSelect.className = "custom-select";
     customSelect.textContent = selectElement.options[0].text;
@@ -128,6 +132,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
     customSelect.addEventListener("click", (e) => {
       e.stopPropagation();
+      if (selectElement.disabled) return;
 
       if (currentOpenSelect && currentOpenSelect !== optionsContainer) {
         currentOpenSelect.style.display = "none";
@@ -155,9 +160,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
   document.addEventListener("click", closeAllSelects);
 
-  document.querySelectorAll(".selectors select").forEach((select) => {
-    createCustomSelect(select);
-  });
+  document.querySelectorAll(".selectors-select").forEach(createCustomSelect);
 
   function init() {
     initSelects();
@@ -240,10 +243,38 @@ document.addEventListener("DOMContentLoaded", () => {
 
   emailInput.addEventListener("blur", () => validateInputs(true));
 
-  loginBtn.addEventListener("click", () => {
+  loginBtn.addEventListener("click", async () => {
     if (loginBtn.disabled) return;
 
-    window.location.href = "index2.html";
+    const email = emailInput.value.trim();
+    const password = passwordInput.value;
+
+    try {
+      const response = await fetch(
+        "https://your-backend-domain.com/api/login",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify({ email, password }),
+        }
+      );
+
+      if (!response.ok) {
+        const error = await response.json();
+        alert("Ошибка: " + (error.message || "Неверные данные"));
+        return;
+      }
+
+      const data = await response.json();
+      localStorage.setItem("authToken", data.token);
+      alert("Успешная авторизация!");
+      window.location.href = "index2.html";
+    } catch (err) {
+      console.error("Ошибка авторизации:", err);
+      alert("Не удалось соединиться с сервером");
+    }
   });
 });
 document.addEventListener("DOMContentLoaded", () => {
@@ -297,46 +328,33 @@ avatarInput.addEventListener("change", () => {
   }
 });
 
-document.querySelectorAll(".selectors-select").forEach((originalSelect) => {
-  const wrapper = document.createElement("div");
-  wrapper.className = "custom-select-wrapper";
+document.addEventListener("DOMContentLoaded", () => {
+  const editBtn = document.querySelector(".profile-edit-btn");
+  const linkedSection = document.querySelector(".profile-linked-section");
+  const formFields = document.querySelectorAll(
+    ".profile-form-input, .profile-form-select"
+  );
+  const wrappers = document.querySelectorAll(".custom-select-wrapper");
 
-  const display = document.createElement("div");
-  display.className = "custom-select-display";
-  display.textContent =
-    originalSelect.options[originalSelect.selectedIndex]?.text || "Выберите";
+  // изначально блокируем поля ввода
+  formFields.forEach((el) => (el.disabled = true));
 
-  const optionsContainer = document.createElement("div");
-  optionsContainer.className = "custom-select-options";
+  editBtn.addEventListener("click", () => {
+    const isEdit = linkedSection.classList.toggle("edit-mode");
 
-  Array.from(originalSelect.options).forEach((option) => {
-    const optionDiv = document.createElement("div");
-    optionDiv.className = "custom-select-option";
-    optionDiv.textContent = option.text;
-    optionDiv.dataset.value = option.value;
+    // включаем / отключаем поля формы
+    formFields.forEach((el) => (el.disabled = !isEdit));
 
-    optionDiv.addEventListener("click", () => {
-      originalSelect.value = option.value;
-      display.textContent = option.text;
-      optionsContainer.classList.remove("open");
-      originalSelect.dispatchEvent(new Event("change"));
-    });
-
-    optionsContainer.appendChild(optionDiv);
+    // меняем надпись на кнопке
+    editBtn.textContent = isEdit ? "Сохранить" : "Редактирование";
   });
 
-  display.addEventListener("click", () => {
-    optionsContainer.classList.toggle("open");
-  });
-
-  document.addEventListener("click", (e) => {
-    if (!wrapper.contains(e.target)) {
-      optionsContainer.classList.remove("open");
+  // делегируем на UL, ловим клики по красному крестику
+  linkedSection.addEventListener("click", (e) => {
+    if (e.target.closest(".delete-btn")) {
+      const li = e.target.closest(".profile-linked-item");
+      li.remove(); // визуально убираем
+      // TODO: fetch("/api/unlink", {...})  // отправьте на бэкенд, если нужно
     }
   });
-
-  wrapper.appendChild(display);
-  wrapper.appendChild(optionsContainer);
-  originalSelect.style.display = "none";
-  originalSelect.parentNode.insertBefore(wrapper, originalSelect);
 });
