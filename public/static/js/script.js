@@ -336,25 +336,20 @@ document.addEventListener("DOMContentLoaded", () => {
   );
   const wrappers = document.querySelectorAll(".custom-select-wrapper");
 
-  // изначально блокируем поля ввода
   formFields.forEach((el) => (el.disabled = true));
 
   editBtn.addEventListener("click", () => {
     const isEdit = linkedSection.classList.toggle("edit-mode");
 
-    // включаем / отключаем поля формы
     formFields.forEach((el) => (el.disabled = !isEdit));
 
-    // меняем надпись на кнопке
     editBtn.textContent = isEdit ? "Сохранить" : "Редактирование";
   });
 
-  // делегируем на UL, ловим клики по красному крестику
   linkedSection.addEventListener("click", (e) => {
     if (e.target.closest(".delete-btn")) {
       const li = e.target.closest(".profile-linked-item");
-      li.remove(); // визуально убираем
-      // TODO: fetch("/api/unlink", {...})  // отправьте на бэкенд, если нужно
+      li.remove();
     }
   });
 });

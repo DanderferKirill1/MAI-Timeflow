@@ -1215,32 +1215,29 @@ select.profile-form-select {
 }
 
 .delete-btn {
-  display: none; /* будет показан только в edit-режиме */
+  display: none;
   width: 24px;
   height: 24px;
   border: none;
-  background: none; /* <--  убрали background:url(...) */
+  background: none;
   cursor: pointer;
   padding: 0;
 }
 
-/* ▸ псевдо-элемент рисует красный ✕ */
 .delete-btn::before {
-  content: "✕"; /* можно '\\00d7' или любой другой символ */
+  content: "✕";
   font-size: 26px;
   line-height: 1;
   color: #ff2b2b;
 }
 
-/* ▸ показываем кнопку, когда контейнер перешёл в edit-режим */
 .profile-linked-section.edit-mode .delete-btn {
   display: inline-block !important;
 }
 
-/* (необязательно) прижимаем крестик вправо */
 .profile-linked-item {
   display: flex;
-  align-items: flex-start; /* иконка + колонка текста */
+  align-items: flex-start;
   gap: 14px;
   margin-bottom: 20px;
   font-size: 16px;
@@ -1251,22 +1248,87 @@ select.profile-form-select {
   flex-direction: column;
 }
 
-/* заголовок (верхняя строка) */
 .linked-value {
   font-size: 16px;
   color: #000;
 }
 
-/* дата (нижняя строка) */
 .linked-date {
   font-size: 14px;
   color: #888;
-  margin: 4px 0 0; /* немного места сверху */
+  margin: 4px 0 0;
 }
 
-/* крестику по-прежнему уезжать вправо */
 .profile-linked-item .delete-btn {
   margin-left: auto;
+}
+
+.profile-section-container {
+  position: relative; /* якорь для абсолютного размещения рейки */
+  padding-left: 100px; /* = ширине рейки + небольшой зазор */
+}
+
+/* 2. Сама рейка-колонка */
+.profile-side-btns {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px; /* сколько места занимает рейка */
+  height: 95%;
+
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* кнопки по центру рейки */
+  gap: 32px; /* расстояние между иконками */
+  padding-top: 40px; /* первый отступ сверху */
+
+  z-index: 2; /* поверх псевдо-фона рейки */
+  align-items: center;
+}
+
+/* ► фон и тонкая правая граница рейки */
+.profile-side-btns::before {
+  content: "";
+  position: absolute;
+  inset: 0; /* заполняем всю рейку */
+  background: #fff; /* тот же цвет, что у карточки */
+  border-right: 1px solid #e0e0e0;
+  z-index: -1; /* фон должен лежать под кнопками */
+}
+
+/* 3. Круглая кнопка (если не сделали раньше) */
+.profile-side-btns .side-btn {
+  all: unset; /* убираем глобальные reset-стили */
+  box-sizing: border-box;
+
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  border: 2px solid #ffffff;
+  background: #fff;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: background 0.2s, transform 0.2s;
+  position: relative; /* якорь для ::after */
+  padding: 12px 0;
+}
+
+.profile-side-btns .side-btn:hover {
+  background: #ffffff;
+  transform: scale(1.06);
+}
+
+.profile-side-btns .side-btn img {
+  width: 45px;
+  height: 45px;
+  pointer-events: none;
+}
+
+.profile-side-btns .side-btn {
+  position: relative; /* якорь для ::after */
 }
 
 @media (max-width: 768px) {
@@ -1338,16 +1400,6 @@ select.profile-form-select {
   .feature-item img {
     margin-left: auto;
     margin-right: auto;
-  }
-
-  .profile-section-container {
-    padding: 20px;
-    margin: 20px 10px;
-  }
-
-  .profile-form-wrapper {
-    flex-direction: column;
-    gap: 20px;
   }
 }
 
