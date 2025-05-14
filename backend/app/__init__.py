@@ -3,9 +3,8 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
-db = SQLAlchemy()  # объект для работы с бд
-jwt = JWTManager()  # объект для управления JWT
-
+db = SQLAlchemy()
+jwt = JWTManager()
 
 def create_app():
     app = Flask(
@@ -15,7 +14,7 @@ def create_app():
     )
 
     from instance.config import Config
-    app.config.from_object(Config)  # Загрузка конфигурации из instance/config.py
+    app.config.from_object(Config)
 
     CORS(app, resources={r"/api/*": {"origins": "http://localhost:5500"}})
     db.init_app(app)
@@ -26,7 +25,6 @@ def create_app():
     app.register_blueprint(api_blueprint)
     app.register_blueprint(frontend_blueprint)
 
-    # Создание таблиц в бд
     with app.app_context():
         db.create_all()
 

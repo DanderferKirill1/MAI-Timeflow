@@ -2,7 +2,6 @@ from werkzeug.security import check_password_hash, generate_password_hash
 
 from . import db
 
-
 class User(db.Model):
     """Таблица USERS: данные для авторизации пользователя."""
     __tablename__ = 'users'
@@ -22,7 +21,6 @@ class User(db.Model):
     def __repr__(self):
         return f"<User {self.email}>"
 
-
 class StudentProfile(db.Model):
     """Таблица STUDENT_PROFILES: профиль студента."""
     __tablename__ = 'student_profiles'
@@ -38,7 +36,6 @@ class StudentProfile(db.Model):
     def __repr__(self):
         return f"<StudentProfile {self.first_name} {self.last_name}>"
 
-
 class Group(db.Model):
     """Таблица GROUPS: группы студентов."""
     __tablename__ = 'groups'
@@ -51,7 +48,6 @@ class Group(db.Model):
     def __repr__(self):
         return f"<Group {self.group_code}>"
 
-
 class Course(db.Model):
     """Таблица COURSES: курсы."""
     __tablename__ = 'courses'
@@ -63,7 +59,6 @@ class Course(db.Model):
     def __repr__(self):
         return f"<Course {self.course_number}>"
 
-
 class Institute(db.Model):
     """Таблица INSTITUTES: институты."""
     __tablename__ = 'institutes'
@@ -73,7 +68,6 @@ class Institute(db.Model):
 
     def __repr__(self):
         return f"<Institute {self.institute_code}>"
-
 
 class Teacher(db.Model):
     """Таблица TEACHERS: преподаватели."""
@@ -85,7 +79,6 @@ class Teacher(db.Model):
     def __repr__(self):
         return f"<Teacher {self.full_name}>"
 
-
 class Subject(db.Model):
     """Таблица SUBJECTS: предметы."""
     __tablename__ = 'subjects'
@@ -95,7 +88,6 @@ class Subject(db.Model):
 
     def __repr__(self):
         return f"<Subject {self.subject_code}>"
-
 
 class Schedule(db.Model):
     """Таблица SCHEDULES: расписание."""

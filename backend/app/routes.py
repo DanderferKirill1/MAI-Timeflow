@@ -2,18 +2,14 @@ from flask import Blueprint, jsonify, render_template, request, send_from_direct
 from flask_jwt_extended import create_access_token, jwt_required
 
 from . import db
-from .models import StudentProfile, User  # , Course, Group
-from .schedule_loader import ScheduleLoader, save_schedule_to_db
+from .models import StudentProfile, User
 
 api_blueprint = Blueprint('api', __name__, url_prefix='/api')
-
 frontend_blueprint = Blueprint('frontend', __name__)
-
 
 @api_blueprint.route("/data", methods=['GET'])
 def get_data():
     return jsonify({"message": "Hello from Flask!"})
-
 
 @api_blueprint.route('/register', methods=['POST'])
 def register():
@@ -27,20 +23,12 @@ def register():
     language = data.get('language')
     group_code = data.get('group_code')
 
-    # Проверка обязательных полей
     if not all([email, password, first_name, last_name, group_code]):
         return jsonify({'error': 'Missing required fields'}), 400
 
-    # Проверка, существует ли пользователь
     if User.query.filter_by(email=email).first():
         return jsonify({'error': 'Email already exists'}), 400
 
-    # Проверка, существует ли группа
-    # group = Group.query.get(group_code)
-    # if not group:
-    #    return jsonify({'error': 'Invalid group_code'}), 404
-
-    # Создание профиля студента
     student_profile = StudentProfile(
         first_name=first_name,
         last_name=last_name,
@@ -49,9 +37,8 @@ def register():
         group_code=group_code,
     )
     db.session.add(student_profile)
-    db.session.flush()  # Получаем profile_id
+    db.session.flush()
 
-    # Создание пользователя
     user = User(email=email, profile_id=student_profile.profile_id)
     user.set_password(password)
     db.session.add(user)
@@ -59,28 +46,19 @@ def register():
 
     return jsonify({'message': 'User registered successfully'}), 201
 
-
 @api_blueprint.route('/login', methods=['POST'])
 def login():
     """Аутентификация пользователя и выдача JWT-токена."""
     data = request.get_json()
     email = data.get('email')
     password = data.get('password')
-    # group_code = data.get('group_code')
 
-    # Поиск пользователя
     user = User.query.filter_by(email=email).first()
     if not user or not user.check_password(password):
         return jsonify({'error': 'Invalid email or password'}), 401
 
-    # Проверка group_code
-    # if user.profile.group_code != group_code:
-    #    return jsonify({'error': 'Invalid group_code'}), 401
-
-    # Генерация JWT-токена
     access_token = create_access_token(identity=str(user.user_id))
     return jsonify({'access_token': access_token}), 200
-
 
 @api_blueprint.route('/protected', methods=['GET'])
 @jwt_required()
@@ -88,37 +66,14 @@ def protected():
     """Защищённый эндпоинт, доступный только с JWT-токеном."""
     return jsonify({'message': 'This is a protected endpoint'}), 200
 
-
 @frontend_blueprint.route('/', methods=['GET'])
 def index():
     return render_template("index.html")
-
 
 @frontend_blueprint.route('/static/<path:filename>', methods=['GET'])
 def static_files(filename):
     return send_from_directory("../../public/static", filename)
 
-
 @frontend_blueprint.route('/assets/<path:filename>', methods=['GET'])
 def assets_files(filename):
     return send_from_directory("../../public/assets", filename)
-
-
-@api_blueprint.route('/schedule/load', methods=['POST'])
-@jwt_required()
-def load_schedule():
-    """Загрузка расписания через API."""
-    data = request.get_json()
-    group_code = data.get('group_code')
-    week_number = data.get('week_number')
-
-    if not group_code or not week_number:
-        return jsonify({'error': 'Missing group_code or week_number'}), 400
-
-    loader = ScheduleLoader()
-    try:
-        parsed_schedule = loader.get_parsed_schedule(group_code, week_number)
-        save_schedule_to_db(parsed_schedule, group_code)
-        return jsonify({'message': f'Schedule for {group_code} loaded successfully'}), 200
-    finally:
-        loader.close()

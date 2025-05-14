@@ -2,26 +2,27 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from selenium.webdriver.common.by import By
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
-import time
 from bs4 import BeautifulSoup
+
 from . import db
 from .models import Schedule, Subject, Teacher, Group
-
 
 
 class ScheduleLoader:
     def __init__(self):
         """Инициализация загрузчика расписания с использованием Selenium."""
         chrome_options = Options()
-        chrome_options.add_argument("--headless")  # Запуск в фоновом режиме
+        chrome_options.add_argument("--headless")
         chrome_options.add_argument("--no-sandbox")
         chrome_options.add_argument("--disable-dev-shm-usage")
         self.driver = webdriver.Chrome(
             service=Service(ChromeDriverManager().install()),
             options=chrome_options
         )
-        self.cache = {}  # Кэш для хранения загруженных данных
+        self.cache = {}
 
     def load_schedule(self, group_code, week_number):
         """
@@ -39,31 +40,51 @@ class ScheduleLoader:
         url = "https://mai.ru/education/studies/schedule/groups.php"
         self.driver.get(url)
 
-        # Ввод кода группы
-        group_input = self.driver.find_element(By.ID, "group")
+        try:
+            # Ожидание загрузки элемента для ввода группы
+            group_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.NAME, "group"))
+            )
+        except:
+            try:
+                group_input = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.ID, "group"))
+                )
+            except:
+                group_input = WebDriverWait(self.driver, 10).until(
+                    EC.presence_of_element_located((By.XPATH, "//input[contains(@name, 'group')]"))
+                )
+
         group_input.clear()
         group_input.send_keys(group_code)
 
-        # Ввод номера недели
-        week_input = self.driver.find_element(By.ID, "week")
+        # Ожидание элемента для ввода недели
+        try:
+            week_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.NAME, "week"))
+            )
+        except:
+            week_input = WebDriverWait(self.driver, 10).until(
+                EC.presence_of_element_located((By.ID, "week"))
+            )
+
         week_input.clear()
         week_input.send_keys(week_number)
 
-        # Нажатие кнопки "Показать"
-        submit_button = self.driver.find_element(By.XPATH, "//input[@type='submit']")
+        # Ожидание кнопки отправки формы
+        submit_button = WebDriverWait(self.driver, 10).until(
+            EC.element_to_be_clickable((By.XPATH, "//input[@type='submit']"))
+        )
         submit_button.click()
 
         # Ожидание загрузки расписания
-        time.sleep(2)  # Простая задержка, можно улучшить с WebDriverWait
+        WebDriverWait(self.driver, 10).until(
+            EC.presence_of_element_located((By.CLASS_NAME, "schedule-table"))
+        )
 
-        # Получение HTML-кода страницы
         html_content = self.driver.page_source
         self.cache[cache_key] = html_content
         return html_content
-
-    def close(self):
-        """Закрывает драйвер Selenium."""
-        self.driver.quit()
 
     def get_parsed_schedule(self, group_code, week_number):
         """
@@ -76,6 +97,10 @@ class ScheduleLoader:
         html_content = self.load_schedule(group_code, week_number)
         parser = ScheduleParser(html_content)
         return parser.parse_schedule()
+
+    def close(self):
+        """Закрывает драйвер Selenium."""
+        self.driver.quit()
 
 
 class ScheduleParser:
