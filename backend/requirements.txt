@@ -3,6 +3,7 @@ flask
 flask-cors
 Flask-JWT-Extended
 Flask-SQLAlchemy
+flask_cors
 
 #для переменных окружения
 python-dotenv
@@ -14,3 +15,6 @@ flake8-builtins
 flake8-import-order
 flake8-variables-names
 pep8-naming
+selenium
+webdriver-manager  # автоматическое управления драйверами браузера
+beautifulsoup4

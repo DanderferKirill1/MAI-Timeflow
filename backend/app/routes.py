@@ -3,6 +3,7 @@ from flask_jwt_extended import create_access_token, jwt_required
 
 from . import db
 from .models import StudentProfile, User  # , Course, Group
+from .schedule_loader import ScheduleLoader, save_schedule_to_db
 
 api_blueprint = Blueprint('api', __name__, url_prefix='/api')
 
@@ -101,3 +102,23 @@ def static_files(filename):
 @frontend_blueprint.route('/assets/<path:filename>', methods=['GET'])
 def assets_files(filename):
     return send_from_directory("../../public/assets", filename)
+
+
+@api_blueprint.route('/schedule/load', methods=['POST'])
+@jwt_required()
+def load_schedule():
+    """Загрузка расписания через API."""
+    data = request.get_json()
+    group_code = data.get('group_code')
+    week_number = data.get('week_number')
+
+    if not group_code or not week_number:
+        return jsonify({'error': 'Missing group_code or week_number'}), 400
+
+    loader = ScheduleLoader()
+    try:
+        parsed_schedule = loader.get_parsed_schedule(group_code, week_number)
+        save_schedule_to_db(parsed_schedule, group_code)
+        return jsonify({'message': f'Schedule for {group_code} loaded successfully'}), 200
+    finally:
+        loader.close()
