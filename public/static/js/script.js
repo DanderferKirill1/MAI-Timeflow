@@ -196,16 +196,37 @@ modal.addEventListener("mouseenter", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const openLoginModalBtn = document.getElementById("openLoginModalBtn");
   const loginModal = document.getElementById("loginModal");
   const closeLoginModal = document.getElementById("closeLoginModal");
 
-  openLoginModalBtn.addEventListener("click", () => {
-    loginModal.classList.remove("hidden");
-  });
+  const openLoginModalBtn1 = document.getElementById("openLoginModalBtn"); // "Авторизироваться"
+  const openLoginModalBtn2 = document.getElementById("openLoginModalBtn2"); // "Начать"
 
-  closeLoginModal.addEventListener("click", () => {
-    loginModal.classList.add("hidden");
+  // Убедись, что обе кнопки существуют на странице
+  if (openLoginModalBtn1) {
+    openLoginModalBtn1.addEventListener("click", () => {
+      loginModal.classList.remove("hidden");
+    });
+  }
+
+  if (openLoginModalBtn2) {
+    openLoginModalBtn2.addEventListener("click", () => {
+      loginModal.classList.remove("hidden");
+    });
+  }
+
+  // Закрытие окна по кнопке
+  if (closeLoginModal) {
+    closeLoginModal.addEventListener("click", () => {
+      loginModal.classList.add("hidden");
+    });
+  }
+
+  // Закрытие окна по клику вне окна
+  window.addEventListener("click", (e) => {
+    if (e.target === loginModal) {
+      loginModal.classList.add("hidden");
+    }
   });
 
   const emailInput = document.getElementById("emailInput");

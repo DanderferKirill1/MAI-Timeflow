@@ -1466,6 +1466,8 @@ select.profile-form-select {
   background-color: #1565c0;
 }
 
+/*calendar.html*/
+
 @media (max-width: 768px) {
   .mtf-profile-section-header {
     flex-direction: column;

@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MAI TimeFlow</title>
+    <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/calendar.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-content">
+          <div class="header-logo">
+            <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+          </div>
+          <nav class="header-nav">
+            <a href="index2.html">Главная</a>
+            <a href="calendar.html">Календарь</a>
+            <a href="index.html">Редактирование</a>
+            <a href="settings.html">Настройки</a>
+            <a href="#">Помощь</a>
+            <a href="#" id="profile-button">
+              <img src="/assets/images/profile.svg" alt="Профиль" />
+            </a>
+            <div id="modal" class="hidden">
+              <div class="modal-content">
+                <button class="btn" id="profileBtn">Профиль</button>
+                <button class="btn" id="logoutBtn">Выйти</button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <h2>Расписание</h2>
+
+        <div class="selectors">
+          <div class="selectors-row">
+            <select id="institute-select" class="selectors-select">
+              <option value="">Выберите институт</option>
+              <option value="1">Институт №1</option>
+              <option value="2">Институт №2</option>
+              <option value="3">Институт №3</option>
+              <option value="4">Институт №4</option>
+              <option value="5">Институт №5</option>
+              <option value="6">Институт №6</option>
+              <option value="7">Институт №7</option>
+              <option value="8">Институт №8</option>
+            </select>
+
+            <select id="course-select" class="selectors-select">
+              <option value="">Выберите курс</option>
+              <option value="1">1 курс</option>
+              <option value="2">2 курс</option>
+              <option value="3">3 курс</option>
+              <option value="4">4 курс</option>
+            </select>
+          </div>
+
+          <div class="selectors-row">
+            <select id="degree-select" class="selectors-select">
+              <option value="">Выберите степень обучения</option>
+              <option value="Б">Бакалавриат</option>
+              <option value="С">Специалитет</option>
+              <option value="М">Магистратура</option>
+            </select>
+          </div>
+        </div>
+
+        <div id="groups-table" class="groups-table-container"></div>
+
+        <button class="show-timetable">Показать расписание</button>
+
+        <div id="timetable-wrapper" class="hidden">
+          <div class="week-grid" id="timetable"></div>
+          <div class="timetable-buttons">
+            <button class="timetable-btn">← Предыдущая неделя</button>
+            <button class="timetable-btn">Следующая неделя →</button>
+            <button class="timetable-btn">✏️ Редактировать расписание</button>
+          </div>
+        </div>
+      </main>
+    </div>
+
+    <script src="static/js/script.js"></script>
+    <script src="static/js/calendar.js"></script>
+  </body>
+</html>
