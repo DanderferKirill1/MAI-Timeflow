@@ -1,4 +1,5 @@
-from flask import Blueprint, jsonify, render_template, request, send_from_directory
+import json
+from flask import Blueprint, Response, render_template, request, send_from_directory
 from flask_jwt_extended import create_access_token, jwt_required
 
 from . import db
@@ -11,7 +12,52 @@ frontend_blueprint = Blueprint('frontend', __name__)
 
 @api_blueprint.route("/data", methods=['GET'])
 def get_data():
-    return jsonify({"message": "Hello from Flask!"})
+    data = {"message": "Hello from Flask!"}
+    return Response(json.dumps(data, ensure_ascii=False), mimetype='application/json'), 200
+
+
+@api_blueprint.route('/login', methods=['POST'])
+def login():
+    """Аутентификация пользователя или подготовка к регистрации."""
+    data = request.get_json()
+    email = data.get('email')
+    password = data.get('password')
+
+    # Поиск пользователя по email
+    user = User.query.filter_by(email=email).first()
+
+    if not user:
+        # Пользователь не найден, возвращаем email и пароль для регистрации
+        response_data = {
+            "status": "register",
+            "email": email,
+            "password": password
+        }
+        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
+
+    # Проверка пароля
+    if not user.check_password(password):
+        response_data = {'error': 'Invalid password'}
+        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 401
+
+    # Генерация JWT-токена
+    access_token = create_access_token(identity=str(user.user_id))
+
+    # Получение данных профиля
+    profile = user.profile
+    profile_data = {
+        "email": user.email,
+        "first_name": profile.first_name,
+        "last_name": profile.last_name,
+        "group_code": profile.group_code,
+        "gender": profile.gender
+    }
+
+    response_data = {
+        "access_token": access_token,
+        "profile": profile_data
+    }
+    return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
 
 
 @api_blueprint.route('/register', methods=['POST'])
@@ -22,22 +68,19 @@ def register():
     password = data.get('password')
     first_name = data.get('first_name')
     last_name = data.get('last_name')
-    gender = data.get('gender')
-    language = data.get('language')
     group_code = data.get('group_code')
+    gender = None
+    language = None
 
     # Проверка обязательных полей
     if not all([email, password, first_name, last_name, group_code]):
-        return jsonify({'error': 'Missing required fields'}), 400
+        response_data = {'error': 'Missing required fields'}
+        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400
 
     # Проверка, существует ли пользователь
     if User.query.filter_by(email=email).first():
-        return jsonify({'error': 'Email already exists'}), 400
-
-    # Проверка, существует ли группа
-    # group = Group.query.get(group_code)
-    # if not group:
-    #    return jsonify({'error': 'Invalid group_code'}), 404
+        response_data = {'error': 'Email already exists'}
+        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400
 
     # Создание профиля студента
     student_profile = StudentProfile(
@@ -56,36 +99,31 @@ def register():
     db.session.add(user)
     db.session.commit()
 
-    return jsonify({'message': 'User registered successfully'}), 201
-
-
-@api_blueprint.route('/login', methods=['POST'])
-def login():
-    """Аутентификация пользователя и выдача JWT-токена."""
-    data = request.get_json()
-    email = data.get('email')
-    password = data.get('password')
-    # group_code = data.get('group_code')
-
-    # Поиск пользователя
-    user = User.query.filter_by(email=email).first()
-    if not user or not user.check_password(password):
-        return jsonify({'error': 'Invalid email or password'}), 401
-
-    # Проверка group_code
-    # if user.profile.group_code != group_code:
-    #    return jsonify({'error': 'Invalid group_code'}), 401
-
     # Генерация JWT-токена
     access_token = create_access_token(identity=str(user.user_id))
-    return jsonify({'access_token': access_token}), 200
+
+    # Данные профиля для ответа
+    profile_data = {
+        "email": email,
+        "first_name": first_name,
+        "last_name": last_name,
+        "group_code": group_code,
+        "gender": gender
+    }
+
+    response_data = {
+        "access_token": access_token,
+        "profile": profile_data
+    }
+    return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 201
 
 
 @api_blueprint.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
     """Защищённый эндпоинт, доступный только с JWT-токеном."""
-    return jsonify({'message': 'This is a protected endpoint'}), 200
+    response_data = {'message': 'This is a protected endpoint'}
+    return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
 
 
 @frontend_blueprint.route('/', methods=['GET'])

@@ -14,10 +14,13 @@ def create_app():
         static_folder="../../public/static"
     )
 
+    app.config['JSONIFY_ENSURE_ASCII'] = False
+
     from instance.config import Config
     app.config.from_object(Config)  # Загрузка конфигурации из instance/config.py
 
     CORS(app, resources={r"/api/*": {"origins": "http://localhost:5500"}})
+
     db.init_app(app)
     jwt.init_app(app)
 
