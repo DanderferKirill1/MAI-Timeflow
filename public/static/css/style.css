@@ -1467,6 +1467,10 @@ select.profile-form-select {
 }
 
 /*calendar.html*/
+ul li::marker {
+  color: #007bff; /* приятный голубой; можете заменить на свой */
+  font-size: 1.1em; /* по желанию – чуть крупнее маркер */
+}
 
 @media (max-width: 768px) {
   .mtf-profile-section-header {

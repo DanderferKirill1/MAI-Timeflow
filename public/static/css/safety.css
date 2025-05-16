@@ -1,0 +1,68 @@
+/* стиль «как на скрине» */
+.btn-primary {
+  /* размеры */
+  display: block; /* занимает всю строку */
+  width: 85%; /* растягиваем на всю доступную ширину родителя */
+  padding: 5px 0; /* высота кнопки ≈ 40 px */
+  margin-top: 12px;
+
+  /* цвет и типографика */
+  background: #007bff; /* ярко-голубой */
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  font-family: "Cygre", sans-serif;
+
+  /* декор */
+  border: none;
+  border-radius: 12px; /* скруглённые углы, как на макете */
+  cursor: pointer;
+
+  /* плавные эффекты */
+  transition: background-color 0.3s ease;
+}
+
+/* лёгкая тень при ховере */
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+/* --- оформление активных сессий (как на макете) --- */
+.active-sessions ul {
+  list-style: none; /* убираем стандартные маркеры */
+  margin: 0;
+  padding: 0;
+}
+.session-item {
+  display: flex; /* иконка + текст в одну строку */
+  align-items: flex-start;
+  gap: 24px; /* расстояние между иконкой и текстом */
+  margin-bottom: 32px; /* отступ между элементами списка */
+}
+.session-item img {
+  margin-top: 5px;
+  width: 50px; /* ровный размер иконок */
+  height: auto;
+  flex: 0 0 40px; /* фиксируем ширину, чтобы текст не прыгал */
+}
+.device-name {
+  display: block;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.session-meta {
+  display: block;
+  font-size: 18px;
+  color: #6b6b6b;
+  margin-top: 4px;
+}
+.show-all {
+  font-size: 18px;
+  color: #6b6b6b;
+  text-decoration: none;
+  text-align: center;
+}
+.show-all:hover {
+  text-decoration: underline;
+}
