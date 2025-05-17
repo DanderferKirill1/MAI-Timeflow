@@ -1054,7 +1054,7 @@ footer {
 .profile-logout-btn {
   background-color: #d32f2f;
   color: white;
-  padding: 10px 24px;
+  padding: 10px 90px;
   border: none;
   border-radius: 14px;
   cursor: pointer;
@@ -1435,7 +1435,7 @@ select.profile-form-select {
   font-size: 13px;
   font-weight: 500;
   color: white;
-  background-color: #1976d2;
+  background-color: #007bff;
   border: none;
   border-radius: 8px;
   cursor: pointer;
@@ -1452,12 +1452,12 @@ select.profile-form-select {
   margin-top: 20px;
 }
 .sohr {
-  padding: 10px 40px;
+  padding: 10px 100px;
   font-size: 14px;
-  background-color: #1976d2;
+  background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 8px;
+  border-radius: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
 }
@@ -1470,6 +1470,23 @@ select.profile-form-select {
 ul li::marker {
   color: #007bff; /* приятный голубой; можете заменить на свой */
   font-size: 1.1em; /* по желанию – чуть крупнее маркер */
+}
+
+.show-all-link {
+  color: #888;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.show-all-link:hover {
+  color: #555;
+  text-decoration: underline;
+}
+
+.mtf-integrations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* расстояние между кнопками */
 }
 
 @media (max-width: 768px) {

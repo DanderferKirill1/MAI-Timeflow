@@ -371,3 +371,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+document.querySelectorAll(".select-timee").forEach(createCustomSelect);

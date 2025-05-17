@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MAI TimeFlow</title>
     <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/noti.css" />
   </head>
   <body>
     <div class="container">
@@ -19,9 +20,9 @@
             <a href="index3.html">Редактирование</a>
             <a href="settings.html">Настройки</a>
             <a href="#">Помощь</a>
-            <a href="#" id="profile-button"
-              ><img src="/assets/images/profile.svg" alt="Профиль"
-            /></a>
+            <a href="#" id="profile-button">
+              <img src="/assets/images/profile.svg" alt="Профиль" />
+            </a>
             <div id="modal" class="hidden">
               <div class="modal-content">
                 <button class="btn" id="profileBtn">Профиль</button>
@@ -42,7 +43,6 @@
             >
               <img src="/assets/images/info.svg" alt="Информация" />
             </button>
-
             <button
               type="button"
               class="side-btn"
@@ -50,11 +50,13 @@
             >
               <img src="/assets/images/safety.svg" alt="Безопасность" />
             </button>
-
-            <button type="button" class="side-btn">
+            <button
+              type="button"
+              class="side-btn"
+              onclick="window.location.href='noti.html'"
+            >
               <img src="/assets/images/noti2.svg" alt="Уведомления" />
             </button>
-
             <button
               type="button"
               class="side-btn"
@@ -63,129 +65,89 @@
               <img src="/assets/images/settings.svg" alt="Настройки" />
             </button>
           </div>
-          <div class="profile-section-header">
-            <div class="profile-section-info">
-              <div class="profile-avatar-box" id="avatarBox">
-                <img
-                  src="/assets/images/profile.svg"
-                  alt="Фото профиля"
-                  id="avatarPreview"
-                />
-                <input
-                  type="file"
-                  id="avatarInput"
-                  accept="image/*"
-                  style="display: none"
-                />
+
+          <div class="mtf-profile-section-header">
+            <div class="mtf-profile-settings">
+              <h2>Типы уведомлений</h2>
+
+              <!-- <label>Тема</label>
+              <select class="selectors-select">
+                <option value="">Выберите тему</option>
+                <option value="1">Темная</option>
+                <option value="2">Светлая</option>
+              </select> -->
+
+              <div class="mtf-toggle-row">
+                <span>Изменения в расписани:</span>
+                <label class="switch">
+                  <input type="checkbox" name="weekends" checked />
+                  <span class="slider"></span>
+                </label>
               </div>
-              <div>
-                <h2>Имя Фамилия</h2>
-                <p class="profile-section-email">students@mai.education</p>
+
+              <div class="mtf-toggle-row">
+                <span
+                  >Напоминание о парах за <label></label>
+                  <label></label>
+                  <select class="time-select">
+                    <option value=""></option>
+                    <option value="1">10</option>
+                    <option value="2">30</option>
+                    <option value="2">60</option>
+                  </select>
+                  минут:</span
+                >
+                <label class="switch">
+                  <input type="checkbox" name="past" />
+                  <span class="slider"></span>
+                </label>
+              </div>
+
+              <h2>История уведомлений</h2>
+            </div>
+
+            <div class="mtf-right-panel">
+              <h2>Способ получения</h2>
+              <div class="notify-method">
+                <label class="custom-checkbox">
+                  <input type="checkbox" checked />
+                  <span class="checkmark"></span>
+                  Push-уведомления в браузере
+                </label>
+
+                <label class="custom-checkbox">
+                  <input type="checkbox" checked />
+                  <span class="checkmark"></span>
+                  Email-уведомления
+                </label>
+
+                <label class="custom-checkbox">
+                  <input type="checkbox" />
+                  <span class="checkmark"></span>
+                  Уведомления в Telegram
+                </label>
               </div>
             </div>
-            <button class="profile-edit-btn" type="button">
-              Редактирование
-            </button>
           </div>
+          <div class="save-wrapper">
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
+            <br />
 
-          <form class="profile-form-wrapper">
-            <div class="profile-form-left">
-              <label for="firstName" class="profile-form-label">Имя</label>
-              <input
-                type="text"
-                id="firstName"
-                class="profile-form-input"
-                placeholder="Введите имя"
-              />
-
-              <label for="gender" class="profile-form-label">Пол</label>
-              <select
-                id="gender"
-                class="profile-form-select selectors-select"
-                disabled
-              >
-                <option value="">Выберите пол</option>
-                <option value="male">Мужской</option>
-                <option value="female">Женский</option>
-              </select>
-
-              <label for="group" class="profile-form-label"
-                >Учебная группа</label
-              >
-              <input
-                type="text"
-                id="group"
-                class="profile-form-input"
-                value="М8О-213Б-23"
-              />
-
-              <div class="profile-linked-section">
-                <h3>Привязанные данные</h3>
-                <ul class="profile-linked-list">
-                  <li class="profile-linked-item">
-                    <img src="/assets/images/mail.svg" alt="" />
-                    <div class="linked-col">
-                      <span class="linked-value">students@mai.education</span>
-                      <span class="linked-date">1&nbsp;месяц&nbsp;назад</span>
-                    </div>
-                  </li>
-
-                  <li class="profile-linked-item">
-                    <img src="/assets/images/tg.svg" alt="" />
-                    <div class="linked-col">
-                      <span class="linked-value">@mrfast1x</span>
-                      <span class="linked-date">13&nbsp;дней&nbsp;назад</span>
-                    </div>
-                    <button
-                      class="delete-btn"
-                      type="button"
-                      aria-label="Удалить"
-                    ></button>
-                  </li>
-
-                  <li class="profile-linked-item">
-                    <img src="/assets/images/git.svg" alt="" />
-                    <div class="linked-col">
-                      <span class="linked-value">fastixr</span>
-                      <span class="linked-date">только&nbsp;что</span>
-                    </div>
-                    <button
-                      class="delete-btn"
-                      type="button"
-                      aria-label="Удалить"
-                    ></button>
-                  </li>
-                </ul>
-
-                <button class="profile-add-btn" type="button">
-                  Добавить данные
-                </button>
-              </div>
-            </div>
-
-            <div class="profile-form-right">
-              <label for="lastName" class="profile-form-label">Фамилия</label>
-              <input
-                type="text"
-                id="lastName"
-                class="profile-form-input"
-                placeholder="Введите фамилию"
-              />
-
-              <label for="language" class="profile-form-label">Язык</label>
-              <select
-                id="language"
-                class="profile-form-select selectors-select"
-                disabled
-              >
-                <option value="">Выберите язык</option>
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-              </select>
-            </div>
-          </form>
-
-          <button class="profile-logout-btn">Выйти из аккаунта</button>
+            <button class="sohr">Сохранить</button>
+          </div>
         </section>
       </main>
 
