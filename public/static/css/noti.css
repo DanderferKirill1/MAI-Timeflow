@@ -1,0 +1,241 @@
+.time-select {
+  appearance: none;
+  width: 10px;
+  height: auto; /* Или задай фиксированную, если нужно */
+  padding: 1px 30px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: "Cygre", sans-serif;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE0IDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNyw4IDE0LDAiIGZpbGw9IiM3N0I5RkYiLz48L3N2Zz4=")
+    no-repeat right 15px center/12px;
+}
+
+.time-select:hover {
+  background-color: #f0f9ff;
+}
+
+.time-select:focus {
+  outline: none;
+  border-color: #0095da;
+}
+
+.time-select option {
+  padding: 10px 15px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+}
+
+.time-select option:hover {
+  background-color: #0095da;
+  color: white;
+}
+
+.time-select-wrapper {
+  position: relative;
+  width: 100%;
+  font-family: "Cygre", sans-serif;
+  margin-bottom: 16px;
+}
+
+.time-select-display {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+.time-select-display::after {
+  content: "▼";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  font-size: 12px;
+  color: #777;
+}
+
+.time-select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  background: white;
+  z-index: 10;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.time-select-options.open {
+  display: block;
+}
+
+.time-select-option {
+  padding: 10px 15px;
+  cursor: pointer;
+  font-size: 16px;
+  transition: background-color 0.2s;
+}
+
+.time-select-option:hover {
+  background-color: #0095da;
+  color: white;
+}
+
+.time-select option {
+  color: #333;
+  padding: 10px;
+}
+
+.time-select:hover {
+  background-color: #f0f9ff;
+}
+
+.time-select:focus {
+  outline: none;
+  border-color: #0095da;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  width: 250px;
+  user-select: none;
+}
+
+.custom-select-display {
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-select-display::after {
+  content: "▼";
+  position: absolute;
+  right: 15px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: #777;
+  font-size: 12px;
+}
+
+.custom-select-options {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  width: 100%;
+  background: white;
+  border: 1px solid #ccc;
+  border-top: none;
+  border-radius: 0 0 10px 10px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  z-index: 100;
+}
+
+.custom-select-options.open {
+  display: block;
+}
+
+.custom-select-option {
+  padding: 12px 15px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s, color 0.2s;
+}
+
+.custom-select-option:hover {
+  background-color: #0095da;
+  color: white;
+}
+
+.select-label {
+  margin-bottom: 8px;
+  display: block;
+  font-weight: bold;
+}
+
+.select-timee {
+  appearance: none;
+  width: 100%;
+  height: 50px;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  box-sizing: border-box;
+  font-family: "Cygre", sans-serif;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE0IDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNyw4IDE0LDAiIGZpbGw9IiM3N0I5RkYiLz48L3N2Zz4=")
+    no-repeat right 15px center/12px;
+}
+
+.select-timee:hover {
+  background-color: #f0f9ff;
+}
+
+.select-timee:focus {
+  outline: none;
+  border-color: #0095da;
+}
+
+.select-timee option {
+  padding: 10px 15px;
+  background-color: white;
+  color: #333;
+  cursor: pointer;
+}
+
+.select-timee option:hover {
+  background-color: #0095da;
+  color: white;
+}
+
+.notify-method {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-top: 20px;
+}
+
+.checkbox-native {
+  display: flex;
+  align-items: center;
+  font-size: 16px; /* уменьшенный шрифт */
+  font-family: "Cygre", sans-serif;
+  color: #333;
+  gap: 10px;
+}
+
+/* немного уменьшим размер самого чекбокса */
+.checkbox-native input[type="checkbox"] {
+  width: 16px;
+  height: 16px;
+  accent-color: #1976d2; /* синий цвет галочки */
+  cursor: pointer;
+}
+
+.container {
+  --side-padding: clamp(
+    20px,
+    5vw,
+    80px
+  ); /* можно увеличить если хочешь чуть больше отступов */
+  padding: 0 var(--side-padding);
+  max-width: 1800px; /* увеличь до нужного размера */
+  width: 100%;
+  margin: 0 auto;
+  box-sizing: border-box;
+}

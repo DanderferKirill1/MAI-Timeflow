@@ -15,9 +15,9 @@
           </div>
           <nav class="header-nav">
             <a href="#">Главная</a>
-            <a href="#">Календарь</a>
-            <a href="#">Редактирование</a>
-            <a href="#">Настройки</a>
+            <a href="calendar.html">Календарь</a>
+            <a href="index3.html">Редактирование</a>
+            <a href="settings.html">Настройки</a>
             <a href="#">Помощь</a>
             <a href="#" id="profile-button"
               ><img src="/assets/images/profile.svg" alt="Профиль"
@@ -38,7 +38,9 @@
           Просматривайте расписание своей группы, синхронизируйте его с Google
           Calendar и получайте уведомления об изменениях.
         </p>
-        <button class="start">Профиль</button>
+        <button class="start" onclick="location.href='index3.html'">
+          Профиль
+        </button>
         <img src="/assets/images/plane.svg" class="plane" alt="Самолётик" />
         <img src="/assets/images/stipple.svg" class="stipple" alt="Дымок" />
         <img src="/assets/images/stars.svg" class="stars" alt="Звёздочки" />
@@ -51,7 +53,7 @@
 
         <div class="selectors">
           <div class="selectors-row">
-            <select id="institute-select">
+            <select id="institute-select" class="selectors-select">
               <option value="">Выберите институт</option>
               <option value="1">Институт №1</option>
               <option value="2">Институт №2</option>
@@ -62,7 +64,7 @@
               <option value="7">Институт №7</option>
               <option value="8">Институт №8</option>
             </select>
-            <select id="course-select">
+            <select id="course-select" class="selectors-select">
               <option value="">Выберите курс</option>
               <option value="1">1 курс</option>
               <option value="2">2 курс</option>
@@ -71,7 +73,7 @@
             </select>
           </div>
           <div class="selectors-row">
-            <select id="degree-select" class="wide-select">
+            <select id="degree-select" class="selectors-select">
               <option value="">Выберите степень обучения</option>
               <option value="Б">Бакалавриат</option>
               <option value="С">Специалитет</option>
@@ -117,7 +119,9 @@
           </div>
         </div>
 
-        <button class="register-btn">Календарь</button>
+        <button class="register-btn" onclick="location.href='calendar.html'">
+          Календарь
+        </button>
       </main>
 
       <footer>

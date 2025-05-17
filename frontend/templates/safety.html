@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MAI TimeFlow</title>
     <link rel="stylesheet" href="static/css/style.css" />
+    <link rel="stylesheet" href="static/css/safety.css" />
   </head>
   <body>
     <div class="container">
@@ -19,9 +20,9 @@
             <a href="index3.html">Редактирование</a>
             <a href="settings.html">Настройки</a>
             <a href="#">Помощь</a>
-            <a href="#" id="profile-button"
-              ><img src="/assets/images/profile.svg" alt="Профиль"
-            /></a>
+            <a href="#" id="profile-button">
+              <img src="/assets/images/profile.svg" alt="Профиль" />
+            </a>
             <div id="modal" class="hidden">
               <div class="modal-content">
                 <button class="btn" id="profileBtn">Профиль</button>
@@ -35,18 +36,20 @@
       <main>
         <section class="profile-section-container">
           <div class="profile-side-btns">
-            <button type="button" class="side-btn">
-              <img src="/assets/images/info2.svg" alt="Информация" />
+            <button
+              type="button"
+              class="side-btn"
+              onclick="window.location.href='index3.html'"
+            >
+              <img src="/assets/images/info.svg" alt="Информация" />
             </button>
-
             <button
               type="button"
               class="side-btn"
               onclick="window.location.href='safety.html'"
             >
-              <img src="/assets/images/safety.svg" alt="Безопасность" />
+              <img src="/assets/images/safety2.svg" alt="Безопасность" />
             </button>
-
             <button
               type="button"
               class="side-btn"
@@ -54,7 +57,6 @@
             >
               <img src="/assets/images/noti.svg" alt="Уведомления" />
             </button>
-
             <button
               type="button"
               class="side-btn"
@@ -63,129 +65,96 @@
               <img src="/assets/images/settings.svg" alt="Настройки" />
             </button>
           </div>
-          <div class="profile-section-header">
-            <div class="profile-section-info">
-              <div class="profile-avatar-box" id="avatarBox">
-                <img
-                  src="/assets/images/profile.svg"
-                  alt="Фото профиля"
-                  id="avatarPreview"
-                />
-                <input
-                  type="file"
-                  id="avatarInput"
-                  accept="image/*"
-                  style="display: none"
-                />
-              </div>
-              <div>
-                <h2>Имя Фамилия</h2>
-                <p class="profile-section-email">students@mai.education</p>
-              </div>
-            </div>
-            <button class="profile-edit-btn" type="button">
-              Редактирование
-            </button>
-          </div>
 
-          <form class="profile-form-wrapper">
-            <div class="profile-form-left">
-              <label for="firstName" class="profile-form-label">Имя</label>
+          <div class="mtf-profile-section-header">
+            <div class="mtf-profile-settings">
+              <h2>Изменение пароля</h2>
+
+              <label for="firstName" class="profile-form-label"
+                >Текущий пароль</label
+              >
               <input
                 type="text"
                 id="firstName"
                 class="profile-form-input"
-                placeholder="Введите имя"
+                placeholder="Введите пароль"
               />
 
-              <label for="gender" class="profile-form-label">Пол</label>
-              <select
-                id="gender"
-                class="profile-form-select selectors-select"
-                disabled
-              >
-                <option value="">Выберите пол</option>
-                <option value="male">Мужской</option>
-                <option value="female">Женский</option>
-              </select>
-
-              <label for="group" class="profile-form-label"
-                >Учебная группа</label
+              <label for="firstName" class="profile-form-label"
+                >Новый пароль</label
               >
               <input
                 type="text"
-                id="group"
+                id="firstName"
                 class="profile-form-input"
-                value="М8О-213Б-23"
+                placeholder="Введите новый пароль"
               />
+              <label for="firstName" class="profile-form-label"
+                >Подтверждение пароля</label
+              >
+              <input
+                type="text"
+                id="firstName"
+                class="profile-form-input"
+                placeholder="Повторите новый пароль"
+              />
+              <button class="btn-primary2">Изменить пароль</button>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              <br>
+              
+            </div>
 
-              <div class="profile-linked-section">
-                <h3>Привязанные данные</h3>
-                <ul class="profile-linked-list">
-                  <li class="profile-linked-item">
-                    <img src="/assets/images/mail.svg" alt="" />
-                    <div class="linked-col">
-                      <span class="linked-value">students@mai.education</span>
-                      <span class="linked-date">1&nbsp;месяц&nbsp;назад</span>
+            <div class="mtf-right-panel">
+              <h2>Двухфакторная аутентификация</h2>
+              <div class="mtf-schedule-box">
+                <div class="mtf-event">
+                  <div class="mtf-event-title">
+                    Для дополнительной защиты вашего аккаунта включите
+                    двухфакторную аутентификацию
+                  </div>
+                  <div class="mtf-event-info">** В разработке **<br /></div>
+                </div>
+                <button class="btn-primary">Включить</button>
+              </div>
+
+              <div class="mtf-integrations">
+                <h2>Активные сессии</h2>
+                <ul>
+                  <li class="session-item">
+                    <img
+                      src="/assets/images/windows.svg"
+                      alt="Windows 11"
+                    />
+                    <div class="session-info">
+                      <span class="device-name">Windows 11 Home</span>
+                      <span class="session-meta"
+                        >4.81.10.58 · Сегодня в 10:05</span
+                      >
                     </div>
                   </li>
-
-                  <li class="profile-linked-item">
-                    <img src="/assets/images/tg.svg" alt="" />
-                    <div class="linked-col">
-                      <span class="linked-value">@mrfast1x</span>
-                      <span class="linked-date">13&nbsp;дней&nbsp;назад</span>
+                  <li class="session-item">
+                    <img src="/assets/images/apple.svg" alt="iPhone" />
+                    <div class="session-info">
+                      <span class="device-name">iPhone 16 Pro Max</span>
+                      <span class="session-meta"
+                        >4.81.10.58 · Сегодня в 10:05</span
+                      >
                     </div>
-                    <button
-                      class="delete-btn"
-                      type="button"
-                      aria-label="Удалить"
-                    ></button>
                   </li>
-
-                  <li class="profile-linked-item">
-                    <img src="/assets/images/git.svg" alt="" />
-                    <div class="linked-col">
-                      <span class="linked-value">fastixr</span>
-                      <span class="linked-date">только&nbsp;что</span>
-                    </div>
-                    <button
-                      class="delete-btn"
-                      type="button"
-                      aria-label="Удалить"
-                    ></button>
-                  </li>
+                  <a href="#" class="show-all">Показать все</a>
                 </ul>
-
-                <button class="profile-add-btn" type="button">
-                  Добавить данные
-                </button>
+              </div>
               </div>
             </div>
-
-            <div class="profile-form-right">
-              <label for="lastName" class="profile-form-label">Фамилия</label>
-              <input
-                type="text"
-                id="lastName"
-                class="profile-form-input"
-                placeholder="Введите фамилию"
-              />
-
-              <label for="language" class="profile-form-label">Язык</label>
-              <select
-                id="language"
-                class="profile-form-select selectors-select"
-                disabled
-              >
-                <option value="">Выберите язык</option>
-                <option value="ru">Русский</option>
-                <option value="en">English</option>
-              </select>
-            </div>
-          </form>
-
-          <button class="profile-logout-btn">Выйти из аккаунта</button>
+          </div>
         </section>
       </main>
 

@@ -691,7 +691,7 @@ footer {
 
 .modal-content {
   width: 170px;
-  height: 80px;
+  height: 60px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -1054,7 +1054,7 @@ footer {
 .profile-logout-btn {
   background-color: #d32f2f;
   color: white;
-  padding: 10px 24px;
+  padding: 10px 90px;
   border: none;
   border-radius: 14px;
   cursor: pointer;
@@ -1264,41 +1264,38 @@ select.profile-form-select {
 }
 
 .profile-section-container {
-  position: relative; /* якорь для абсолютного размещения рейки */
-  padding-left: 100px; /* = ширине рейки + небольшой зазор */
+  position: relative;
+  padding-left: 100px;
 }
 
-/* 2. Сама рейка-колонка */
 .profile-side-btns {
   position: absolute;
   top: 0;
   left: 0;
-  width: 90px; /* сколько места занимает рейка */
+  width: 90px;
   height: 95%;
 
   display: flex;
   flex-direction: column;
-  align-items: center; /* кнопки по центру рейки */
-  gap: 32px; /* расстояние между иконками */
-  padding-top: 40px; /* первый отступ сверху */
+  align-items: center;
+  gap: 32px;
+  padding-top: 40px;
 
-  z-index: 2; /* поверх псевдо-фона рейки */
+  z-index: 2;
   align-items: center;
 }
 
-/* ► фон и тонкая правая граница рейки */
 .profile-side-btns::before {
   content: "";
   position: absolute;
-  inset: 0; /* заполняем всю рейку */
-  background: #fff; /* тот же цвет, что у карточки */
+  inset: 0;
+  background: #fff;
   border-right: 1px solid #e0e0e0;
-  z-index: -1; /* фон должен лежать под кнопками */
+  z-index: -1;
 }
 
-/* 3. Круглая кнопка (если не сделали раньше) */
 .profile-side-btns .side-btn {
-  all: unset; /* убираем глобальные reset-стили */
+  all: unset;
   box-sizing: border-box;
 
   width: 50px;
@@ -1312,7 +1309,7 @@ select.profile-form-select {
   justify-content: center;
   cursor: pointer;
   transition: background 0.2s, transform 0.2s;
-  position: relative; /* якорь для ::after */
+  position: relative;
   padding: 12px 0;
 }
 
@@ -1328,7 +1325,174 @@ select.profile-form-select {
 }
 
 .profile-side-btns .side-btn {
-  position: relative; /* якорь для ::after */
+  position: relative;
+}
+
+/*settimgs.html*/
+
+.mtf-profile-settings h2 {
+  color: #000;
+  font-size: 20px;
+  text-align: left;
+  margin: 0;
+  font-weight: 600;
+}
+.mtf-profile-section-header h2 {
+  color: #000;
+  font-size: 20px;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.mtf-profile-settings h2,
+.mtf-profile-section-header h2 {
+  color: #000;
+  font-size: 20px;
+  text-align: left;
+  margin-top: 20px;
+  margin-bottom: 12px;
+  font-weight: 600;
+}
+
+.mtf-profile-section-header {
+  display: flex;
+  flex-direction: row;
+  gap: 40px;
+}
+
+.mtf-profile-settings {
+  flex: 1;
+}
+
+.mtf-right-panel {
+  flex: 1;
+}
+
+.mtf-toggle-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+  font-size: 16px;
+}
+
+.switch {
+  position: relative;
+  display: inline-block;
+  width: 50px;
+  height: 26px;
+}
+
+.switch input {
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.slider {
+  position: absolute;
+  cursor: pointer;
+  background-color: #ccc;
+  transition: 0.4s;
+  border-radius: 34px;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+}
+
+.slider:before {
+  position: absolute;
+  content: "";
+  height: 20px;
+  width: 20px;
+  left: 3px;
+  bottom: 3px;
+  background-color: white;
+  transition: 0.4s;
+  border-radius: 50%;
+}
+
+.switch input:checked + .slider {
+  background-color: #2196f3;
+}
+
+.switch input:checked + .slider:before {
+  transform: translateX(24px);
+}
+
+.mtf-export-buttons {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  margin-bottom: 20px;
+}
+
+.export-btn {
+  padding: 8px 12px;
+  font-size: 13px;
+  font-weight: 500;
+  color: white;
+  background-color: #007bff;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  width: max-content;
+}
+
+.export-btn:hover {
+  background-color: #1565c0;
+}
+
+.save-wrapper {
+  text-align: center;
+  margin-top: 20px;
+}
+.sohr {
+  padding: 10px 100px;
+  font-size: 14px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+.sohr:hover {
+  background-color: #1565c0;
+}
+
+/*calendar.html*/
+ul li::marker {
+  color: #007bff; /* приятный голубой; можете заменить на свой */
+  font-size: 1.1em; /* по желанию – чуть крупнее маркер */
+}
+
+.show-all-link {
+  color: #888;
+  text-decoration: none;
+  font-weight: 400;
+}
+
+.show-all-link:hover {
+  color: #555;
+  text-decoration: underline;
+}
+
+.mtf-integrations {
+  display: flex;
+  flex-direction: column;
+  gap: 10px; /* расстояние между кнопками */
+}
+
+@media (max-width: 768px) {
+  .mtf-profile-section-header {
+    flex-direction: column;
+  }
 }
 
 @media (max-width: 768px) {

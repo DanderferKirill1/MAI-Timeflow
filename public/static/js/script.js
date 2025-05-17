@@ -196,16 +196,37 @@ modal.addEventListener("mouseenter", () => {
 });
 
 document.addEventListener("DOMContentLoaded", () => {
-  const openLoginModalBtn = document.getElementById("openLoginModalBtn");
   const loginModal = document.getElementById("loginModal");
   const closeLoginModal = document.getElementById("closeLoginModal");
 
-  openLoginModalBtn.addEventListener("click", () => {
-    loginModal.classList.remove("hidden");
-  });
+  const openLoginModalBtn1 = document.getElementById("openLoginModalBtn"); // "Авторизироваться"
+  const openLoginModalBtn2 = document.getElementById("openLoginModalBtn2"); // "Начать"
 
-  closeLoginModal.addEventListener("click", () => {
-    loginModal.classList.add("hidden");
+  // Убедись, что обе кнопки существуют на странице
+  if (openLoginModalBtn1) {
+    openLoginModalBtn1.addEventListener("click", () => {
+      loginModal.classList.remove("hidden");
+    });
+  }
+
+  if (openLoginModalBtn2) {
+    openLoginModalBtn2.addEventListener("click", () => {
+      loginModal.classList.remove("hidden");
+    });
+  }
+
+  // Закрытие окна по кнопке
+  if (closeLoginModal) {
+    closeLoginModal.addEventListener("click", () => {
+      loginModal.classList.add("hidden");
+    });
+  }
+
+  // Закрытие окна по клику вне окна
+  window.addEventListener("click", (e) => {
+    if (e.target === loginModal) {
+      loginModal.classList.add("hidden");
+    }
   });
 
   const emailInput = document.getElementById("emailInput");
@@ -249,32 +270,29 @@ document.addEventListener("DOMContentLoaded", () => {
     const email = emailInput.value.trim();
     const password = passwordInput.value;
 
-    try {
-      const response = await fetch(
-        "https://your-backend-domain.com/api/login",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
-          },
-          body: JSON.stringify({ email, password }),
-        }
-      );
+    // try {
+    //   const response = await fetch("/api/login", {
+    //     method: "POST",
+    //     headers: {
+    //       "Content-Type": "application/json",
+    //     },
+    //     body: JSON.stringify({ email, password }),
+    //   });
 
-      if (!response.ok) {
-        const error = await response.json();
-        alert("Ошибка: " + (error.message || "Неверные данные"));
-        return;
-      }
+    //   if (!response.ok) {
+    //     const error = await response.json();
+    //     alert("Ошибка: " + (error.error || "Неверные данные"));
+    //     return;
+    //   }
 
-      const data = await response.json();
-      localStorage.setItem("authToken", data.token);
-      alert("Успешная авторизация!");
-      window.location.href = "index2.html";
-    } catch (err) {
-      console.error("Ошибка авторизации:", err);
-      alert("Не удалось соединиться с сервером");
-    }
+    //   const data = await response.json();
+    //   localStorage.setItem("authToken", data.access_token); // имя поля = access_token
+    //   alert("Успешная авторизация!");
+    window.location.href = "index2.html"; // при необходимости — перенаправление
+    // } catch (err) {
+    //   console.error("Ошибка авторизации:", err);
+    //   alert("Не удалось соединиться с сервером");
+    // }
   });
 });
 document.addEventListener("DOMContentLoaded", () => {
@@ -353,3 +371,5 @@ document.addEventListener("DOMContentLoaded", () => {
     }
   });
 });
+
+document.querySelectorAll(".select-timee").forEach(createCustomSelect);
