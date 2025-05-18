@@ -244,7 +244,9 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         if (data.status === "register") {
-          alert("Пользователь не найден. Пожалуйста, зарегистрируйтесь.");
+          loginModal.classList.add("hidden");
+          document.getElementById("firstName").focus();
+          document.getElementById("registerModal").classList.remove("hidden");
         } else if (data.access_token) {
           localStorage.setItem("access_token", data.access_token);
           window.location.href = "index2.html";
@@ -254,6 +256,44 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     } catch (err) {
       console.error("Ошибка запроса:", err);
+      alert("Ошибка подключения к серверу.");
+    }
+  });
+
+  const registerForm = registerModal.querySelector("form");
+
+  registerForm.addEventListener("submit", async (e) => {
+    e.preventDefault();
+
+    const email = document.getElementById("registerEmail").value.trim();
+    const password = document.getElementById("registerPassword").value;
+    const firstName = document.getElementById("firstName").value.trim();
+    const lastName = document.getElementById("lastName").value.trim();
+    const group = document.getElementById("group").value.trim();
+
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/register", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          email,
+          password,
+          first_name: firstName,
+          last_name: lastName,
+          group_code: group,
+        }),
+      });
+
+      const data = await response.json();
+
+      if (response.ok) {
+        localStorage.setItem("access_token", data.access_token);
+        window.location.href = "index2.html";
+      } else {
+        alert("Ошибка регистрации: " + (data.error || "Неизвестная ошибка"));
+      }
+    } catch (err) {
+      console.error("Ошибка регистрации:", err);
       alert("Ошибка подключения к серверу.");
     }
   });
