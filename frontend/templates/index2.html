@@ -15,83 +15,20 @@
           </div>
           <nav class="header-nav">
             <a href="#">Главная</a>
+            <a href="calendar.html">Календарь</a>
+            <a href="index3.html">Редактирование</a>
+            <a href="settings.html">Настройки</a>
             <a href="#">Помощь</a>
             <a href="#" id="profile-button"
               ><img src="/assets/images/profile.svg" alt="Профиль"
             /></a>
             <div id="modal" class="hidden">
               <div class="modal-content">
-                <button class="btn" id="openLoginModalBtn">
-                  Авторизироваться
-                </button>
+                <button class="btn" id="profileBtn">Профиль</button>
+                <button class="btn" id="logoutBtn">Выйти</button>
               </div>
             </div>
           </nav>
-          <div id="loginModal" class="modal hidden">
-            <div class="login-modal-content">
-              <button class="close-btn" id="closeLoginModal">&times;</button>
-              <h2>Войти или создать профиль</h2>
-
-              <label>Почта (@mai.education)</label>
-              <input
-                type="email"
-                id="emailInput"
-                placeholder="students@mai.education"
-                required
-              />
-              <small id="emailError" style="color: red; display: none">
-                Введите корректный email!
-              </small>
-
-              <label>Пароль</label>
-              <input type="password" id="passwordInput" required />
-
-              <button class="btn btn-blue" id="loginBtn" disabled>
-                Авторизироваться
-              </button>
-
-              <p>
-                <input type="checkbox" id="agreeCheckbox" checked />
-                Соглашаюсь с условиями пользования платформой
-              </p>
-              <small
-                id="agreeError"
-                style="
-                  color: red;
-                  display: none;
-                  margin-top: 0px;
-                  margin-bottom: 8px;
-                "
-              >
-                Пожалуйста, подтвердите согласие с условиями
-              </small>
-            </div>
-          </div>
-          <div id="registerModal" class="modal hidden">
-            <div class="register-modal-content">
-              <span class="close-btn">&times;</span>
-              <h2>Регистрация</h2>
-              <form>
-                <label for="group">Ваша группа</label>
-                <input
-                  id="group"
-                  type="text"
-                  placeholder="например, М8О-213Б-23"
-                  required
-                />
-
-                <label for="firstName">Имя</label>
-                <input id="firstName" type="text" required />
-
-                <label for="lastName">Фамилия</label>
-                <input id="lastName" type="text" required />
-
-                <button type="submit" class="register-btn2">
-                  Зарегистрироваться
-                </button>
-              </form>
-            </div>
-          </div>
         </div>
       </header>
 
@@ -101,7 +38,9 @@
           Просматривайте расписание своей группы, синхронизируйте его с Google
           Calendar и получайте уведомления об изменениях.
         </p>
-        <button class="start" id="openLoginModalBtn2">Начать</button>
+        <button class="start" onclick="location.href='index3.html'">
+          Профиль
+        </button>
         <img src="/assets/images/plane.svg" class="plane" alt="Самолётик" />
         <img src="/assets/images/stipple.svg" class="stipple" alt="Дымок" />
         <img src="/assets/images/stars.svg" class="stars" alt="Звёздочки" />
@@ -147,7 +86,9 @@
 
         <button class="show-timetable">Показать расписание</button>
 
-        <h2 class="features-title">Почему стоит зарегистрироваться?</h2>
+        <h2 class="features-title">
+          Почему стоит пользоваться нашим сервисом?
+        </h2>
 
         <div class="features">
           <div class="feature-item">
@@ -178,7 +119,9 @@
           </div>
         </div>
 
-        <button class="register-btn">Зарегистрироваться</button>
+        <button class="register-btn" onclick="location.href='calendar.html'">
+          Календарь
+        </button>
       </main>
 
       <footer>

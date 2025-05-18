@@ -1,0 +1,249 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MAI TimeFlow</title>
+    <link rel="stylesheet" href="static/css/style.css" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-content">
+          <div class="header-logo">
+            <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+          </div>
+          <nav class="header-nav">
+            <a href="index2.html">Главная</a>
+            <a href="calendar.html">Календарь</a>
+            <a href="index3.html">Редактирование</a>
+            <a href="settings.html">Настройки</a>
+            <a href="#">Помощь</a>
+            <a href="#" id="profile-button"
+              ><img src="/assets/images/profile.svg" alt="Профиль"
+            /></a>
+            <div id="modal" class="hidden">
+              <div class="modal-content">
+                <button class="btn" id="profileBtn">Профиль</button>
+                <button class="btn" id="logoutBtn">Выйти</button>
+              </div>
+            </div>
+          </nav>
+        </div>
+      </header>
+
+      <main>
+        <section class="profile-section-container">
+          <div class="profile-side-btns">
+            <button type="button" class="side-btn">
+              <img src="/assets/images/info2.svg" alt="Информация" />
+            </button>
+
+            <button
+              type="button"
+              class="side-btn"
+              onclick="window.location.href='safety.html'"
+            >
+              <img src="/assets/images/safety.svg" alt="Безопасность" />
+            </button>
+
+            <button
+              type="button"
+              class="side-btn"
+              onclick="window.location.href='noti.html'"
+            >
+              <img src="/assets/images/noti.svg" alt="Уведомления" />
+            </button>
+
+            <button
+              type="button"
+              class="side-btn"
+              onclick="window.location.href='settings.html'"
+            >
+              <img src="/assets/images/settings.svg" alt="Настройки" />
+            </button>
+          </div>
+          <div class="profile-section-header">
+            <div class="profile-section-info">
+              <div class="profile-avatar-box" id="avatarBox">
+                <img
+                  src="/assets/images/profile.svg"
+                  alt="Фото профиля"
+                  id="avatarPreview"
+                />
+                <input
+                  type="file"
+                  id="avatarInput"
+                  accept="image/*"
+                  style="display: none"
+                />
+              </div>
+              <div>
+                <h2>Имя Фамилия</h2>
+                <p class="profile-section-email">students@mai.education</p>
+              </div>
+            </div>
+            <button class="profile-edit-btn" type="button">
+              Редактирование
+            </button>
+          </div>
+
+          <form class="profile-form-wrapper">
+            <div class="profile-form-left">
+              <label for="firstName" class="profile-form-label">Имя</label>
+              <input
+                type="text"
+                id="firstName"
+                class="profile-form-input"
+                placeholder="Введите имя"
+              />
+
+              <label for="gender" class="profile-form-label">Пол</label>
+              <select
+                id="gender"
+                class="profile-form-select selectors-select"
+                disabled
+              >
+                <option value="">Выберите пол</option>
+                <option value="male">Мужской</option>
+                <option value="female">Женский</option>
+              </select>
+
+              <label for="group" class="profile-form-label"
+                >Учебная группа</label
+              >
+              <input
+                type="text"
+                id="group"
+                class="profile-form-input"
+                value="М8О-213Б-23"
+              />
+
+              <div class="profile-linked-section">
+                <h3>Привязанные данные</h3>
+                <ul class="profile-linked-list">
+                  <li class="profile-linked-item">
+                    <img src="/assets/images/mail.svg" alt="" />
+                    <div class="linked-col">
+                      <span class="linked-value">students@mai.education</span>
+                      <span class="linked-date">1&nbsp;месяц&nbsp;назад</span>
+                    </div>
+                  </li>
+
+                  <li class="profile-linked-item">
+                    <img src="/assets/images/tg.svg" alt="" />
+                    <div class="linked-col">
+                      <span class="linked-value">@mrfast1x</span>
+                      <span class="linked-date">13&nbsp;дней&nbsp;назад</span>
+                    </div>
+                    <button
+                      class="delete-btn"
+                      type="button"
+                      aria-label="Удалить"
+                    ></button>
+                  </li>
+
+                  <li class="profile-linked-item">
+                    <img src="/assets/images/git.svg" alt="" />
+                    <div class="linked-col">
+                      <span class="linked-value">fastixr</span>
+                      <span class="linked-date">только&nbsp;что</span>
+                    </div>
+                    <button
+                      class="delete-btn"
+                      type="button"
+                      aria-label="Удалить"
+                    ></button>
+                  </li>
+                </ul>
+
+                <button class="profile-add-btn" type="button">
+                  Добавить данные
+                </button>
+              </div>
+            </div>
+
+            <div class="profile-form-right">
+              <label for="lastName" class="profile-form-label">Фамилия</label>
+              <input
+                type="text"
+                id="lastName"
+                class="profile-form-input"
+                placeholder="Введите фамилию"
+              />
+
+              <label for="language" class="profile-form-label">Язык</label>
+              <select
+                id="language"
+                class="profile-form-select selectors-select"
+                disabled
+              >
+                <option value="">Выберите язык</option>
+                <option value="ru">Русский</option>
+                <option value="en">English</option>
+              </select>
+            </div>
+          </form>
+
+          <button class="profile-logout-btn">Выйти из аккаунта</button>
+        </section>
+      </main>
+
+      <footer>
+        <div class="footer-main-content">
+          <div class="footer-left-section">
+            <div class="footer-logo">
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            </div>
+            <div class="section-title">Контактная информация:</div>
+            <div class="contact-info">
+              <p class="contacts">Почта: support@mai-timeflow.ru</p>
+              <p class="contacts">Телефон: +7 (495) 123-45-67</p>
+              <p class="contacts">
+                Адрес: Москва, Волоколамское шоссе,<br />д. 4, 125993
+              </p>
+            </div>
+          </div>
+
+          <div class="footer-center-section">
+            <div class="resources-title">Дополнительные ресурсы:</div>
+            <div class="resources-list">
+              <a href="#">Документация</a>
+              <a href="#">Политика конфиденциальности</a>
+              <a href="#">Условия использования</a>
+            </div>
+          </div>
+
+          <div class="footer-right-section">
+            <div class="footer-links-wrapper">
+              <div class="footer-links">
+                <a href="#">Главная</a>
+                <a href="#">Помощь</a>
+                <a href="#">О проекте</a>
+                <a href="#">Контакты</a>
+              </div>
+              <div class="social-circles">
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+              </div>
+            </div>
+
+            <div class="subscribe">
+              <input type="email" placeholder="Введите вашу почту" />
+              <button>Подписаться на рассылку</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <p class="copyright">© 2025 MAI TIMEFLOW. Все права защищены.</p>
+            <p class="developed-by">Разработано студентами МАИ, 2025 год</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script src="/static/js/script.js"></script>
+  </body>
+</html>

@@ -1,0 +1,115 @@
+.btn-primary {
+  display: block;
+  width: 85%;
+  padding: 5px 0;
+  margin-top: 12px;
+
+  background: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  font-family: "Cygre", sans-serif;
+
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3;
+}
+
+.active-sessions ul {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.session-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 12px; /* Было 24px — уменьшаем расстояние между иконкой и текстом */
+  margin-bottom: 10px;
+  padding-left: 0; /* Явно задаём отсутствие отступа слева */
+  padding-right: 0; /* Убираем отступ справа, если не нужен */
+  margin-left: 0;
+}
+.session-item img {
+  margin-top: 5px;
+  width: 50px;
+  height: auto;
+  flex: 0 0 40px;
+}
+
+.session-info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  margin-left: 0;
+}
+
+.device-name {
+  display: block;
+  font-size: 20px;
+  font-weight: 300;
+  line-height: 1.2;
+}
+.session-meta {
+  display: block;
+  font-size: 14px;
+  color: #6b6b6b;
+  margin-top: 4px;
+}
+.show-all {
+  font-size: 16px;
+  color: #6b6b6b;
+  text-decoration: none;
+  text-align: center;
+}
+.show-all:hover {
+  text-decoration: underline;
+}
+
+.mtf-integrations {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.mtf-integrations ul {
+  padding-left: 0;
+  margin-left: 0;
+}
+
+.profile-side-btns {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 90px;
+  height: 92%;
+}
+
+.btn-primary2 {
+  display: block;
+  width: 100%;
+  padding: 5px 0;
+  margin-top: 20px;
+
+  background: #007bff;
+  color: #fff;
+  font-size: 16px;
+  font-weight: 400;
+  text-align: center;
+  font-family: "Cygre", sans-serif;
+
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+
+  transition: background-color 0.3s ease;
+}
+
+.btn-primary2:hover {
+  background-color: #0056b3;
+}
