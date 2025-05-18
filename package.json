@@ -6,7 +6,7 @@
   "scripts": {
     "install-backend-deps": "cd backend && pip install -r requirements.txt",
     "start-backend": "cd backend && python run.py",
-    "start-frontend": "cd frontend && vite",
+    "start-frontend": "cd frontend && npm install && vite",
     "dev": "concurrently \"npm run install-backend-deps && npm run start-backend\" \"npm run start-frontend\""
   },
   "keywords": [],
