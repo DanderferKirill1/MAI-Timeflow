@@ -16,7 +16,7 @@ def create_app():
 
     app.config['JSONIFY_ENSURE_ASCII'] = False
 
-    from backend.instance.config import Config
+    from instance.config import Config
     app.config.from_object(Config)  # Загрузка конфигурации из instance/config.py
 
     CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5500", "http://127.0.0.1:5500"]}})
