@@ -1,4 +1,4 @@
-document.addEventListener("DOMContentLoaded", function () {
+document.addEventListener("DOMContentLoaded", () => {
   const instituteSelect = document.getElementById("institute-select");
   const courseSelect = document.getElementById("course-select");
   const degreeSelect = document.getElementById("degree-select");
@@ -7,6 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
   let currentOpenSelect = null;
 
   function initSelects() {
+    instituteSelect.innerHTML = '<option value="">Выберите институт</option>';
+    courseSelect.innerHTML = '<option value="">Выберите курс</option>';
+    degreeSelect.innerHTML =
+      '<option value="">Выберите степень обучения</option>';
     for (let i = 1; i <= 8; i++) {
       const option = document.createElement("option");
       option.value = i;
@@ -45,19 +49,6 @@ document.addEventListener("DOMContentLoaded", function () {
       return;
     }
 
-    document.querySelectorAll(".group-item").forEach((item) => {
-      item.addEventListener("click", function () {
-        document.querySelectorAll(".group-item").forEach((el) => {
-          el.classList.remove("selected");
-        });
-
-        this.classList.add("selected");
-
-        selectedGroup = this.textContent;
-        console.log("Выбрана группа:", selectedGroup);
-      });
-    });
-
     const currentYear = new Date().getFullYear();
     const admissionYear = String(currentYear - (parseInt(course) - 1)).slice(
       -2
@@ -77,18 +68,14 @@ document.addEventListener("DOMContentLoaded", function () {
     setupGroupSelection();
   }
 
-  function setupGroupItems() {
+  function setupGroupSelection() {
     document.querySelectorAll(".group-item").forEach((item) => {
       item.addEventListener("click", function () {
-        document.querySelectorAll(".group-item").forEach((el) => {
-          el.style.backgroundColor = "#ffffff";
-          el.style.color = "#333";
-        });
-
-        this.style.backgroundColor = "#0095DA";
-        this.style.color = "#ffffff";
+        document
+          .querySelectorAll(".group-item")
+          .forEach((el) => el.classList.remove("selected"));
+        this.classList.add("selected");
         selectedGroup = this.textContent;
-
         console.log("Выбрана группа:", selectedGroup);
       });
     });
@@ -122,9 +109,7 @@ document.addEventListener("DOMContentLoaded", function () {
         selectElement.selectedIndex = index;
         customSelect.textContent = option.text;
         closeAllSelects();
-
-        const event = new Event("change");
-        selectElement.dispatchEvent(event);
+        selectElement.dispatchEvent(new Event("change"));
       });
 
       optionsContainer.appendChild(customOption);
@@ -133,7 +118,6 @@ document.addEventListener("DOMContentLoaded", function () {
     customSelect.addEventListener("click", (e) => {
       e.stopPropagation();
       if (selectElement.disabled) return;
-
       if (currentOpenSelect && currentOpenSelect !== optionsContainer) {
         currentOpenSelect.style.display = "none";
       }
@@ -158,87 +142,56 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   }
 
+  initSelects();
+  [instituteSelect, courseSelect, degreeSelect].forEach((select) => {
+    select.addEventListener("change", updateGroupsTable);
+  });
+  document.querySelectorAll(".selectors-select").forEach(createCustomSelect);
   document.addEventListener("click", closeAllSelects);
 
-  document.querySelectorAll(".selectors-select").forEach(createCustomSelect);
+  // === МОДАЛКА ПРОФИЛЯ ===
+  const profileButton = document.getElementById("profile-button");
+  const modal = document.getElementById("modal");
 
-  function init() {
-    initSelects();
-    [instituteSelect, courseSelect, degreeSelect].forEach((select) => {
-      select.addEventListener("change", updateGroupsTable);
-    });
-  }
-
-  init();
-});
-
-const profileButton = document.getElementById("profile-button");
-const modal = document.getElementById("modal");
-
-profileButton.addEventListener("mouseenter", () => {
-  modal.classList.remove("hidden");
-});
-
-profileButton.addEventListener("mouseleave", () => {
-  setTimeout(() => {
-    if (!modal.matches(":hover")) {
-      modal.classList.add("hidden");
-    }
-  }, 200);
-});
-
-modal.addEventListener("mouseleave", () => {
-  modal.classList.add("hidden");
-});
-
-modal.addEventListener("mouseenter", () => {
-  modal.classList.remove("hidden");
-});
-
-document.addEventListener("DOMContentLoaded", () => {
-  const loginModal = document.getElementById("loginModal");
-  const closeLoginModal = document.getElementById("closeLoginModal");
-
-  const openLoginModalBtn1 = document.getElementById("openLoginModalBtn"); // "Авторизироваться"
-  const openLoginModalBtn2 = document.getElementById("openLoginModalBtn2"); // "Начать"
-
-  // Убедись, что обе кнопки существуют на странице
-  if (openLoginModalBtn1) {
-    openLoginModalBtn1.addEventListener("click", () => {
-      loginModal.classList.remove("hidden");
-    });
-  }
-
-  if (openLoginModalBtn2) {
-    openLoginModalBtn2.addEventListener("click", () => {
-      loginModal.classList.remove("hidden");
-    });
-  }
-
-  // Закрытие окна по кнопке
-  if (closeLoginModal) {
-    closeLoginModal.addEventListener("click", () => {
-      loginModal.classList.add("hidden");
-    });
-  }
-
-  // Закрытие окна по клику вне окна
-  window.addEventListener("click", (e) => {
-    if (e.target === loginModal) {
-      loginModal.classList.add("hidden");
-    }
+  profileButton.addEventListener("mouseenter", () =>
+    modal.classList.remove("hidden")
+  );
+  profileButton.addEventListener("mouseleave", () => {
+    setTimeout(() => {
+      if (!modal.matches(":hover")) modal.classList.add("hidden");
+    }, 200);
   });
+  modal.addEventListener("mouseleave", () => modal.classList.add("hidden"));
+  modal.addEventListener("mouseenter", () => modal.classList.remove("hidden"));
 
+  // === ВХОД / РЕГИСТРАЦИЯ ===
+  const loginModal = document.getElementById("loginModal");
+  const openLoginModalBtn1 = document.getElementById("openLoginModalBtn");
+  const openLoginModalBtn2 = document.getElementById("openLoginModalBtn2");
+  const closeLoginModal = document.getElementById("closeLoginModal");
   const emailInput = document.getElementById("emailInput");
-  const emailError = document.getElementById("emailError");
   const passwordInput = document.getElementById("passwordInput");
   const loginBtn = document.getElementById("loginBtn");
   const agreeCheckbox = document.getElementById("agreeCheckbox");
+  const emailError = document.getElementById("emailError");
   const agreeError = document.getElementById("agreeError");
 
+  openLoginModalBtn1?.addEventListener("click", () =>
+    loginModal.classList.remove("hidden")
+  );
+  openLoginModalBtn2?.addEventListener("click", () =>
+    loginModal.classList.remove("hidden")
+  );
+  closeLoginModal?.addEventListener("click", () =>
+    loginModal.classList.add("hidden")
+  );
+
+  window.addEventListener("click", (e) => {
+    if (e.target === loginModal) loginModal.classList.add("hidden");
+  });
+
   function isValidEmail(email) {
-    const maiRegex = /^[^\s@]+@mai\.education$/i;
-    return maiRegex.test(email.trim());
+    return /^[^\s@]+@mai\.education$/.test(email.trim());
   }
 
   function validateInputs(showEmailError = false) {
@@ -254,122 +207,116 @@ document.addEventListener("DOMContentLoaded", () => {
     }
 
     agreeError.style.display = isAgreed ? "none" : "block";
-
     loginBtn.disabled = !(isEmailValid && isPasswordFilled && isAgreed);
   }
 
   emailInput.addEventListener("input", () => validateInputs(false));
   passwordInput.addEventListener("input", () => validateInputs(false));
   agreeCheckbox.addEventListener("change", () => validateInputs(false));
-
   emailInput.addEventListener("blur", () => validateInputs(true));
 
-  loginBtn.addEventListener("click", async () => {
-    if (loginBtn.disabled) return;
-
+  loginBtn.addEventListener("click", async function () {
     const email = emailInput.value.trim();
     const password = passwordInput.value;
+    const agree = agreeCheckbox.checked;
 
-    // try {
-    //   const response = await fetch("/api/login", {
-    //     method: "POST",
-    //     headers: {
-    //       "Content-Type": "application/json",
-    //     },
-    //     body: JSON.stringify({ email, password }),
-    //   });
+    emailError.style.display = "none";
+    agreeError.style.display = "none";
 
-    //   if (!response.ok) {
-    //     const error = await response.json();
-    //     alert("Ошибка: " + (error.error || "Неверные данные"));
-    //     return;
-    //   }
+    if (!email.endsWith("@mai.education")) {
+      emailError.style.display = "block";
+      return;
+    }
 
-    //   const data = await response.json();
-    //   localStorage.setItem("authToken", data.access_token); // имя поля = access_token
-    //   alert("Успешная авторизация!");
-    window.location.href = "index2.html"; // при необходимости — перенаправление
-    // } catch (err) {
-    //   console.error("Ошибка авторизации:", err);
-    //   alert("Не удалось соединиться с сервером");
-    // }
-  });
-});
-document.addEventListener("DOMContentLoaded", () => {
-  const registerBtn = document.getElementById("registerBtn");
-  const registerModal = document.getElementById("registerModal");
-  const closeBtn = registerModal.querySelector(".close-btn");
+    if (!agree) {
+      agreeError.style.display = "block";
+      return;
+    }
 
-  registerBtn.addEventListener("click", () => {
-    registerModal.classList.remove("hidden");
-  });
+    try {
+      const response = await fetch("http://127.0.0.1:5000/api/login", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({ email, password }),
+      });
 
-  closeBtn.addEventListener("click", () => {
-    registerModal.classList.add("hidden");
-  });
+      const data = await response.json();
 
-  window.addEventListener("click", (e) => {
-    if (e.target === registerModal) {
-      registerModal.classList.add("hidden");
+      if (response.ok) {
+        if (data.status === "register") {
+          alert("Пользователь не найден. Пожалуйста, зарегистрируйтесь.");
+        } else if (data.access_token) {
+          localStorage.setItem("access_token", data.access_token);
+          window.location.href = "index2.html";
+        }
+      } else {
+        alert("Ошибка входа: " + (data.error || "Неизвестная ошибка"));
+      }
+    } catch (err) {
+      console.error("Ошибка запроса:", err);
+      alert("Ошибка подключения к серверу.");
     }
   });
-});
 
-const logoutBtn = document.getElementById("logoutBtn");
+  const registerBtn = document.getElementById("registerBtn");
+  const registerModal = document.getElementById("registerModal");
+  const closeRegisterBtn = registerModal?.querySelector(".close-btn");
 
-logoutBtn.addEventListener("click", () => {
-  window.location.href = "index.html";
-});
+  registerBtn?.addEventListener("click", () =>
+    registerModal.classList.remove("hidden")
+  );
+  closeRegisterBtn?.addEventListener("click", () =>
+    registerModal.classList.add("hidden")
+  );
+  window.addEventListener("click", (e) => {
+    if (e.target === registerModal) registerModal.classList.add("hidden");
+  });
 
-const profileBtn = document.getElementById("profileBtn");
+  const logoutBtn = document.getElementById("logoutBtn");
+  logoutBtn?.addEventListener(
+    "click",
+    () => (window.location.href = "index.html")
+  );
 
-profileBtn.addEventListener("click", () => {
-  window.location.href = "index3.html";
-});
+  const profileBtn = document.getElementById("profileBtn");
+  profileBtn?.addEventListener(
+    "click",
+    () => (window.location.href = "index3.html")
+  );
 
-const avatarBox = document.getElementById("avatarBox");
-const avatarInput = document.getElementById("avatarInput");
-const avatarPreview = document.getElementById("avatarPreview");
+  const avatarBox = document.getElementById("avatarBox");
+  const avatarInput = document.getElementById("avatarInput");
+  const avatarPreview = document.getElementById("avatarPreview");
 
-avatarBox.addEventListener("click", () => {
-  avatarInput.click();
-});
+  avatarBox?.addEventListener("click", () => avatarInput.click());
+  avatarInput?.addEventListener("change", () => {
+    const file = avatarInput.files[0];
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => (avatarPreview.src = e.target.result);
+      reader.readAsDataURL(file);
+    }
+  });
 
-avatarInput.addEventListener("change", () => {
-  const file = avatarInput.files[0];
-  if (file) {
-    const reader = new FileReader();
-    reader.onload = (e) => {
-      avatarPreview.src = e.target.result;
-    };
-    reader.readAsDataURL(file);
-  }
-});
-
-document.addEventListener("DOMContentLoaded", () => {
   const editBtn = document.querySelector(".profile-edit-btn");
   const linkedSection = document.querySelector(".profile-linked-section");
   const formFields = document.querySelectorAll(
     ".profile-form-input, .profile-form-select"
   );
-  const wrappers = document.querySelectorAll(".custom-select-wrapper");
 
-  formFields.forEach((el) => (el.disabled = true));
+  if (editBtn && linkedSection) {
+    formFields.forEach((el) => (el.disabled = true));
 
-  editBtn.addEventListener("click", () => {
-    const isEdit = linkedSection.classList.toggle("edit-mode");
+    editBtn.addEventListener("click", () => {
+      const isEdit = linkedSection.classList.toggle("edit-mode");
+      formFields.forEach((el) => (el.disabled = !isEdit));
+      editBtn.textContent = isEdit ? "Сохранить" : "Редактирование";
+    });
 
-    formFields.forEach((el) => (el.disabled = !isEdit));
-
-    editBtn.textContent = isEdit ? "Сохранить" : "Редактирование";
-  });
-
-  linkedSection.addEventListener("click", (e) => {
-    if (e.target.closest(".delete-btn")) {
-      const li = e.target.closest(".profile-linked-item");
-      li.remove();
-    }
-  });
+    linkedSection.addEventListener("click", (e) => {
+      if (e.target.closest(".delete-btn")) {
+        e.target.closest(".profile-linked-item").remove();
+      }
+    });
+  }
 });
-
-document.querySelectorAll(".select-timee").forEach(createCustomSelect);
