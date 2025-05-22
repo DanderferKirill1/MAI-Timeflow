@@ -1,0 +1,89 @@
+/* --------------- Toast notifications --------------- */
+.toast-container {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  z-index: 3000; /* выше модалок и спиннера */
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.toast-close {
+  display: none !important;
+}
+
+/* базовая карточка */
+.toast {
+  display: flex;
+  align-items: center;
+  max-width: 300px;
+  padding: 15px 20px;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #333;
+  border-left: 4px solid #0095da; /* синий маркер слева */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  animation: toast-slide-in 0.3s ease forwards;
+}
+
+/* цветовая кодировка */
+.toast.success {
+  border-left-color: #2ecc71;
+}
+.toast.error {
+  border-left-color: #e74c3c;
+}
+.toast.info {
+  border-left-color: #0095da;
+}
+
+/* иконка + текст */
+.toast-icon {
+  margin-right: 12px;
+  flex-shrink: 0;
+}
+.toast-message {
+  flex-grow: 1;
+  line-height: 1.35;
+}
+
+/* кнопка закрытия */
+.toast-close {
+  all: unset;
+  cursor: pointer;
+  font-size: 14px;
+  line-height: 1;
+  opacity: 0.6;
+  padding-left: 1px;
+}
+.toast-close:hover {
+  opacity: 1;
+}
+
+/* состояния скрытия */
+.toast.hiding {
+  animation: toast-slide-out 0.3s ease forwards;
+}
+
+/* анимации */
+@keyframes toast-slide-in {
+  from {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+  to {
+    transform: translateX(0);
+    opacity: 1;
+  }
+}
+@keyframes toast-slide-out {
+  from {
+    transform: translateX(0);
+    opacity: 1;
+  }
+  to {
+    transform: translateX(120%);
+    opacity: 0;
+  }
+}

@@ -848,9 +848,9 @@ footer {
   padding: 0px 20px;
   padding-top: 1px;
   border-radius: 16px;
-  width: 90%;
-  max-width: 360px;
-  max-height: 350px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 410px;
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
   font-family: "Cygre", sans-serif;
   position: relative;

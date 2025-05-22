@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", () => {
     courseSelect.innerHTML = '<option value="">Выберите курс</option>';
     degreeSelect.innerHTML =
       '<option value="">Выберите степень обучения</option>';
-    for (let i = 1; i <= 8; i++) {
+    for (let i = 1; i <= 14; i++) {
       const option = document.createElement("option");
       option.value = i;
       option.textContent = `Институт №${i}`;
@@ -215,6 +215,104 @@ document.addEventListener("DOMContentLoaded", () => {
   agreeCheckbox.addEventListener("change", () => validateInputs(false));
   emailInput.addEventListener("blur", () => validateInputs(true));
 
+  function createLoadingOverlay() {
+    const overlay = document.createElement("div");
+    overlay.className = "loading-overlay";
+    overlay.innerHTML = '<div class="spinner"></div>';
+    document.body.appendChild(overlay);
+
+    return {
+      show: () => overlay.classList.add("visible"),
+      hide: () => overlay.classList.remove("visible"),
+    };
+  }
+
+  const loading = createLoadingOverlay();
+
+  // Toast notification system
+  function createToastSystem() {
+    const container = document.createElement("div");
+    container.className = "toast-container";
+    document.body.appendChild(container);
+
+    return {
+      show: (message, type = "info", duration = 3000) => {
+        const toast = document.createElement("div");
+        toast.className = `toast ${type}`;
+
+        let icon = "";
+        switch (type) {
+          case "success":
+            icon =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 11.08V12a10 10 0 1 1-5.93-9.14"></path><polyline points="22 4 12 14.01 9 11.01"></polyline></svg>';
+            break;
+          case "error":
+            icon =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="8" x2="12" y2="12"></line><line x1="12" y1="16" x2="12.01" y2="16"></line></svg>';
+            break;
+          default:
+            icon =
+              '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"></circle><line x1="12" y1="16" x2="12" y2="12"></line><line x1="12" y1="8" x2="12.01" y2="8"></line></svg>';
+        }
+
+        toast.innerHTML = `
+          <div class="toast-icon">${icon}</div>
+          <div class="toast-message">${message}</div>
+          <button class="toast-close">&times;</button>
+        `;
+
+        container.appendChild(toast);
+
+        const closeBtn = toast.querySelector(".toast-close");
+        closeBtn.addEventListener("click", () => {
+          toast.classList.add("hiding");
+          setTimeout(() => toast.remove(), 300);
+        });
+
+        setTimeout(() => {
+          toast.classList.add("hiding");
+          setTimeout(() => toast.remove(), 300);
+        }, duration);
+      },
+    };
+  }
+
+  const toast = createToastSystem();
+
+  // Enhanced form validation
+  function enhanceFormValidation() {
+    const emailInput = document.getElementById("emailInput");
+    const passwordInput = document.getElementById("passwordInput");
+
+    if (emailInput) {
+      emailInput.addEventListener("input", () => {
+        const email = emailInput.value.trim();
+        if (email && !email.endsWith("@mai.education")) {
+          emailInput.classList.add("invalid");
+        } else {
+          emailInput.classList.remove("invalid");
+        }
+      });
+    }
+
+    if (passwordInput) {
+      passwordInput.addEventListener("input", () => {
+        const password = passwordInput.value.trim();
+
+        // Показываем ошибку только если пароль пустой
+        if (password.length === 0) {
+          passwordInput.classList.add("invalid");
+          document.getElementById("passwordError").style.display = "block";
+          document.getElementById("passwordError").textContent =
+            "Введите пароль";
+        } else {
+          passwordInput.classList.remove("invalid");
+          document.getElementById("passwordError").style.display = "none";
+        }
+      });
+    }
+  }
+
   loginBtn.addEventListener("click", async function () {
     const email = emailInput.value.trim();
     const password = passwordInput.value;
@@ -247,16 +345,20 @@ document.addEventListener("DOMContentLoaded", () => {
           loginModal.classList.add("hidden");
           document.getElementById("firstName").focus();
           document.getElementById("registerModal").classList.remove("hidden");
+          toast.show("Пожалуйста, заполните данные для регистрации", "info");
         } else if (data.access_token) {
           localStorage.setItem("access_token", data.access_token);
+          toast.show("Вход выполнен успешно!", "success");
           window.location.href = "index2.html";
         }
       } else {
-        alert("Ошибка входа: " + (data.error || "Неизвестная ошибка"));
+        toast.show(data.message || "Ошибка авторизации", "error");
       }
-    } catch (err) {
-      console.error("Ошибка запроса:", err);
-      alert("Ошибка подключения к серверу.");
+    } catch (error) {
+      console.error("Login error:", error);
+      toast.show("Ошибка соединения с сервером", "error");
+    } finally {
+      loading.hide();
     }
   });
   const registerModal = document.getElementById("registerModal");
