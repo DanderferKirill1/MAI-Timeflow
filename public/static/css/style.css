@@ -1466,6 +1466,18 @@ select.profile-form-select {
   background-color: #1565c0;
 }
 
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+.register-modal-content input,
+.register-modal-content select {
+  box-sizing: border-box; /* рамка входит в 100 % */
+  width: 100%; /* остаётся как было */
+}
+
 /*calendar.html*/
 ul li::marker {
   color: #007bff; /* приятный голубой; можете заменить на свой */
@@ -1490,13 +1502,13 @@ ul li::marker {
 }
 
 footer {
-    padding: 40px 0;
-    background-color: #f5f5f5;
-    margin-top: 70px;
-    position: relative;
-    border-top-left-radius: 15px;
-    border-top-right-radius: 15px;
-  }
+  padding: 40px 0;
+  background-color: #f5f5f5;
+  margin-top: 70px;
+  position: relative;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+}
 
 @media (max-width: 768px) {
   .mtf-profile-section-header {

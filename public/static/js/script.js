@@ -259,14 +259,14 @@ document.addEventListener("DOMContentLoaded", () => {
       alert("Ошибка подключения к серверу.");
     }
   });
-
+  const registerModal = document.getElementById("registerModal");
+  const closeRegisterBtn = registerModal.querySelector(".close-btn");
   const registerForm = registerModal.querySelector("form");
 
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
     const email = document.getElementById("registerEmail").value.trim();
-    const password = document.getElementById("registerPassword").value;
     const firstName = document.getElementById("firstName").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
     const group = document.getElementById("group").value.trim();
@@ -277,7 +277,6 @@ document.addEventListener("DOMContentLoaded", () => {
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
           email,
-          password,
           first_name: firstName,
           last_name: lastName,
           group_code: group,
@@ -299,8 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
   });
 
   const registerBtn = document.getElementById("registerBtn");
-  const registerModal = document.getElementById("registerModal");
-  const closeRegisterBtn = registerModal?.querySelector(".close-btn");
 
   registerBtn?.addEventListener("click", () =>
     registerModal.classList.remove("hidden")
