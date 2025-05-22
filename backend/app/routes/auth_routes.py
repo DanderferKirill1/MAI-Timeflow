@@ -1,12 +1,12 @@
 import json
 from flask import Blueprint, Response, request
 from flask_jwt_extended import create_access_token
-from werkzeug.security import check_password_hash
 
 from .. import db
 from ..models import StudentProfile, User
 
-auth_api_blueprint = Blueprint('auth_api', __name__, url_prefix='/api')  # Уникальное имя 'auth_api'
+auth_api_blueprint = Blueprint('auth_api', __name__, url_prefix='/api')
+
 
 @auth_api_blueprint.route('/login', methods=['POST'])
 def login():
@@ -25,7 +25,7 @@ def login():
         }
         return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
 
-    if not check_password_hash(user.password_hash, password):
+    if not user.check_password(password):
         response_data = {'error': 'Invalid password'}
         return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 401
 
@@ -44,6 +44,7 @@ def login():
     }
     return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
 
+
 @auth_api_blueprint.route('/register', methods=['POST'])
 def register():
     """Регистрация нового пользователя."""
@@ -53,8 +54,8 @@ def register():
     first_name = data.get('first_name')
     last_name = data.get('last_name')
     group_code = data.get('group_code')
-    gender = None
-    language = None
+    gender = ""
+    language = ""
 
     if not all([email, password, first_name, last_name, group_code]):
         response_data = {'error': 'Missing required fields'}

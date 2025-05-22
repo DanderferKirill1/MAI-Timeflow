@@ -4,6 +4,7 @@ from flask_jwt_extended import jwt_required
 
 protected_api_blueprint = Blueprint('protected_api', __name__, url_prefix='/api')  # Уникальное имя 'protected_api'
 
+
 @protected_api_blueprint.route('/protected', methods=['GET'])
 @jwt_required()
 def protected():
