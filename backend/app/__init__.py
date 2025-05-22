@@ -16,7 +16,7 @@ def create_app():
 
     app.config['JSONIFY_ENSURE_ASCII'] = False
 
-    from instance.config import Config  # Импорт относительно sys.path
+    from instance.config import Config
     app.config.from_object(Config)
 
     CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5500", "http://127.0.0.1:5500"]}})
@@ -26,8 +26,8 @@ def create_app():
 
     # Импорт и регистрация blueprints
     from .routes.frontend_routes import frontend_blueprint
-    from .routes.auth_routes import auth_api_blueprint  # Обновлено имя
-    from .routes.protected_routes import protected_api_blueprint  # Обновлено имя
+    from .routes.auth_routes import auth_api_blueprint
+    from .routes.protected_routes import protected_api_blueprint
 
     app.register_blueprint(frontend_blueprint)
     app.register_blueprint(auth_api_blueprint)
