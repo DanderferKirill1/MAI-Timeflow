@@ -11,7 +11,7 @@ class ScheduleDownloader:
     """Класс для загрузки HTML расписания с сайта МАИ."""
 
     BASE_URL = "https://mai.ru/education/studies/schedule/groups.php?"
-    CACHE_DIR = "backend/cache"
+    CACHE_DIR = "cache"
     EDUCATION_LEVEL_MAP = {
         'СВ': 'Специализированное высшее образование',
         'БВ': 'Базовое высшее образование',

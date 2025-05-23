@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 
 from .downloader import ScheduleDownloader
 from .. import db
-from ..models import Course, Group, Institute, Schedule, Subject, Teacher
+from ..models import Course, Group, Institute, Level, Schedule, Subject, Teacher
 
 DAY_MAP = {
     'Пн': 'Понедельник',
@@ -56,7 +56,7 @@ def parse_schedule_html(html: str):
     return result
 
 
-def json_to_db_models(json_data, group_code):
+def json_to_db_models(json_data, group_code, week_num):
     """Преобразование JSON в модели SQLAlchemy и сохранение в БД."""
     try:
         # Парсим group_code для получения course_number и institute_number
@@ -64,6 +64,11 @@ def json_to_db_models(json_data, group_code):
         group_info = downloader.parse_group_code()  # так как нужен только этот метод
         course_number = group_info['course']
         institute_number = group_info['institute_number']
+        level_name = group_info['education_level']
+
+        for key in downloader.EDUCATION_LEVEL_MAP:
+            if downloader.EDUCATION_LEVEL_MAP[key] == level_name:
+                level_code = key
 
         # Проверяем/создаём институт
         institute_code = f"И-{institute_number}"
@@ -76,17 +81,29 @@ def json_to_db_models(json_data, group_code):
         # Проверяем/создаём курс
         course = Course.query.filter_by(course_number=course_number).first()
         if not course:
-            course = Course(course_number=course_number, institute_code=institute_code)
+            course = Course(course_number=course_number)
             db.session.add(course)
+            db.session.flush()
+
+        # Проверяем/создаём уровень обучения
+        level = Level.query.filter_by(level_code=level_code).first()
+        if not level:
+            level = Level(level_code=level_code, level_name=level_name)
+            db.session.add(level)
             db.session.flush()
 
         # Проверяем/создаём группу
         group = Group.query.filter_by(group_code=group_code).first()
         if not group:
-            group = Group(group_code=group_code, course_number=course_number)
+            group = Group(group_code=group_code, course_number=course_number, institute_number=institute_number, level_name=level_name)
             db.session.add(group)
             db.session.flush()
 
+        # Удаляем прошлые записи группы на заданную неделю
+        Schedule.query.filter(Schedule.group_code == group_code, Schedule.week_num == week_num).delete()
+        db.session.commit()
+
+        # Загружаем данные
         for day_data in json_data:
             day = day_data['day']
             for lesson in day_data['lessons']:
@@ -108,13 +125,14 @@ def json_to_db_models(json_data, group_code):
 
                 # Создаём запись расписания
                 schedule = Schedule(
+                    week_num=week_num,
                     group_code=group_code,
                     day=day,
                     time_slot=lesson['time'],
                     subject_code=subject_name,
                     subject_type=lesson['type'],
                     room_number=lesson['room'],
-                    teacher_id=teacher.teacher_id
+                    teacher_id=teacher.teacher_id,
                 )
                 db.session.add(schedule)
 

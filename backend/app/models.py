@@ -20,7 +20,7 @@ class User(db.Model):
         return check_password_hash(self.password_hash, password)
 
     def __repr__(self):
-        return f"<User {self.email}>"
+        return f"<Пользователь {self.email}>"
 
 
 class StudentProfile(db.Model):
@@ -36,19 +36,34 @@ class StudentProfile(db.Model):
     group = db.relationship('Group', backref='student_profiles')
 
     def __repr__(self):
-        return f"<StudentProfile {self.first_name} {self.last_name}>"
+        return f"<Профиль {self.first_name} {self.last_name}, группа {self.group_code}>"
 
 
 class Group(db.Model):
     """Таблица GROUPS: группы студентов."""
     __tablename__ = 'groups'
 
-    group_code = db.Column(db.String(20), primary_key=True)  # при необходимости добавить group_name
+    group_code = db.Column(db.String(20), primary_key=True)
     course_number = db.Column(db.String(10), db.ForeignKey('courses.course_number'), nullable=False)
+    institute_number = db.Column(db.String(10), db.ForeignKey('institutes.institute_code'), nullable=False)
+    level_name = db.Column(db.String(100), db.ForeignKey('levels.level_name'), nullable=False)
     course = db.relationship('Course', backref='groups')
+    institute = db.relationship('Institute', backref='groups')
+    level = db.relationship('Level', backref='groups')
 
     def __repr__(self):
-        return f"<Group {self.group_code}>"
+        return f"<Группа {self.group_code}, курс {self.course_number}, Институт №{self.institute_number}, {self.level_name}>"
+
+
+class Level(db.Model):
+    """Таблица LEVELS: ступени обучения."""
+    __tablename__ = 'levels'
+
+    level_code = db.Column(db.String(10), primary_key=True)
+    level_name = db.Column(db.String(100), nullable=False)
+
+    def __repr__(self):
+        return f"Ступень {self.level_code}. {self.level_name}"
 
 
 class Course(db.Model):
@@ -56,11 +71,9 @@ class Course(db.Model):
     __tablename__ = 'courses'
 
     course_number = db.Column(db.String(10), primary_key=True)
-    institute_code = db.Column(db.String(10), db.ForeignKey('institutes.institute_code'), nullable=False)
-    institute = db.relationship('Institute', backref='courses')
 
     def __repr__(self):
-        return f"<Course {self.course_number}>"
+        return f"<Курс {self.course_number}>"
 
 
 class Institute(db.Model):
@@ -71,7 +84,7 @@ class Institute(db.Model):
     institute_name = db.Column(db.String(100), nullable=False)
 
     def __repr__(self):
-        return f"<Institute {self.institute_code}>"
+        return f"<{self.institute_code} {self.institute_name}>"
 
 
 class Teacher(db.Model):
@@ -82,7 +95,7 @@ class Teacher(db.Model):
     full_name = db.Column(db.String(100))
 
     def __repr__(self):
-        return f"<Teacher {self.full_name}, id {self.teacher_id}>"
+        return f"<Преподаватель {self.teacher_id}: {self.full_name}>"
 
 
 class Subject(db.Model):
@@ -93,7 +106,7 @@ class Subject(db.Model):
     subject_name = db.Column(db.String(150))  # пока не нужно
 
     def __repr__(self):
-        return f"<Subject {self.subject_code}>"
+        return f"<Предмет {self.subject_code}>"
 
 
 class Schedule(db.Model):
@@ -101,6 +114,7 @@ class Schedule(db.Model):
     __tablename__ = 'schedules'
 
     lesson_id = db.Column(db.Integer, primary_key=True)
+    week_num = db.Column(db.Integer, nullable=False)
     group_code = db.Column(db.String(20), db.ForeignKey('groups.group_code'), nullable=False)
     day = db.Column(db.String(50), nullable=False)
     time_slot = db.Column(db.String(20), nullable=False)
@@ -113,4 +127,4 @@ class Schedule(db.Model):
     teacher = db.relationship('Teacher', backref='schedules')
 
     def __repr__(self):
-        return f"<Schedule {self.lesson_id}: {self.group_code}, {self.day}, {self.time_slot}, {self.subject_code}, {self.teacher_id}>"
+        return f"Неделя №{self.week_num}: {self.group_code}, {self.day}, {self.time_slot}, {self.subject_code}, {self.subject_type}, {self.room_number},"

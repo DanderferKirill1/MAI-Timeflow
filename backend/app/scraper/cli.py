@@ -27,17 +27,13 @@ def scrape_schedule(group: str, week: int, force_reload: bool):
             json_data = parse_schedule_html(html)
 
             # Сохранение в БД
-            json_to_db_models(json_data, group)
+            json_to_db_models(json_data, group, week)
 
-            click.echo(f"Расписание для группы {group} на неделю {week} успешно сохранено в БД.")
+            click.echo(f"\nРасписание для группы {group} на неделю {week} успешно сохранено в БД.\n")
 
-            schedules = Schedule.query.filter_by(group_code=group).all()
+            schedules = Schedule.query.join(Teacher, Schedule.teacher_id == Teacher.teacher_id).filter(Schedule.group_code == group).all()
             for schedule in schedules:
-                print(schedule)
-
-            teachers = Teacher.query.all()
-            for teacher in teachers:
-                print(teacher)
+                print(schedule, schedule.teacher.full_name)
 
         except Exception as e:
             click.secho(f"Ошибка: {str(e)}", fg="red", err=True)
