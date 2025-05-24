@@ -28,10 +28,12 @@ def create_app():
     from .routes.frontend_routes import frontend_blueprint
     from .routes.auth_routes import auth_api_blueprint
     from .routes.protected_routes import protected_api_blueprint
+    from .routes.schedule_rotes import schedule_api_blueprint
 
     app.register_blueprint(frontend_blueprint)
     app.register_blueprint(auth_api_blueprint)
     app.register_blueprint(protected_api_blueprint)
+    app.register_blueprint(schedule_api_blueprint)
 
     with app.app_context():
         db.create_all()

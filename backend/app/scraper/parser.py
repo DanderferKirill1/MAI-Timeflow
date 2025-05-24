@@ -77,9 +77,10 @@ def json_to_db_models(json_data, group_code, week_num):
 
         # Проверяем/создаём институт
         institute_code = f"И-{institute_number}"
+        institute_name = f"Институт №{institute_number}"
         institute = Institute.query.filter_by(institute_code=institute_code).first()
         if not institute:
-            institute = Institute(institute_code=institute_code, institute_name=f"Институт №{institute_number}")
+            institute = Institute(institute_code=institute_code, institute_name=institute_name)
             db.session.add(institute)
             db.session.flush()
 
@@ -100,7 +101,11 @@ def json_to_db_models(json_data, group_code, week_num):
         # Проверяем/создаём группу
         group = Group.query.filter_by(group_code=group_code).first()
         if not group:
-            group = Group(group_code=group_code, course_number=course_number, institute_number=institute_number, level_name=level_name)
+            group = Group(
+                group_code=group_code,
+                course_number=course_number,
+                institute_name=institute_name,
+                level_name=level_name)
             db.session.add(group)
             db.session.flush()
 

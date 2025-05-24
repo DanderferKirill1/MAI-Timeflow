@@ -156,6 +156,7 @@ class ScheduleDownloader:
                     html = schedule_block.get_attribute("innerHTML")
                     self.save_to_cache(html)
                     print(f"Успешно загружено с попытки {attempt}")
+                    self.driver.quit()
                     return html
                 except TimeoutException:
                     raise TimeoutException("Блок с расписанием не найден.")
