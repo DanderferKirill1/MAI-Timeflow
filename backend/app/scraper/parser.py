@@ -2,7 +2,7 @@ from bs4 import BeautifulSoup
 
 from .downloader import ScheduleDownloader
 from .. import db
-from ..models import Course, Group, Institute, Level, Schedule, Subject, Teacher
+from ..models import Course, Group, Institute, Level, Schedule, Subject, Teacher, Week
 
 DAY_MAP = {
     'Пн': 'Понедельник',
@@ -59,6 +59,11 @@ def parse_schedule_html(html: str):
 def json_to_db_models(json_data, group_code, week_num):
     """Преобразование JSON в модели SQLAlchemy и сохранение в БД."""
     try:
+        # Проверяем неделю
+        week = Week.query.filter_by(week_num=week_num).first()
+        if not week:
+            raise ValueError(f"Запись для недели {week_num} не найдена в бд")
+
         # Парсим group_code для получения course_number и institute_number
         downloader = ScheduleDownloader(group_code, 0)  # week_number не нужен
         group_info = downloader.parse_group_code()  # так как нужен только этот метод

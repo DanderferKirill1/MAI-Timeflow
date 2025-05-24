@@ -109,12 +109,24 @@ class Subject(db.Model):
         return f"<Предмет {self.subject_code}>"
 
 
+class Week(db.Model):
+    """Таблица WEEKS: недели."""
+    __tablename__ = 'weeks'
+
+    week_num = db.Column(db.Integer, primary_key=True)
+    week_start = db.Column(db.String(20), nullable=False)
+    week_end = db.Column(db.String(20), nullable=False)
+
+    def __repr__(self):
+        return f"Неделя {self.week_num}: {self.week_start} - {self.week_end}"
+
+
 class Schedule(db.Model):
     """Таблица SCHEDULES: расписание."""
     __tablename__ = 'schedules'
 
     lesson_id = db.Column(db.Integer, primary_key=True)
-    week_num = db.Column(db.Integer, nullable=False)
+    week_num = db.Column(db.Integer, db.ForeignKey('weeks.week_num'), nullable=False)
     group_code = db.Column(db.String(20), db.ForeignKey('groups.group_code'), nullable=False)
     day = db.Column(db.String(50), nullable=False)
     time_slot = db.Column(db.String(20), nullable=False)
@@ -122,6 +134,7 @@ class Schedule(db.Model):
     subject_type = db.Column(db.String(10))
     room_number = db.Column(db.String(50), nullable=False)
     teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
+    week = db.relationship('Week', backref='schedules')
     group = db.relationship('Group', backref='schedules')
     subject = db.relationship('Subject', backref='schedules')
     teacher = db.relationship('Teacher', backref='schedules')
