@@ -9,8 +9,8 @@ backend/cache
 node_modules/
 
 # Базы данных
-*.db
-*.sqlite
+# временно убираем *.db
+# *.sqlite
 
 # IDE
 .vscode/
