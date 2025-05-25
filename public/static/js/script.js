@@ -5,6 +5,8 @@ document.addEventListener("DOMContentLoaded", () => {
   const groupsTable = document.getElementById("groups-table");
   let selectedGroup = null;
   let currentOpenSelect = null;
+  let loginEmail = "";
+  let loginPassword = "";
 
   function initSelects() {
     instituteSelect.innerHTML = '<option value="">Выберите институт</option>';
@@ -314,6 +316,8 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   loginBtn.addEventListener("click", async function () {
+    loginEmail = emailInput.value.trim();
+    loginPassword = passwordInput.value;
     const email = emailInput.value.trim();
     const password = passwordInput.value;
     const agree = agreeCheckbox.checked;
@@ -340,20 +344,28 @@ document.addEventListener("DOMContentLoaded", () => {
 
       const data = await response.json();
 
-      if (response.ok) {
-        if (data.status === "register") {
-          loginModal.classList.add("hidden");
-          document.getElementById("firstName").focus();
-          document.getElementById("registerModal").classList.remove("hidden");
-          toast.show("Пожалуйста, заполните данные для регистрации", "info");
-        } else if (data.access_token) {
-          localStorage.setItem("access_token", data.access_token);
-          toast.show("Вход выполнен успешно!", "success");
-          window.location.href = "index2.html";
-        }
-      } else {
-        toast.show(data.message || "Ошибка авторизации", "error");
+      if (!response.ok) {
+        const message = data?.message || "Неверная почта или пароль";
+        toast.show(message, "error");
+        return;
       }
+
+      if (data.access_token) {
+        localStorage.setItem("access_token", data.access_token);
+        toast.show("Вход выполнен успешно!", "success");
+        window.location.href = "index2.html";
+        return;
+      }
+
+      if (data.status === "register") {
+        loginModal.classList.add("hidden");
+        document.getElementById("firstName").focus();
+        document.getElementById("registerModal").classList.remove("hidden");
+        toast.show("Пожалуйста, заполните данные для регистрации", "info");
+        return;
+      }
+
+      toast.show("Неверная почта или пароль", "error");
     } catch (error) {
       console.error("Login error:", error);
       toast.show("Ошибка соединения с сервером", "error");
@@ -378,7 +390,8 @@ document.addEventListener("DOMContentLoaded", () => {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify({
-          email,
+          email: loginEmail,
+          password: loginPassword,
           first_name: firstName,
           last_name: lastName,
           group_code: group,
@@ -458,4 +471,26 @@ document.addEventListener("DOMContentLoaded", () => {
       }
     });
   }
+});
+document.addEventListener("DOMContentLoaded", function () {
+  const openRegisterModalBtn = document.getElementById("openRegisterModalBtn");
+  const registerModal = document.getElementById("registerModal");
+  const closeRegisterModalBtn = registerModal.querySelector(".close-btn");
+
+  // Открытие модального окна
+  openRegisterModalBtn.addEventListener("click", function () {
+    registerModal.classList.remove("hidden");
+  });
+
+  // Закрытие по кнопке "×"
+  closeRegisterModalBtn.addEventListener("click", function () {
+    registerModal.classList.add("hidden");
+  });
+
+  // Закрытие по клику на фон
+  window.addEventListener("click", function (event) {
+    if (event.target === registerModal) {
+      registerModal.classList.add("hidden");
+    }
+  });
 });
