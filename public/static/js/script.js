@@ -353,7 +353,7 @@ document.addEventListener("DOMContentLoaded", () => {
       if (data.access_token) {
         localStorage.setItem("access_token", data.access_token);
         toast.show("Вход выполнен успешно!", "success");
-        window.location.href = "index2.html";
+        window.location.href = "/index2";
         return;
       }
 
@@ -380,7 +380,7 @@ document.addEventListener("DOMContentLoaded", () => {
   registerForm.addEventListener("submit", async (e) => {
     e.preventDefault();
 
-    const email = document.getElementById("registerEmail").value.trim();
+    const email = loginEmail;
     const firstName = document.getElementById("firstName").value.trim();
     const lastName = document.getElementById("lastName").value.trim();
     const group = document.getElementById("group").value.trim();
@@ -402,7 +402,7 @@ document.addEventListener("DOMContentLoaded", () => {
 
       if (response.ok) {
         localStorage.setItem("access_token", data.access_token);
-        window.location.href = "index2.html";
+        window.location.href = "/index2";
       } else {
         alert("Ошибка регистрации: " + (data.error || "Неизвестная ошибка"));
       }
@@ -433,7 +433,7 @@ document.addEventListener("DOMContentLoaded", () => {
   const profileBtn = document.getElementById("profileBtn");
   profileBtn?.addEventListener(
     "click",
-    () => (window.location.href = "index3.html")
+    () => (window.location.href = "/index3")
   );
 
   const avatarBox = document.getElementById("avatarBox");
