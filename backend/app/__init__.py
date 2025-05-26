@@ -6,7 +6,6 @@ from flask_sqlalchemy import SQLAlchemy
 db = SQLAlchemy()
 jwt = JWTManager()
 
-
 def create_app():
     app = Flask(
         __name__,
@@ -16,7 +15,8 @@ def create_app():
 
     app.config['JSONIFY_ENSURE_ASCII'] = False
 
-    from backend.instance.config import Config
+    # Используем относительный импорт
+    from instance.config import Config
     app.config.from_object(Config)
 
     CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5500", "http://127.0.0.1:5500"]}})
