@@ -45,14 +45,14 @@ class Group(db.Model):
 
     group_code = db.Column(db.String(20), primary_key=True)
     course_number = db.Column(db.String(10), db.ForeignKey('courses.course_number'), nullable=False)
-    institute_number = db.Column(db.String(10), db.ForeignKey('institutes.institute_code'), nullable=False)
+    institute_name = db.Column(db.String(100), db.ForeignKey('institutes.institute_name'), nullable=False)
     level_name = db.Column(db.String(100), db.ForeignKey('levels.level_name'), nullable=False)
     course = db.relationship('Course', backref='groups')
     institute = db.relationship('Institute', backref='groups')
     level = db.relationship('Level', backref='groups')
 
     def __repr__(self):
-        return f"<Группа {self.group_code}, курс {self.course_number}, Институт №{self.institute_number}, {self.level_name}>"
+        return f"<Группа {self.group_code}, курс {self.course_number}, {self.institute_name}, {self.level_name}>"
 
 
 class Level(db.Model):

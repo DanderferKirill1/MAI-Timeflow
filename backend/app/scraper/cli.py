@@ -2,7 +2,7 @@ import click
 from .downloader import ScheduleDownloader
 from .parser import json_to_db_models, parse_schedule_html
 from .. import create_app
-from ..models import Schedule, Teacher
+from ..models import Group, Institute, Schedule, Teacher
 
 
 @click.command()
@@ -34,6 +34,14 @@ def scrape_schedule(group: str, week: int, force_reload: bool):
             schedules = Schedule.query.join(Teacher, Schedule.teacher_id == Teacher.teacher_id).filter(Schedule.group_code == group).all()
             for schedule in schedules:
                 print(schedule, schedule.teacher.full_name)
+
+            groups = Group.query.all()
+            for group in groups:
+                print(group)
+
+            institutes = Institute.query.all()
+            for institute in institutes:
+                print(institute)
 
         except Exception as e:
             click.secho(f"Ошибка: {str(e)}", fg="red", err=True)
