@@ -1,10 +1,11 @@
 import json
 from flask import Blueprint, Response, request
-from flask_jwt_extended import jwt_required, get_jwt_identity, unset_jwt_cookies
+from flask_jwt_extended import get_jwt_identity, jwt_required, unset_jwt_cookies
 from .. import db
 from ..models import User
 
 protected_api_blueprint = Blueprint('protected_api', __name__, url_prefix='/api')
+
 
 @protected_api_blueprint.route('/protected', methods=['GET'])
 @jwt_required()
@@ -12,6 +13,7 @@ def protected():
     """Защищённый эндпоинт, доступный только с JWT-токеном."""
     response_data = {'message': 'This is a protected endpoint'}
     return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json', status=200)
+
 
 @protected_api_blueprint.route('/profile/edit', methods=['PUT'])
 @jwt_required()
@@ -40,6 +42,8 @@ def edit_profile():
         profile.gender = gender
 
     db.session.commit()
+    info = User.query.filter_by(user_id=user_id).first()
+    print(info)
     profile_data = {
         "email": user.email,
         "first_name": profile.first_name,
@@ -49,6 +53,7 @@ def edit_profile():
     }
     response_data = {'message': 'Profile updated', 'profile': profile_data}
     return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json', status=200)
+
 
 @protected_api_blueprint.route('/profile/change-password', methods=['PUT'])
 @jwt_required()
@@ -72,6 +77,7 @@ def change_password():
     db.session.commit()
     response_data = {'message': 'Password updated successfully'}
     return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json', status=200)
+
 
 @protected_api_blueprint.route('/logout', methods=['POST'])
 @jwt_required()
