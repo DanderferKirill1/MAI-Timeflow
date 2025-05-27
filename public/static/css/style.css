@@ -922,7 +922,9 @@ footer {
 /*index3.html*/
 
 .profile-section-container {
-  max-width: 1100px;
+  max-width: 1300px;
+  max-height: 850px;
+  min-height: 850px;
   margin: 40px auto;
   background-color: #fff;
   padding: 30px;
@@ -1293,6 +1295,7 @@ select.profile-form-select {
   background: #fff;
   border-right: 1px solid #e0e0e0;
   z-index: -1;
+  height: 850px;
 }
 
 .profile-side-btns .side-btn {
@@ -1379,6 +1382,10 @@ select.profile-form-select {
   font-size: 16px;
 }
 
+.selectors-row:first-child {
+  margin-top: 20px;
+}
+
 .switch {
   position: relative;
   display: inline-block;
@@ -1461,6 +1468,10 @@ select.profile-form-select {
   border-radius: 12px;
   cursor: pointer;
   transition: background-color 0.3s ease;
+  position: absolute;
+  bottom: 20px;
+  left: 50%;
+  transform: translateX(-50%);
 }
 
 .sohr:hover {
@@ -1475,14 +1486,18 @@ select.profile-form-select {
 
 .register-modal-content input,
 .register-modal-content select {
-  box-sizing: border-box; /* рамка входит в 100 % */
-  width: 100%; /* остаётся как было */
+  box-sizing: border-box;
+  width: 100%;
+}
+
+#profileBtn20 {
+  font-size: 18px;
 }
 
 /*calendar.html*/
 ul li::marker {
-  color: #007bff; /* приятный голубой; можете заменить на свой */
-  font-size: 1.1em; /* по желанию – чуть крупнее маркер */
+  color: #007bff;
+  font-size: 1.1em;
 }
 
 .show-all-link {
@@ -1499,7 +1514,7 @@ ul li::marker {
 .mtf-integrations {
   display: flex;
   flex-direction: column;
-  gap: 10px; /* расстояние между кнопками */
+  gap: 10px;
 }
 
 footer {

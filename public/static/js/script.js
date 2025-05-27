@@ -41,7 +41,7 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   }
 
-  function updateGroupsTable() {
+  async function updateGroupsTable() {
     const institute = instituteSelect.value;
     const course = courseSelect.value;
     const degree = degreeSelect.value;
@@ -51,23 +51,41 @@ document.addEventListener("DOMContentLoaded", () => {
       return;
     }
 
-    const currentYear = new Date().getFullYear();
-    const admissionYear = String(currentYear - (parseInt(course) - 1)).slice(
-      -2
-    );
-
-    let groupsHTML = '<div class="groups-table">';
-    for (let i = 1; i <= 15; i++) {
-      const groupNum = i < 10 ? `0${i}` : i;
-      const groupCode = `M${institute}O-${course}${groupNum}${degree}-${admissionYear}`;
-      groupsHTML += `<div class="group-item">${groupCode}</div>`;
+    let response;
+    try {
+      response = await fetch("/api/schedule_groups", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          institute_name: institute,
+          course: course,
+          level: degree,
+        }),
+      });
+    } catch (e) {
+      console.error(e);
+      toast.show("Не удалось отправить запрос — проверьте сеть", "error");
+      return;
     }
-    groupsHTML += "</div>";
 
-    groupsTable.innerHTML = groupsHTML;
-    groupsTable.style.display = "block";
+    if (!response.ok) {
+      let msg = `Ошибка ${response.status}`;
+      try {
+        const err = await response.json();
+        msg = err.error || err.message || msg;
+      } catch {}
+      toast.show(msg, "error");
+      groupsTable.style.display = "none";
+      return;
+    }
 
-    setupGroupSelection();
+    let data;
+    try {
+      data = await response.json();
+    } catch {
+      toast.show("В ответе сервера пришёл невалидный JSON", "error");
+      return;
+    }
   }
 
   function setupGroupSelection() {
@@ -231,7 +249,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const loading = createLoadingOverlay();
 
-  // Toast notification system
   function createToastSystem() {
     const container = document.createElement("div");
     container.className = "toast-container";
@@ -281,7 +298,6 @@ document.addEventListener("DOMContentLoaded", () => {
 
   const toast = createToastSystem();
 
-  // Enhanced form validation
   function enhanceFormValidation() {
     const emailInput = document.getElementById("emailInput");
     const passwordInput = document.getElementById("passwordInput");
@@ -301,7 +317,6 @@ document.addEventListener("DOMContentLoaded", () => {
       passwordInput.addEventListener("input", () => {
         const password = passwordInput.value.trim();
 
-        // Показываем ошибку только если пароль пустой
         if (password.length === 0) {
           passwordInput.classList.add("invalid");
           document.getElementById("passwordError").style.display = "block";
@@ -477,17 +492,14 @@ document.addEventListener("DOMContentLoaded", function () {
   const registerModal = document.getElementById("registerModal");
   const closeRegisterModalBtn = registerModal.querySelector(".close-btn");
 
-  // Открытие модального окна
   openRegisterModalBtn.addEventListener("click", function () {
     registerModal.classList.remove("hidden");
   });
 
-  // Закрытие по кнопке "×"
   closeRegisterModalBtn.addEventListener("click", function () {
     registerModal.classList.add("hidden");
   });
 
-  // Закрытие по клику на фон
   window.addEventListener("click", function (event) {
     if (event.target === registerModal) {
       registerModal.classList.add("hidden");

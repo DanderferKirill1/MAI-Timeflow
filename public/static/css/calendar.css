@@ -1,8 +1,8 @@
 .container {
-  max-width: 1200px;
+  --side-padding: clamp(20px, 5vw, 100px);
+  padding: 0 var(--side-padding);
+  max-width: 1600px;
   margin: 0 auto;
-  padding: 20px;
-  box-sizing: border-box;
 }
 .show-timetable {
   margin-top: 20px;
@@ -14,12 +14,7 @@
   border-radius: 6px;
   cursor: pointer;
 }
-.week-grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-  gap: 20px;
-  margin-top: 20px;
-}
+
 .day-card {
   background: white;
   border-radius: 12px;
@@ -34,21 +29,110 @@
   font-size: 14px;
   margin-bottom: 6px;
 }
+
+.hidden {
+  display: none;
+}
+.timetable-details > #timetable-wrapper {
+  display: none;
+}
+
 .timetable-buttons {
-  margin-top: 20px;
+  display: none; /* прячем */
+  flex-direction: column;
+  gap: 10px;
+  align-items: flex-start; /* левый край */
+  grid-column: 4; /* 4-я колонка */
+  grid-row: 2;
+}
+
+.timetable-details:not([open]) > #timetable-wrapper {
+  display: none;
+}
+.timetable-details:not([open]) .timetable-buttons {
+  display: none;
+}
+
+/* 2) Показываем их, когда <details> открыт */
+.timetable-details[open] > #timetable-wrapper {
   display: flex;
-  flex-wrap: wrap;
+  /* при необходимости: flex-direction, align-items и т.д. */
+}
+.timetable-details[open] .timetable-buttons {
+  display: flex;
+  flex-direction: column;
   gap: 10px;
 }
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  grid-auto-rows: auto;
+  gap: 20px;
+}
+
+.week-grid .timetable-buttons {
+  grid-column: 4;
+  grid-row: 2;
+
+  /* как вам удобно, например: */
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  /* можно ещё чуть отступ сверху, если нужно */
+  margin-top: -100px;
+}
+
 .timetable-btn {
   background: #007bff;
   color: white;
   border: none;
-  padding: 10px 16px;
+  padding: 13px 20px;
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
+  width: 100%;
+  height: 13%;
+  transition: background-color 0.3s ease;
 }
-.hidden {
-  display: none;
+
+.timetable-btn:hover {
+  background-color: #0056b3;
+}
+
+#timetable-wrapper {
+  display: grid !important;
+  grid-template-columns: repeat(4, minmax(220px, 1fr));
+  grid-auto-rows: auto;
+  gap: 20px;
+}
+
+/* 2) Заставляем .week-grid (сетку карточек) растягиваться
+   на все 4 колонки первой строки */
+#timetable-wrapper > .week-grid {
+  grid-column: 1 / -1;
+  /* margin-top, flex-direction и пр. — всё управление теперь через грид */
+}
+
+/* 3) Кнопки ставим в ячейку [4-я колонка, 2-я строка] */
+#timetable-wrapper > .timetable-buttons {
+  grid-column: 4;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  margin-top: -300px;
+}
+
+.timetable-btn .btn-icon {
+  width: 16px;
+  height: 16px;
+  margin-right: 8px;
+  /* optional: чтобы не съезжал текст при загрузке */
+  flex-shrink: 0;
+}
+
+#profileBtn20 {
+  font-size: 18px; /* или любой другой размер */
 }
