@@ -3,6 +3,7 @@ from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
 
+
 db = SQLAlchemy()
 jwt = JWTManager()
 
@@ -15,7 +16,6 @@ def create_app():
 
     app.config['JSONIFY_ENSURE_ASCII'] = False
 
-    # Используем относительный импорт
     from instance.config import Config
     app.config.from_object(Config)
 

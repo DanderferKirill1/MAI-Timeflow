@@ -25,8 +25,8 @@
             </a>
             <div id="modal" class="hidden">
               <div class="modal-content">
-                <button class="btn" id="profileBtn">Профиль</button>
-                <button class="btn" id="logoutBtn">Выйти</button>
+                <a href="/index3" class="btn" id="profileBtn20">Профиль</a>
+                <a href="/index" class="btn" id="profileBtn20">Выйти</a>
               </div>
             </div>
           </nav>
@@ -71,16 +71,22 @@
 
         <div id="groups-table" class="groups-table-container"></div>
 
-        <button class="show-timetable">Показать расписание</button>
-
-        <div id="timetable-wrapper" class="hidden">
-          <div class="week-grid" id="timetable"></div>
-          <div class="timetable-buttons">
-            <button class="timetable-btn">← Предыдущая неделя</button>
-            <button class="timetable-btn">Следующая неделя →</button>
-            <button class="timetable-btn">✏️ Редактировать расписание</button>
+        <details class="timetable-details">
+          <summary class="show-timetable">Показать расписание</summary>
+          <div id="timetable-wrapper">
+            <div class="week-grid" id="timetable">
+              <!-- здесь только day-card… -->
+            </div>
+            <div class="timetable-buttons">
+              <button class="timetable-btn">← Предыдущая неделя</button>
+              <button class="timetable-btn">Следующая неделя →</button>
+              <button class="timetable-btn">
+                <img src="/assets/images/editp.svg" alt="" class="btn-icon" />
+                Редактировать расписание
+              </button>
+            </div>
           </div>
-        </div>
+        </details>
       </main>
     </div>
 
