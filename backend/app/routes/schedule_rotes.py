@@ -1,6 +1,6 @@
 import json
 from collections import defaultdict
-from datetime import datetime, timedelta
+from datetime import datetime
 from flask import Blueprint, Response, request
 from ..models import Group, Schedule, Week
 
@@ -89,46 +89,28 @@ def schedule_all():
         }
         result.append(day_obj)
 
-    response_data = json.dumps(result, ensure_ascii=False)
-    return Response(response_data, mimetype='application/json'), 200
+    response_data = {
+        'week_num': week_num,
+        'days': result
+    }
+
+    return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
 
 
 @schedule_api_blueprint.route('/schedule/change-week', methods=['POST'])
 def change_week():
     data = request.get_json()
-    date = data.get('date')
+    week_num = data.get('week_num')
     group_code = data.get('group_code')
     direction = data.get('direction')  # "next" or "prev"
 
-    try:
-        date_obj = datetime.strptime(date, "%d.%m.%Y")
-    except ValueError:
-        response_data = {'error': 'Invalid date format, expected DD.MM.YYYY'}
-        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400
-
-    # Вычисляем дату для следующей или предыдущей недели
-    if direction == 'next':
-        date_obj += timedelta(days=7)
-    elif direction == 'prev':
-        date_obj -= timedelta(days=7)
+    if direction == "next":
+        week_num += 1
+    elif direction == "prev":
+        week_num -= 1
     else:
-        response_data = {'error': 'Invalid direction, use "next" or "prev"'}
-        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400
-
-    weeks = Week.query.all()
-    week = None
-    for i in weeks:
-        start_date = datetime.strptime(i.week_start, "%d.%m.%Y")
-        end_date = datetime.strptime(i.week_end, "%d.%m.%Y")
-        if start_date <= date_obj <= end_date:
-            week = i
-            break
-
-    if not week:
-        response_data = {'error': 'Invalid date'}
+        response_data = {'error': 'Invalid direction type'}
         return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 404
-
-    week_num = week.week_num
 
     schedules = Schedule.query.filter_by(
         week_num=week_num,
@@ -162,5 +144,9 @@ def change_week():
         }
         result.append(day_obj)
 
-    response_data = json.dumps(result, ensure_ascii=False)
-    return Response(response_data, mimetype='application/json'), 200
+    response_data = {
+        'week_num': week_num,
+        'days': result
+    }
+
+    return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 200
