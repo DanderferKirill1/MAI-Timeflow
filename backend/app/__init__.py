@@ -22,22 +22,17 @@ def create_app():
 
     # Настройка CORS
     CORS(app, resources={r"/api/*": {
-        "origins": [
-            "http://localhost:5500",
-            "http://127.0.0.1:5500",
-            "http://localhost:5173",
-            "http://127.0.0.1:5173",
-            "http://localhost:3000",
-            "http://127.0.0.1:3000"
-        ],
-        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-        "allow_headers": ["Content-Type", "Authorization"],
-        "supports_credentials": True
+        "origins": Config.CORS_ORIGINS,
+        "methods": Config.CORS_METHODS,
+        "allow_headers": Config.CORS_ALLOW_HEADERS,
+        "expose_headers": Config.CORS_EXPOSE_HEADERS,
+        "supports_credentials": Config.CORS_SUPPORTS_CREDENTIALS,
+        "max_age": Config.CORS_MAX_AGE
     }})
 
     # Настройка JWT
-    app.config['JWT_SECRET_KEY'] = 'your-secret-key'  # В продакшене использовать безопасный ключ
-    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)  # Увеличиваем время жизни токена до 24 часов
+    app.config['JWT_SECRET_KEY'] = Config.SECRET_KEY
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)
     jwt.init_app(app)
 
     # Инициализация базы данных

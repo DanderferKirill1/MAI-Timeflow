@@ -20,49 +20,15 @@ document.addEventListener('DOMContentLoaded', function() {
             
             // Если это раздел уведомлений, добавляем классы для стилей
             if (sectionId === 'notifications') {
-                console.log('Switching to notifications section');
-                
                 const notificationsContent = targetSection.querySelector('.notifications-content');
                 const notificationsGrid = targetSection.querySelector('.notifications-grid');
                 const notificationsSettings = targetSection.querySelector('.notifications-settings');
                 const deliveryMethods = targetSection.querySelector('.delivery-methods');
                 
-                console.log('Elements found:', {
-                    notificationsContent,
-                    notificationsGrid,
-                    notificationsSettings,
-                    deliveryMethods
-                });
-                
-                if (notificationsContent) {
-                    notificationsContent.classList.add('active');
-                    console.log('Applied styles to notificationsContent:', window.getComputedStyle(notificationsContent));
-                }
-                if (notificationsGrid) {
-                    notificationsGrid.classList.add('active');
-                    console.log('Applied styles to notificationsGrid:', window.getComputedStyle(notificationsGrid));
-                }
-                if (notificationsSettings) {
-                    notificationsSettings.classList.add('active');
-                    console.log('Applied styles to notificationsSettings:', window.getComputedStyle(notificationsSettings));
-                }
-                if (deliveryMethods) {
-                    deliveryMethods.classList.add('active');
-                    console.log('Applied styles to deliveryMethods:', window.getComputedStyle(deliveryMethods));
-                }
-                
-                // Проверяем загруженные стили
-                const styles = Array.from(document.styleSheets).map(sheet => {
-                    try {
-                        return Array.from(sheet.cssRules).map(rule => rule.cssText);
-                    } catch (e) {
-                        return [];
-                    }
-                }).flat();
-                
-                console.log('Loaded CSS rules:', styles);
-                
-                loadNotifications();
+                if (notificationsContent) notificationsContent.classList.add('active');
+                if (notificationsGrid) notificationsGrid.classList.add('active');
+                if (notificationsSettings) notificationsSettings.classList.add('active');
+                if (deliveryMethods) deliveryMethods.classList.add('active');
             }
         }
     }
@@ -249,11 +215,6 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // Загружаем данные профиля при загрузке страницы
     loadProfileData();
-
-    // Загружаем уведомления при загрузке страницы, если мы на вкладке уведомлений
-    if (sectionParam === 'notifications') {
-        loadNotifications();
-    }
 
     async function updateSessions() {
         try {
@@ -447,122 +408,6 @@ document.addEventListener('DOMContentLoaded', function() {
     updateSessions();
     // Обновляем сессии каждые 5 минут
     setInterval(updateSessions, 5 * 60 * 1000);
-
-    // Функция для загрузки уведомлений
-    async function loadNotifications() {
-        try {
-            const token = localStorage.getItem('access_token');
-            if (!token) {
-                console.error('Токен не найден');
-                return;
-            }
-
-            const response = await fetch('/api/notifications', {
-                headers: {
-                    'Authorization': `Bearer ${token}`,
-                    'Content-Type': 'application/json'
-                }
-            });
-
-            if (!response.ok) {
-                throw new Error('Ошибка при загрузке уведомлений');
-            }
-
-            const notifications = await response.json();
-            const notificationsHistory = document.querySelector('.notifications-history');
-            
-            if (!notificationsHistory) {
-                console.error('Элемент .notifications-history не найден');
-                return;
-            }
-
-            // Очищаем список уведомлений
-            notificationsHistory.innerHTML = '';
-
-            if (notifications.length === 0) {
-                notificationsHistory.innerHTML = '<div class="no-notifications">Нет уведомлений</div>';
-                return;
-            }
-
-            // Добавляем каждое уведомление в список
-            notifications.forEach(notification => {
-                const notificationElement = document.createElement('div');
-                notificationElement.className = `notification-item ${notification.is_read ? 'read' : 'unread'}`;
-                
-                // Определяем иконку в зависимости от типа уведомления
-                let icon = 'info.svg';
-                if (notification.type === 'cancelled') {
-                    icon = 'cancel.svg';
-                } else if (notification.type === 'changed') {
-                    icon = 'change.svg';
-                }
-
-                notificationElement.innerHTML = `
-                    <div class="notification-content">
-                        <img src="/assets/images/${icon}" alt="${notification.type}" class="notification-icon">
-                        <div class="notification-details">
-                            <h3>${notification.subject_name}</h3>
-                            <p>${notification.message}</p>
-                            <span class="notification-time">${formatNotificationTime(notification.created_at)}</span>
-                        </div>
-                    </div>
-                `;
-                
-                notificationsHistory.appendChild(notificationElement);
-            });
-        } catch (error) {
-            console.error('Ошибка при загрузке уведомлений:', error);
-            const notificationsHistory = document.querySelector('.notifications-history');
-            if (notificationsHistory) {
-                notificationsHistory.innerHTML = '<div class="no-notifications">Ошибка при загрузке уведомлений</div>';
-            }
-        }
-    }
-
-    // Функция для форматирования времени уведомления
-    function formatNotificationTime(dateStr) {
-        const date = new Date(dateStr);
-        const now = new Date();
-        const diff = now - date;
-        
-        // Получаем локальное время с учетом часового пояса
-        const localHours = date.getHours() + 3; // Добавляем 3 часа для московского времени
-        const localMinutes = date.getMinutes();
-        
-        // Если прошло меньше часа
-        if (diff < 60 * 60 * 1000) {
-            const minutes = Math.floor(diff / (60 * 1000));
-            return `${minutes} минут назад`;
-        }
-        
-        // Если прошло меньше суток
-        if (diff < 24 * 60 * 60 * 1000) {
-            return `Сегодня в ${localHours.toString().padStart(2, '0')}:${localMinutes.toString().padStart(2, '0')}`;
-        }
-        
-        // Если прошло меньше двух суток
-        if (diff < 48 * 60 * 60 * 1000) {
-            return `Вчера в ${localHours.toString().padStart(2, '0')}:${localMinutes.toString().padStart(2, '0')}`;
-        }
-        
-        // В остальных случаях показываем полную дату
-        return date.toLocaleDateString('ru-RU', {
-            day: '2-digit',
-            month: '2-digit',
-            year: 'numeric',
-            hour: '2-digit',
-            minute: '2-digit',
-            timeZone: 'Europe/Moscow'
-        });
-    }
-
-    // Загружаем уведомления при открытии раздела
-    document.querySelector('[data-section="notifications"]').addEventListener('click', () => {
-        loadNotifications();
-    });
-
-    // Загружаем уведомления каждые 5 минут
-    setInterval(loadNotifications, 5 * 60 * 1000);
 
     function initializeSectionStyles() {
         const notificationsSection = document.getElementById('notifications-section');

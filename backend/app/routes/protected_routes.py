@@ -408,3 +408,41 @@ def update_notification_settings():
             mimetype='application/json',
             status=500
         )
+
+
+@protected_api_blueprint.route('/notifications/<int:notification_id>/read', methods=['PUT', 'OPTIONS'])
+@jwt_required()
+def mark_notification_as_read(notification_id):
+    """Отметка уведомления как прочитанного."""
+    if request.method == 'OPTIONS':
+        return Response(status=200)
+        
+    try:
+        user_id = get_jwt_identity()
+        notification = Notification.query.filter_by(
+            notification_id=notification_id,
+            user_id=user_id
+        ).first()
+        
+        if not notification:
+            return Response(
+                json.dumps({'error': 'Notification not found'}, ensure_ascii=False),
+                mimetype='application/json',
+                status=404
+            )
+        
+        notification.is_read = True
+        db.session.commit()
+        
+        return Response(
+            json.dumps({'message': 'Notification marked as read'}, ensure_ascii=False),
+            mimetype='application/json',
+            status=200
+        )
+    except Exception as e:
+        db.session.rollback()
+        return Response(
+            json.dumps({'error': str(e)}, ensure_ascii=False),
+            mimetype='application/json',
+            status=500
+        )

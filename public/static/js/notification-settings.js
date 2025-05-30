@@ -93,12 +93,25 @@ async function loadNotificationHistory() {
     }
     
     const notifications = await response.json();
+    console.log('Полученные уведомления:', notifications);
+    
     const historyContainer = document.getElementById('notificationsHistory');
     historyContainer.innerHTML = '';
     
-    notifications.forEach(notification => {
+    // Фильтруем только непрочитанные уведомления
+    const unreadNotifications = notifications.filter(notification => !notification.is_read);
+    
+    unreadNotifications.forEach(notification => {
+      console.log('Обработка уведомления:', notification);
+      
       const notificationCard = document.createElement('div');
-      notificationCard.className = 'notification-card';
+      notificationCard.className = `notification-card ${notification.is_read ? 'read' : 'unread'}`;
+      
+      // Проверяем наличие ID
+      if (!notification.notification_id) {
+        console.error('Уведомление без ID:', notification);
+        return;
+      }
       
       notificationCard.innerHTML = `
         <div class="notification-icon ${notification.type}">
@@ -107,7 +120,14 @@ async function loadNotificationHistory() {
         <div class="notification-content">
           <p class="notification-text">${notification.message}</p>
         </div>
-        <div class="notification-time">${formatNotificationDate(notification.created_at)}</div>
+        <div class="notification-actions">
+          <div class="notification-time">${formatNotificationDate(notification.created_at)}</div>
+          ${!notification.is_read ? `
+            <button class="mark-as-read-btn" data-notification-id="${notification.notification_id}" onclick="markNotificationAsRead(${notification.notification_id})">
+              <img src="/assets/images/check-double.svg" alt="Отметить как прочитанное">
+            </button>
+          ` : ''}
+        </div>
       `;
       
       historyContainer.appendChild(notificationCard);
@@ -115,6 +135,45 @@ async function loadNotificationHistory() {
     
   } catch (error) {
     console.error('Ошибка при загрузке истории уведомлений:', error);
+  }
+}
+
+// Функция для отметки уведомления как прочитанного
+async function markNotificationAsRead(notificationId) {
+  console.log('Попытка отметить уведомление как прочитанное. ID:', notificationId);
+  
+  if (!notificationId) {
+    console.error('ID уведомления не указан');
+    return;
+  }
+
+  try {
+    const response = await fetch(`http://127.0.0.1:5000/api/notifications/${notificationId}/read`, {
+      method: 'PUT',
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('access_token')}`,
+        'Content-Type': 'application/json'
+      }
+    });
+    
+    if (!response.ok) {
+      throw new Error('Ошибка при отметке уведомления как прочитанного');
+    }
+    
+    const result = await response.json();
+    console.log('Ответ сервера:', result);
+    
+    // Находим и скрываем уведомление
+    const notificationCard = document.querySelector(`[data-notification-id="${notificationId}"]`).closest('.notification-card');
+    if (notificationCard) {
+      notificationCard.style.opacity = '0';
+      setTimeout(() => {
+        notificationCard.style.display = 'none';
+      }, 300); // Время должно совпадать с CSS transition
+    }
+    
+  } catch (error) {
+    console.error('Ошибка при отметке уведомления:', error);
   }
 }
 

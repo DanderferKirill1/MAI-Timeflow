@@ -23,5 +23,21 @@ class Config:
         "http://localhost:5173",
         "http://127.0.0.1:5173",
         "http://localhost:3000",
-        "http://127.0.0.1:3000"
-    ] 
+        "http://127.0.0.1:3000",
+        "http://127.0.0.1:5000"
+    ]
+    
+    # Дополнительные настройки CORS
+    CORS_METHODS = ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"]
+    CORS_ALLOW_HEADERS = [
+        "Content-Type",
+        "Authorization",
+        "X-Requested-With",
+        "Accept",
+        "Origin",
+        "Access-Control-Request-Method",
+        "Access-Control-Request-Headers"
+    ]
+    CORS_EXPOSE_HEADERS = ["Content-Type", "Authorization"]
+    CORS_SUPPORTS_CREDENTIALS = True
+    CORS_MAX_AGE = 3600 
