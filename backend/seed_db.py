@@ -77,7 +77,7 @@ def seed_database():
             last_name='Пользователь',
             gender='male',
             language='ru',
-            group_code='М8О-201Б-23'
+            group_code='М8О-105БВ-24'
         )
         db.session.add(test_profile)
         db.session.flush()
@@ -100,8 +100,9 @@ def seed_database():
 
         # Создаем уровни образования
         levels = [
-            Level(level_code='Б', level_name='Бакалавриат'),
-            Level(level_code='М', level_name='Магистратура')
+            Level(level_code='БВ', level_name='Базовое высшее образование'),
+            Level(level_code='СВ', level_name='Специализированное высшее образование'),
+            Level(level_code='А', level_name='Аспирантура')
         ]
         db.session.add_all(levels)
         db.session.flush()
@@ -118,7 +119,7 @@ def seed_database():
 
         # Создаем группы
         groups = [
-            Group(group_code='М8О-201Б-23', course_number='2', institute_name=institutes[0].institute_name, level_name=levels[0].level_name)
+            Group(group_code='М8О-105БВ-24', course_number='1', institute_name=institutes[0].institute_name, level_name=levels[0].level_name)
         ]
         db.session.add_all(groups)
         db.session.flush()
@@ -127,7 +128,7 @@ def seed_database():
         weeks = create_weeks()
 
         # Загружаем расписание для всех недель последовательно
-        print("\nЗагрузка расписания для группы М8О-201Б-23...")
+        print("\nЗагрузка расписания для группы М8О-105БВ-24...")
         results = []
         for week in weeks:
             result = load_schedule_for_week(app, groups[0], week.week_num)

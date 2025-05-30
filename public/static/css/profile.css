@@ -405,13 +405,15 @@
 
 .notification-card {
   display: flex;
-  align-items: center;
+  align-items: flex-start;
   padding: 16px;
   background: white;
   border-radius: 8px;
   margin-bottom: 12px;
   box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
   transition: all 0.3s ease;
+  position: relative;
+  padding-bottom: 35px;
 }
 
 .notification-card.unread {
@@ -475,8 +477,9 @@
   flex: 1;
   display: flex;
   flex-direction: column;
-  justify-content: center;
-  min-width: 0; /* Для корректной работы text-overflow */
+  justify-content: flex-start;
+  min-width: 0;
+  margin-bottom: 20px;
 }
 
 .notification-text {
@@ -502,14 +505,17 @@
 /* Иконки для разных типов уведомлений */
 .notification-icon.sync img {
   content: url('/assets/images/sync.svg');
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(190deg) brightness(118%) contrast(119%);
 }
 
 .notification-icon.changed img {
   content: url('/assets/images/changed.svg');
+  filter: invert(48%) sepia(79%) saturate(2476%) hue-rotate(190deg) brightness(118%) contrast(119%);
 }
 
 .notification-icon.cancelled img {
   content: url('/assets/images/cancelled.svg');
+  filter: invert(27%) sepia(51%) saturate(2878%) hue-rotate(346deg) brightness(104%) contrast(97%);
 }
 
 /* Анимация появления уведомления */
@@ -835,7 +841,7 @@ input:checked + .slider:before {
   display: flex;
   flex-direction: column;
   justify-content: center;
-  min-width: 0; /* Для корректной работы text-overflow */
+  min-width: 0;
 }
 
 .notification-text {
@@ -856,6 +862,7 @@ input:checked + .slider:before {
   right: 15px;
   font-size: 12px;
   color: var(--text-secondary);
+  margin-top: 10px;
 }
 
 /* Иконки для разных типов уведомлений */

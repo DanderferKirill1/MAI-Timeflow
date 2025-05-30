@@ -3,7 +3,7 @@ let currentOpenSelect = null;
 export function initSelects() {
   const instituteSelect = document.getElementById("institute-select");
   const courseSelect = document.getElementById("course-select");
-  const degreeSelect = document.getElementById("degree-select");
+  const degreeSelect = document.getElementById("degree");
   
   if (!instituteSelect || !courseSelect || !degreeSelect) {
     return;
@@ -27,16 +27,16 @@ export function initSelects() {
     courseSelect.appendChild(option);
   }
 
-  const degrees = [
-    { value: "Б", text: "Бакалавриат" },
-    { value: "С", text: "Специалитет" },
-    { value: "М", text: "Магистратура" },
+  const educationLevels = [
+    { value: "БВ", text: "Базовое высшее образование" },
+    { value: "СВ", text: "Специализированное высшее образование" },
+    { value: "А", text: "Аспирантура" }
   ];
 
-  degrees.forEach((degree) => {
+  educationLevels.forEach((level) => {
     const option = document.createElement("option");
-    option.value = degree.value;
-    option.textContent = degree.text;
+    option.value = level.value;
+    option.textContent = level.text;
     degreeSelect.appendChild(option);
   });
 
@@ -107,7 +107,7 @@ export function closeAllSelects() {
 export function setupSelectListeners(updateGroupsTable) {
   const instituteSelect = document.getElementById("institute-select");
   const courseSelect = document.getElementById("course-select");
-  const degreeSelect = document.getElementById("degree-select");
+  const degreeSelect = document.getElementById("degree");
 
   if (!instituteSelect || !courseSelect || !degreeSelect) {
     return;

@@ -10,10 +10,10 @@ const instituteMap = {
   "8": "Институт №8"
 };
 
-const levelMap = {
-  "Б": "Бакалавриат",
-  "С": "Специалитет",
-  "М": "Магистратура"
+const levelNames = {
+  "БВ": "Базовое высшее образование",
+  "СВ": "Специализированное высшее образование",
+  "А": "Аспирантура"
 };
 
 let selectedGroup = null;
@@ -21,7 +21,7 @@ let selectedGroup = null;
 function initGroupsHandler() {
   const instituteSelect = document.getElementById("institute-select");
   const courseSelect = document.getElementById("course-select");
-  const degreeSelect = document.getElementById("degree-select");
+  const degreeSelect = document.getElementById("degree");
   
   // Если мы не на странице с селектами, просто выходим
   if (!instituteSelect || !courseSelect || !degreeSelect) {
@@ -36,7 +36,7 @@ function initGroupsHandler() {
 async function handleSelectChange() {
   const instituteSelect = document.getElementById("institute-select");
   const courseSelect = document.getElementById("course-select");
-  const degreeSelect = document.getElementById("degree-select");
+  const degreeSelect = document.getElementById("degree");
   
   const institute = instituteSelect.value;
   const course = courseSelect.value;
@@ -54,7 +54,7 @@ async function handleSelectChange() {
       body: JSON.stringify({
         institute_name: instituteMap[institute],
         course_number: course,
-        level_name: levelMap[degree]
+        level_name: levelNames[degree]
       })
     });
 
