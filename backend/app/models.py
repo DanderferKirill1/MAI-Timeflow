@@ -1,4 +1,5 @@
 from werkzeug.security import check_password_hash, generate_password_hash
+from datetime import datetime
 
 from . import db
 
@@ -14,10 +15,17 @@ class User(db.Model):
     profile = db.relationship('StudentProfile', backref='user', uselist=False)
 
     def set_password(self, password):
+        """Установка пароля пользователя."""
         self.password_hash = generate_password_hash(password)
+        print(f"Generated password hash: {self.password_hash}")  # Отладочная информация
 
     def check_password(self, password):
-        return check_password_hash(self.password_hash, password)
+        """Проверка пароля пользователя."""
+        result = check_password_hash(self.password_hash, password)
+        print(f"Checking password: {password}")  # Отладочная информация
+        print(f"Current hash: {self.password_hash}")  # Отладочная информация
+        print(f"Check result: {result}")  # Отладочная информация
+        return result
 
     def __repr__(self):
         return f"<Пользователь {self.email}>"
@@ -133,7 +141,7 @@ class Schedule(db.Model):
     subject_code = db.Column(db.String(150), db.ForeignKey('subjects.subject_code'), nullable=False)
     subject_type = db.Column(db.String(10))
     room_number = db.Column(db.String(50), nullable=False)
-    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=False)
+    teacher_id = db.Column(db.Integer, db.ForeignKey('teachers.teacher_id'), nullable=True)
     week = db.relationship('Week', backref='schedules')
     group = db.relationship('Group', backref='schedules')
     subject = db.relationship('Subject', backref='schedules')
@@ -141,3 +149,83 @@ class Schedule(db.Model):
 
     def __repr__(self):
         return f"Неделя №{self.week_num}: {self.group_code}, {self.day}, {self.time_slot}, {self.subject_code}, {self.subject_type}, {self.room_number},"
+
+
+class UserSession(db.Model):
+    __tablename__ = 'user_sessions'
+    
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    ip_address = db.Column(db.String(45), nullable=False)
+    user_agent = db.Column(db.String(255), nullable=False)
+    os_info = db.Column(db.String(100), nullable=False)
+    last_activity = db.Column(db.DateTime, default=datetime.utcnow, onupdate=datetime.utcnow)
+    created_at = db.Column(db.DateTime, default=datetime.utcnow)
+    
+    user = db.relationship('User', backref=db.backref('sessions', lazy=True))
+    
+    def to_dict(self):
+        return {
+            'id': self.id,
+            'ip_address': self.ip_address,
+            'os_info': self.os_info,
+            'last_activity': self.last_activity.strftime('%Y-%m-%d %H:%M:%S'),
+            'created_at': self.created_at.strftime('%Y-%m-%d %H:%M:%S')
+        }
+
+
+class Notification(db.Model):
+    """Таблица NOTIFICATIONS: уведомления пользователей."""
+    __tablename__ = 'notifications'
+
+    notification_id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    type = db.Column(db.String(20), nullable=False)  # 'cancelled' или 'changed'
+    subject_name = db.Column(db.String(150), nullable=False)
+    message = db.Column(db.String(500), nullable=False)
+    created_at = db.Column(db.DateTime, nullable=False, default=datetime.utcnow)
+    is_read = db.Column(db.Boolean, nullable=False, default=False)
+    user = db.relationship('User', backref='notifications')
+
+    def to_dict(self):
+        """Преобразование объекта в словарь."""
+        return {
+            'notification_id': self.notification_id,
+            'type': self.type,
+            'subject_name': self.subject_name,
+            'message': self.message,
+            'created_at': self.created_at.isoformat(),
+            'is_read': self.is_read
+        }
+
+    def __repr__(self):
+        return f"Уведомление #{self.notification_id}: {self.type}, {self.subject_name}, {self.message}"
+
+
+class NotificationSettings(db.Model):
+    """Таблица NOTIFICATION_SETTINGS: настройки уведомлений пользователя."""
+    __tablename__ = 'notification_settings'
+
+    id = db.Column(db.Integer, primary_key=True)
+    user_id = db.Column(db.Integer, db.ForeignKey('users.user_id'), nullable=False)
+    schedule_changes = db.Column(db.Boolean, nullable=False, default=True)
+    lesson_reminders = db.Column(db.Boolean, nullable=False, default=True)
+    reminder_time = db.Column(db.Integer, nullable=False, default=15)  # время в минутах
+    push_notifications = db.Column(db.Boolean, nullable=False, default=True)
+    email_notifications = db.Column(db.Boolean, nullable=False, default=True)
+    telegram_notifications = db.Column(db.Boolean, nullable=False, default=False)
+    user = db.relationship('User', backref='notification_settings')
+
+    def to_dict(self):
+        """Преобразование объекта в словарь."""
+        return {
+            'schedule_changes': self.schedule_changes,
+            'lesson_reminders': self.lesson_reminders,
+            'reminder_time': self.reminder_time,
+            'push_notifications': self.push_notifications,
+            'email_notifications': self.email_notifications,
+            'telegram_notifications': self.telegram_notifications
+        }
+
+    def __repr__(self):
+        return f"Настройки уведомлений для пользователя {self.user_id}"

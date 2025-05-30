@@ -4,32 +4,69 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MAI TimeFlow</title>
-    <link rel="stylesheet" href="static/css/style.css" />
-    <link rel="stylesheet" href="static/css/calendar.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/variables.css" />
+    <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/header.css" />
+    <link rel="stylesheet" href="/static/css/footer.css" />
+    <link rel="stylesheet" href="/static/css/forms.css" />
+    <link rel="stylesheet" href="/static/css/buttons.css" />
+    <link rel="stylesheet" href="/static/css/calendar.css" />
+    <link rel="stylesheet" href="/static/css/modals.css" />
+    <link rel="stylesheet" href="/static/css/animations.css" />
+    <link rel="stylesheet" href="/static/css/utilities.css" />
+    <link rel="stylesheet" href="/static/css/toast.css" />
   </head>
   <body>
     <div class="container">
       <header>
         <div class="header-content">
           <div class="header-logo">
-            <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            <a href="/">
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            </a>
           </div>
           <nav class="header-nav">
-            <a href="/index2">Главная</a>
-            <a href="/calendar">Календарь</a>
-            <a href="/index3">Редактирование</a>
-            <a href="/settings">Настройки</a>
+            <a href="/calendar" class="auth-only">Календарь</a>
+            <a href="/profile" class="auth-only">Редактирование</a>
+            <a href="/profile?section=settings" class="auth-only">Настройки</a>
             <a href="#">Помощь</a>
-            <a href="#" id="profile-button">
-              <img src="/assets/images/profile.svg" alt="Профиль" />
-            </a>
+            <a href="#" id="profile-button"><img src="/assets/images/profile.svg" alt="Профиль" /></a>
             <div id="modal" class="hidden">
               <div class="modal-content">
-                <a href="/index3" class="btn" id="profileBtn20">Профиль</a>
-                <a href="/index" class="btn" id="profileBtn20">Выйти</a>
+                <!-- Для неавторизованных -->
+                <button class="btn unauth-only" id="openLoginModalBtn">Авторизироваться</button>
+                <!-- Для авторизованных -->
+                <a href="/profile" class="btn auth-only" id="profileBtn">Профиль</a>
+                <button class="btn auth-only" id="logoutBtn">Выйти</button>
               </div>
             </div>
           </nav>
+          <!-- Модальное окно входа -->
+          <div id="loginModal" class="modal hidden">
+            <div class="login-modal-content">
+              <button class="close-btn" id="closeLoginModal">&times;</button>
+              <h2>Войти или создать профиль</h2>
+
+              <label>Почта (@mai.education)</label>
+              <input type="email" id="emailInput" placeholder="students@mai.education" required />
+              <small id="emailError" style="color: red; display: none">Введите корректный email!</small>
+
+              <label>Пароль</label>
+              <input type="password" id="passwordInput" required />
+
+              <button class="btn btn-blue" id="loginBtn" disabled>Авторизироваться</button>
+
+              <p>
+                <input type="checkbox" id="agreeCheckbox" checked />
+                Соглашаюсь с условиями пользования платформой
+              </p>
+              <small id="agreeError" style="color: red; display: none; margin-top: 0px; margin-bottom: 8px">
+                Пожалуйста, подтвердите согласие с условиями
+              </small>
+            </div>
+          </div>
         </div>
       </header>
 
@@ -69,28 +106,94 @@
           </div>
         </div>
 
-        <div id="groups-table" class="groups-table-container"></div>
+        <div class="groups-section">
+          <div id="groups-table" class="groups-table-container hidden"></div>
+        </div>
 
         <details class="timetable-details">
           <summary class="show-timetable">Показать расписание</summary>
+          <div class="navigation-container">
+            <div class="nav-btn-container">
+              <button class="nav-btn nav-btn-prev">← Предыдущая неделя</button>
+            </div>
+            <div class="nav-btn-container">
+              <button class="nav-btn nav-btn-next">Следующая неделя →</button>
+            </div>
+            <div class="nav-btn-container">
+              <button class="nav-btn nav-btn-sync" id="syncGoogleCalendar">
+                <img src="/assets/images/google-calendar.svg" alt="Google Calendar" class="google-calendar-icon" />
+                Синхронизировать с Google Calendar
+              </button>
+            </div>
+          </div>
           <div id="timetable-wrapper">
             <div class="week-grid" id="timetable">
               <!-- здесь только day-card… -->
             </div>
-            <div class="timetable-buttons">
-              <button class="timetable-btn">← Предыдущая неделя</button>
-              <button class="timetable-btn">Следующая неделя →</button>
-              <button class="timetable-btn">
-                <img src="/assets/images/editp.svg" alt="" class="btn-icon" />
-                Редактировать расписание
-              </button>
-            </div>
           </div>
         </details>
       </main>
+
+      <footer>
+        <div class="footer-main-content">
+          <div class="footer-left-section">
+            <div class="footer-logo">
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            </div>
+            <div class="section-title">Контактная информация:</div>
+            <div class="contact-info">
+              <p class="contacts">Почта: support@mai-timeflow.ru</p>
+              <p class="contacts">Телефон: +7 (495) 123-45-67</p>
+              <p class="contacts">
+                Адрес: Москва, Волоколамское шоссе,<br />д. 4, 125993
+              </p>
+            </div>
+          </div>
+
+          <div class="footer-center-section">
+            <div class="resources-title">Дополнительные ресурсы:</div>
+            <div class="resources-list">
+              <a href="#">Документация</a>
+              <a href="#">Политика конфиденциальности</a>
+              <a href="#">Условия использования</a>
+            </div>
+          </div>
+
+          <div class="footer-right-section">
+            <div class="footer-links-wrapper">
+              <div class="footer-links">
+                <a href="#">Главная</a>
+                <a href="#">Помощь</a>
+                <a href="#">О проекте</a>
+                <a href="#">Контакты</a>
+              </div>
+              <div class="social-circles">
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+              </div>
+            </div>
+
+            <div class="subscribe">
+              <input type="email" placeholder="Введите вашу почту" />
+              <button>Подписаться на рассылку</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <p class="copyright">© 2025 MAI TIMEFLOW. Все права защищены.</p>
+            <p class="developed-by">Разработано студентами МАИ, 2025 год</p>
+          </div>
+        </div>
+      </footer>
     </div>
 
-    <script src="static/js/script.js"></script>
-    <script src="static/js/calendar.js"></script>
+    <script type="module" src="/static/js/groups-handler.js"></script>
+    <script type="module" src="/static/js/main.js"></script>
+    <script type="module" src="/static/js/calendar.js"></script>
+    <script type="module" src="static/js/tooltips.js"></script>
+    <script type="module" src="/static/js/google-calendar-sync.js"></script>
   </body>
 </html>

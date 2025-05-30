@@ -220,20 +220,10 @@ p {
   padding: 15px;
   background: #ffffff;
   border: 2px solid #0095da;
-  border-top: none;
+  border-top: none !important;
   border-radius: 0 0 15px 15px;
-  display: none;
   position: relative;
   box-sizing: border-box;
-}
-
-.groups-table-container::before {
-  content: "Выберите вашу группу:";
-  position: absolute;
-  top: 8px;
-  left: 18px;
-  font-size: clamp(16px, 2vw, 20px);
-  color: #666;
 }
 
 .groups-table {
@@ -277,45 +267,6 @@ p {
   border-color: #0095da;
 }
 
-/*начать*/
-.start {
-  position: absolute;
-  left: 1000px;
-  top: 264px;
-  width: 240px;
-  height: 55px;
-  font-size: 30px;
-  font-weight: 150;
-  font-family: "Cygre", sans-serif;
-  background-color: #007bff; /* Цвет фона кнопки */
-  color: white; /* Цвет текста кнопки */
-  border: none;
-  margin: 10px auto;
-  border-radius: 10px;
-  cursor: pointer;
-  transition: background-color 0.2s ease, color 0.2s ease;
-  text-align: center;
-  padding-top: 0px; /* Отступ сверху */
-  padding-bottom: 10px;
-}
-
-.start:hover {
-  background-color: #0056b3;
-}
-/* показать расписание */
-
-.show-timetable {
-  width: 880px;
-  background-color: #007bff;
-  color: white;
-  border: none;
-  margin: 20px auto;
-}
-
-.show-timetable:hover {
-  background-color: #0056b3;
-}
-
 /* преимущества */
 
 .features-title {
@@ -339,13 +290,6 @@ p {
   border-radius: 15px;
   box-sizing: border-box;
   transition: background-color 0.3s ease;
-}
-
-.feature-card {
-  width: 500px;
-  height: 200px;
-  padding: 20px;
-  box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.25);
 }
 
 .feature-item:nth-child(1),
@@ -644,24 +588,24 @@ footer {
 /*img*/
 .plane {
   position: absolute;
-  left: 600px;
+  left: -15%;
   top: 1260px;
 }
 
 .stipple {
   position: absolute;
-  left: 200px;
+  left: -10%;
   top: 1150px;
 }
 .stars {
   position: absolute;
-  left: 900px;
+  right: -10%;
   top: 970px;
 }
 
 .computer {
   position: absolute;
-  left: 900px;
+  right: -15%;
   top: 1415px;
 }
 
@@ -922,12 +866,9 @@ footer {
 /*index3.html*/
 
 .profile-section-container {
-  max-width: 1300px;
-  max-height: 850px;
-  min-height: 850px;
   margin: 40px auto;
   background-color: #fff;
-  padding: 30px;
+  padding: 15px 30px 30px 30px;
   border-radius: 14px;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
 }
@@ -936,7 +877,6 @@ footer {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  margin-bottom: 15px;
 }
 
 .profile-section-info {
@@ -1751,3 +1691,120 @@ footer {
 }
 
 /* шрифты, конец */
+
+/* --- 1. Кнопка 'Профиль/Начать' --- */
+.intro-content {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: 60px;
+  margin-bottom: 40px;
+}
+.intro-text-wrapper {
+  flex: 1;
+}
+.start {
+  align-self: center;
+  margin-left: auto; /* Выравнивание по правому краю */
+  text-decoration: none;
+  font-size: 28px;
+  font-weight: 500;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  padding: 12px 40px;
+  cursor: pointer;
+  transition: background 0.2s;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.07);
+  display: inline-block;
+}
+.start:hover {
+  background-color: #0056b3;
+  text-decoration: none;
+}
+
+/* --- 2. Скрыть синюю полоску и выровнять кнопку --- */
+.groups-table-container {
+  border-top: none !important;
+}
+.groups-table-container::before {
+  display: none !important;
+}
+.show-timetable {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  max-width: 880px; /* Ширина как у селектора с выбором степени обучения */
+  margin: 30px auto 0 auto;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 10px;
+  font-size: 20px;
+  padding: 14px 0;
+  text-align: center;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+.show-timetable:hover {
+  background-color: #0056b3;
+}
+
+/* --- 3. Центрирование картинок преимуществ --- */
+.features {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 30px;
+}
+.feature-item {
+  display: flex;
+  align-items: center;
+  position: relative;
+}
+.feature-card {
+  flex: 1;
+  min-width: 350px;
+  max-width: 500px;
+  height: 200px;
+  display: flex;
+  align-items: center;
+  background: #fff;
+  border-radius: 15px;
+  box-shadow: 5px 5px 15px rgba(0,0,0,0.15);
+  padding: 20px;
+  z-index: 1;
+}
+.feature-content {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  width: 100%;
+}
+/* Картинки преимуществ */
+.stars, .stipple, .plane, .computer {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  z-index: 2;
+}
+.stars { right: -100%; }
+.stipple { left: -150%;}
+.plane { left: -60%; top: 75%; }
+.computer { right: -100%; }
+
+.groups-table-container.hidden {
+  display: none !important;
+}
+
+.groups-table-label {
+  position: absolute;
+  top: 8px;
+  left: 18px;
+  font-size: clamp(16px, 2vw, 20px);
+  color: #666;
+  z-index: 2;
+  pointer-events: none;
+}

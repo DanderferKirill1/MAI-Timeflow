@@ -4,30 +4,49 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <title>MAI TimeFlow</title>
-    <link rel="stylesheet" href="static/css/style.css" />
-    <link rel="stylesheet" href="static/css/toast.css" />
+    <link rel="stylesheet" href="/static/css/style.css" />
+    <link rel="stylesheet" href="/static/css/variables.css" />
+    <link rel="stylesheet" href="/static/css/fonts.css" />
+    <link rel="stylesheet" href="/static/css/base.css" />
+    <link rel="stylesheet" href="/static/css/header.css" />
+    <link rel="stylesheet" href="/static/css/footer.css" />
+    <link rel="stylesheet" href="/static/css/forms.css" />
+    <link rel="stylesheet" href="/static/css/buttons.css" />
+    <link rel="stylesheet" href="/static/css/calendar.css" />
+    <link rel="stylesheet" href="/static/css/modals.css" />
+    <link rel="stylesheet" href="/static/css/animations.css" />
+    <link rel="stylesheet" href="/static/css/utilities.css" />
   </head>
   <body>
     <div class="container">
       <header>
         <div class="header-content">
           <div class="header-logo">
+            <a href="/">
             <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            </a>
           </div>
           <nav class="header-nav">
-            <a href="#">Главная</a>
+            <a href="/calendar" class="auth-only">Календарь</a>
+            <a href="/profile" class="auth-only">Редактирование</a>
+            <a href="/profile?section=settings" class="auth-only">Настройки</a>
             <a href="#">Помощь</a>
             <a href="#" id="profile-button"
               ><img src="/assets/images/profile.svg" alt="Профиль"
             /></a>
             <div id="modal" class="hidden">
               <div class="modal-content">
-                <button class="btn" id="openLoginModalBtn">
+                <!-- Для неавторизованных -->
+                <button class="btn unauth-only" id="openLoginModalBtn">
                   Авторизироваться
                 </button>
+                <!-- Для авторизованных -->
+                <a href="/profile" class="btn auth-only hidden" id="profileBtn">Профиль</a>
+                <button class="btn auth-only hidden" id="logoutBtn">Выйти</button>
               </div>
             </div>
           </nav>
+          <!-- Модальное окно входа -->
           <div id="loginModal" class="modal hidden">
             <div class="login-modal-content">
               <button class="close-btn" id="closeLoginModal">&times;</button>
@@ -68,6 +87,7 @@
               </small>
             </div>
           </div>
+          <!-- Модальное окно регистрации -->
           <div id="registerModal" class="modal hidden">
             <div class="register-modal-content">
               <span class="close-btn">&times;</span>
@@ -97,21 +117,22 @@
       </header>
 
       <main>
-        <h1>Добро пожаловать в MAI TimeFlow!</h1>
-        <p class="intro-text">
-          Просматривайте расписание своей группы, синхронизируйте его с Google
-          Calendar и получайте уведомления об изменениях.
-        </p>
-        <button class="start" id="openLoginModalBtn2">Начать</button>
-        <img src="/assets/images/plane.svg" class="plane" alt="Самолётик" />
-        <img src="/assets/images/stipple.svg" class="stipple" alt="Дымок" />
-        <img src="/assets/images/stars.svg" class="stars" alt="Звёздочки" />
-        <img
-          src="/assets/images/computer.svg"
-          class="computer"
-          alt="Компьютер"
-        />
-        <h2>Расписание</h2>
+        <div class="intro-content">
+          <div class="intro-text-wrapper">
+            <h1>Добро пожаловать в MAI TimeFlow!</h1>
+            <p class="intro-text">
+              Просматривайте расписание своей группы, синхронизируйте его с Google
+              Calendar и получайте уведомления об изменениях.
+            </p>
+          </div>
+          
+          <!-- Кнопка для неавторизованных -->
+          <button class="start unauth-only" id="openLoginModalBtn2">Начать</button>
+          <!-- Кнопка для авторизованных -->
+          <a href="/profile" class="start auth-only hidden" id="goToProfileBtn">Профиль</a>
+        </div>
+        
+        <h2 class="schedule-title">Расписание</h2>
 
         <div class="selectors">
           <div class="selectors-row">
@@ -135,7 +156,7 @@
             </select>
           </div>
           <div class="selectors-row">
-            <select id="degree-select" class="selectors-select">
+            <select id="degree-select" class="selectors-select wide-select">
               <option value="">Выберите степень обучения</option>
               <option value="Б">Бакалавриат</option>
               <option value="С">Специалитет</option>
@@ -144,44 +165,72 @@
           </div>
         </div>
 
-        <div id="groups-table" class="groups-table-container"></div>
+        <div id="groups-table" class="groups-table-container hidden"></div>
 
         <button class="show-timetable">Показать расписание</button>
 
-        <h2 class="features-title">Почему стоит зарегистрироваться?</h2>
+        <h2 class="features-title">
+          <span class="unauth-only">Почему стоит зарегистрироваться?</span>
+          <span class="auth-only hidden">Почему стоит пользоваться нашим сервисом?</span>
+        </h2>
 
-        <div class="features">
-          <div class="feature-item">
-            <div class="feature-card">
-              <div class="feature-content">
-                <img src="/assets/images/calendar.svg" alt="Google Calendar" />
-                <p>Синхронизация с Google Calendar</p>
+        <div class="features-section">
+          <div class="features">
+            <div class="feature-item">
+              <div class="feature-card">
+                <div class="feature-content">
+                  <img src="/assets/images/calendar.svg" alt="Google Calendar" />
+                  <p>Синхронизация с Google Calendar</p>
+                </div>
               </div>
+              <img src="/assets/images/stars.svg" class="stars" alt="Звёздочки" />
             </div>
-          </div>
 
-          <div class="feature-item">
-            <div class="feature-card">
-              <div class="feature-content">
-                <img src="/assets/images/edit.svg" alt="Редактирование" />
-                <p>Возможность редактировать расписание</p>
+            <div class="feature-item">
+              <div class="feature-card">
+                <div class="feature-content">
+                  <img src="/assets/images/edit.svg" alt="Редактирование" />
+                  <p>Возможность редактировать расписание</p>
+                </div>
               </div>
+              <img src="/assets/images/stipple.svg" class="stipple" alt="Дымок" />
+              <img src="/assets/images/plane.svg" class="plane" alt="Самолётик" />
             </div>
-          </div>
 
-          <div class="feature-item">
-            <div class="feature-card">
-              <div class="feature-content">
-                <img src="/assets/images/notifications.svg" alt="Уведомления" />
-                <p>Уведомления об изменениях в расписании</p>
+            <div class="feature-item">
+              <div class="feature-card">
+                <div class="feature-content">
+                  <img src="/assets/images/notifications.svg" alt="Уведомления" />
+                  <p>Уведомления об изменениях в расписании</p>
+                </div>
               </div>
+              <img src="/assets/images/computer.svg" class="computer" alt="Компьютер" />
             </div>
           </div>
         </div>
 
-        <button class="register-btn" id="openRegisterModalBtn">
+        <!-- Кнопка для неавторизованных -->
+        <button class="register-btn unauth-only" id="openRegisterModalBtn">
           Зарегистрироваться
         </button>
+        <!-- Кнопка для авторизованных -->
+        <button class="register-btn auth-only hidden" id="goToCalendarBtn">
+          Календарь
+        </button>
+
+        <div id="timetable-wrapper" class="hidden">
+          <div id="timetable">
+            <div class="days-container"></div>
+            <div class="timetable-buttons">
+              <button class="timetable-btn">← Предыдущая неделя</button>
+              <button class="timetable-btn">Следующая неделя →</button>
+              <button class="timetable-btn">
+                <img src="/assets/images/editp.svg" alt="" class="btn-icon" />
+                Редактировать расписание
+              </button>
+            </div>
+          </div>
+        </div>
       </main>
 
       <footer>
@@ -239,6 +288,6 @@
         </div>
       </footer>
     </div>
-    <script src="/static/js/script.js"></script>
+    <script type="module" src="/static/js/main.js"></script>
   </body>
 </html>

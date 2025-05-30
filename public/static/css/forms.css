@@ -1,0 +1,153 @@
+.selectors {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 880px;
+  margin: 0 auto;
+}
+
+.selectors-row {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  width: 100%;
+}
+
+.selectors select,
+.custom-select {
+  width: 400px;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  box-sizing: border-box;
+}
+
+.selectors select {
+  appearance: none;
+  background: url("data:image/svg+xml;base64,PHN2ZyB3aWR0aD0iMTQiIGhlaWdodD0iOCIgdmlld0JveD0iMCAwIDE0IDgiIHhtbG5zPSJodHRwOi8vd3d3LnczLm9yZy8yMDAwL3N2ZyI+PHBvbHlnb24gcG9pbnRzPSIwLDAgNyw4IDE0LDAiIGZpbGw9IiM3N0I5RkYiLz48L3N2Zz4=")
+    no-repeat right 15px center/12px;
+}
+
+.selectors select:hover,
+.custom-select:hover {
+  background-color: #f0f9ff;
+}
+
+.selectors select:focus,
+.custom-select:focus {
+  outline: none;
+  border-color: #0095da;
+}
+
+.selectors select.wide-select,
+.selectors .custom-select-wrapper.wide-select,
+.selectors .custom-select-wrapper.wide-select .custom-select {
+  width: 880px !important;
+}
+
+.custom-select-wrapper {
+  position: relative;
+  width: 400px;
+  margin: 10px 0;
+}
+
+.custom-select {
+  width: 100%;
+  cursor: pointer;
+  position: relative;
+}
+
+.custom-select::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  right: 15px;
+  transform: translateY(-50%);
+  border: 5px solid transparent;
+  border-top-color: #777;
+}
+
+.selectors select option,
+.custom-option {
+  padding: 10px 15px;
+  background-color: white;
+  color: #333;
+  transition: all 0.2s;
+  cursor: pointer;
+}
+
+.selectors select option {
+  border: 1px solid #0095da;
+  border-top: none;
+}
+
+.custom-options {
+  width: 100%;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  max-height: 200px;
+  overflow-y: auto;
+  border: 1px solid #0095da;
+  border-top: none;
+  border-radius: 0 0 5px 5px;
+  background: white;
+  z-index: 100;
+  display: none;
+}
+
+.selectors select option:hover,
+.custom-option:hover {
+  background-color: #0095da !important;
+  color: white !important;
+}
+
+.group-item {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #eeeeee;
+  border: 1px solid #eeeeee;
+  border-radius: 15px;
+  color: #333;
+  width: 150px;
+  height: 40px;
+  margin: 0 auto;
+  cursor: pointer;
+  transition: all 0.2s;
+  font-size: clamp(12px, 2vw, 16px);
+}
+
+.group-item:hover {
+  background: #e0e0e0;
+}
+
+.group-item.selected {
+  background: #0095da;
+  color: white;
+  border-color: #0095da;
+}
+
+@media (max-width: 768px) {
+  .selectors select,
+  .selectors .wide-select,
+  .groups-table-container {
+    width: 100%;
+  }
+
+  .groups-table-container {
+    height: auto;
+    min-height: 220px;
+  }
+
+  .groups-table {
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+  }
+
+  .group-item {
+    width: 120px;
+  }
+} 

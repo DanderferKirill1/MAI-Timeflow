@@ -1,0 +1,132 @@
+footer {
+  margin-top: 70px;
+  position: relative;
+  border-top-left-radius: 15px;
+  border-top-right-radius: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  background-color: #f5f5f5;
+  padding: 40px 0;
+}
+
+footer::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 50%;
+  width: 100vw;
+  height: 100%;
+  background-color: #f5f5f5;
+  transform: translateX(-50%);
+  z-index: -1;
+}
+
+.footer-main-content {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  position: relative;
+  gap: 50px;
+}
+
+.footer-bottom {
+  width: 100%;
+  border-top: 1px solid #ddd;
+  margin-top: 20px;
+}
+
+.footer-bottom-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-end;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 20px var(--side-padding);
+}
+
+.copyright,
+.developed-by {
+  margin: 0;
+  font-size: 14px;
+  color: #666;
+}
+
+.footer-left-section {
+  flex: 1;
+  max-width: 400px;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  padding-top: 0;
+}
+
+.footer-center-section {
+  flex: 1;
+  max-width: 400px;
+}
+
+.footer-right-section {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  max-width: 400px;
+}
+
+.footer-links-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 30px;
+  margin-top: 5px;
+  margin-bottom: 60px;
+}
+
+.footer-links {
+  display: flex;
+  gap: 20px;
+  align-items: center;
+}
+
+.footer-links a {
+  color: #333;
+  text-decoration: underline;
+  font-size: clamp(14px, 1.5vw, 16px);
+  transition: color 0.3s;
+  white-space: nowrap;
+  line-height: 1;
+}
+
+.footer-links a:hover {
+  color: #0095da;
+}
+
+.social-circles {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.social-circle {
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: #0095da;
+  transition: background-color 0.3s;
+  margin: 0;
+}
+
+.social-circle:hover {
+  background-color: #007bff;
+}
+
+.footer-logo {
+  margin-bottom: 6px;
+}
+
+.footer-logo img {
+  width: 190px;
+  height: 40px;
+  object-fit: contain;
+} 

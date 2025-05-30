@@ -18,31 +18,11 @@ def index():
     return render_template("index.html")
 
 
-@frontend_blueprint.route("/index2", methods=["GET"])
-def index_2():
-    return render_template("index2.html")
-
-
-@frontend_blueprint.route("/index3", methods=["GET"])
-def index_3():
-    return render_template("index3.html")
-
-
 @frontend_blueprint.route("/calendar", methods=["GET"])
 def calendar():
     return render_template("calendar.html")
 
 
-@frontend_blueprint.route("/noti", methods=["GET"])
-def noti():
-    return render_template("noti.html")
-
-
-@frontend_blueprint.route("/safety", methods=["GET"])
-def safety():
-    return render_template("safety.html")
-
-
-@frontend_blueprint.route("/settings", methods=["GET"])
-def settings():
-    return render_template("settings.html")
+@frontend_blueprint.route("/profile", methods=["GET"])
+def profile():
+    return render_template("profile.html")

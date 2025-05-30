@@ -1,7 +1,9 @@
-from flask import Flask
+from flask import Flask, jsonify
 from flask_cors import CORS
 from flask_jwt_extended import JWTManager
 from flask_sqlalchemy import SQLAlchemy
+from datetime import timedelta
+from config import Config
 
 
 db = SQLAlchemy()
@@ -16,13 +18,30 @@ def create_app():
 
     app.config['JSONIFY_ENSURE_ASCII'] = False
 
-    from instance.config import Config
     app.config.from_object(Config)
 
-    CORS(app, resources={r"/api/*": {"origins": ["http://localhost:5500", "http://127.0.0.1:5500"]}})
+    # Настройка CORS
+    CORS(app, resources={r"/api/*": {
+        "origins": [
+            "http://localhost:5500",
+            "http://127.0.0.1:5500",
+            "http://localhost:5173",
+            "http://127.0.0.1:5173",
+            "http://localhost:3000",
+            "http://127.0.0.1:3000"
+        ],
+        "methods": ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+        "allow_headers": ["Content-Type", "Authorization"],
+        "supports_credentials": True
+    }})
 
-    db.init_app(app)
+    # Настройка JWT
+    app.config['JWT_SECRET_KEY'] = 'your-secret-key'  # В продакшене использовать безопасный ключ
+    app.config['JWT_ACCESS_TOKEN_EXPIRES'] = timedelta(hours=24)  # Увеличиваем время жизни токена до 24 часов
     jwt.init_app(app)
+
+    # Инициализация базы данных
+    db.init_app(app)
 
     # Импорт и регистрация blueprints
     from .routes.frontend_routes import frontend_blueprint

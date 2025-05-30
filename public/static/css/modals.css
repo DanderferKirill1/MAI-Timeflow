@@ -1,0 +1,239 @@
+#modal {
+  position: absolute;
+  top: 80px;
+  right: 0;
+  background: white;
+  border: 1px solid #ccc;
+  padding: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+  z-index: 1000;
+  transition: opacity 0.2s ease;
+  border-radius: 12px;
+  right: 65px;
+}
+
+.modal-content {
+  width: 170px;
+  height: 60px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  padding: 10px;
+}
+
+.modal-content button {
+  display: block;
+  margin: 5px 0;
+}
+
+.modal-content button.btn {
+  font-family: "Cygre", sans-serif;
+  color: #333;
+  text-decoration: none;
+  font-size: clamp(14px, 2vw, 18px);
+  transition: color 0.3s;
+  border: none;
+  background-color: transparent;
+}
+
+.modal-content button.btn:hover {
+  color: #0095da;
+}
+
+/* Стили для модального окна входа */
+#loginModal.hidden {
+  display: none !important;
+}
+
+#loginModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#loginModal .login-modal-content {
+  background: white;
+  padding: 0px 20px;
+  border-radius: 16px;
+  width: 90%;
+  max-width: 350px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  font-family: "Cygre", sans-serif;
+  position: relative;
+}
+
+#loginModal .login-modal-content h2 {
+  font-size: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  text-align: center;
+  margin-top: 25px;
+  color: rgb(0, 0, 0);
+}
+
+#loginModal label {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0 4px;
+}
+
+#loginModal input[type="email"],
+#loginModal input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#loginModal .btn-blue {
+  margin-top: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+#loginModal .btn-blue:hover {
+  background-color: #0056b3;
+}
+
+#loginModal p {
+  margin-top: 15px;
+  margin-bottom: 20px;
+  font-size: 13px;
+  color: #999;
+}
+
+#loginModal input[type="checkbox"] {
+  margin-right: 5px;
+}
+
+.close-btn {
+  position: absolute;
+  top: 2px;
+  right: 5px;
+  font-size: 30px;
+  font-weight: 100;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #918f8f;
+}
+
+#loginBtn:disabled {
+  background-color: #a0c4ff;
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+/* Стили для модального окна регистрации */
+#registerModal.hidden {
+  display: none !important;
+}
+
+#registerModal.modal {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.4);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 2000;
+}
+
+#registerModal .register-modal-content {
+  background: white;
+  padding: 0px 20px;
+  padding-top: 1px;
+  border-radius: 16px;
+  width: 100%;
+  max-width: 380px;
+  max-height: 410px;
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.2);
+  font-family: "Cygre", sans-serif;
+  position: relative;
+}
+
+#registerModal .register-modal-content h2 {
+  font-size: 22px;
+  font-weight: bold;
+  margin-bottom: 1px;
+  text-align: center;
+  margin-top: 20px;
+  color: rgb(0, 0, 0);
+}
+
+#registerModal label {
+  display: block;
+  font-size: 14px;
+  margin: 10px 0 6px;
+  color: #000;
+}
+
+#registerModal input[type="text"],
+#registerModal input[type="email"],
+#registerModal input[type="password"] {
+  width: 100%;
+  padding: 5px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  font-size: 14px;
+  box-sizing: border-box;
+}
+
+#registerModal input::placeholder {
+  font-size: 14px;
+  color: #999;
+  font-family: "Cygre", sans-serif;
+}
+
+.register-btn2 {
+  margin-top: 20px;
+  margin-bottom: 20px;
+  width: 100%;
+  padding: 10px;
+  background-color: #007bff;
+  color: white;
+  font-size: 16px;
+  border: none;
+  border-radius: 12px;
+  cursor: pointer;
+  font-weight: bold;
+  transition: background-color 0.3s ease;
+}
+
+.register-btn2:hover {
+  background-color: #0056b3;
+}
+
+#registerModal .close-btn {
+  position: absolute;
+  top: -26px;
+  right: 13px;
+  font-size: 50px;
+  font-weight: 300;
+  background: none;
+  border: none;
+  cursor: pointer;
+  color: #918f8f;
+} 

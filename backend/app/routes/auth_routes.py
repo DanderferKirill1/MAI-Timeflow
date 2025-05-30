@@ -61,6 +61,11 @@ def register():
         response_data = {'error': 'Missing required fields'}
         return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400
 
+    # Валидация пароля
+    if len(password) < 8:
+        response_data = {'error': 'Пароль должен содержать минимум 8 символов'}
+        return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400
+
     if User.query.filter_by(email=email).first():
         response_data = {'error': 'Email already exists'}
         return Response(json.dumps(response_data, ensure_ascii=False), mimetype='application/json'), 400

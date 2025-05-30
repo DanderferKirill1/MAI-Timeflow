@@ -1,0 +1,430 @@
+<!DOCTYPE html>
+<html lang="ru">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>MAI TimeFlow</title>
+
+    <link rel="stylesheet" href="/static/css/variables.css?v=1" />
+    <link rel="stylesheet" href="/static/css/fonts.css?v=1" />
+    <link rel="stylesheet" href="/static/css/base.css?v=1" />
+    <link rel="stylesheet" href="/static/css/header.css?v=1" />
+    <link rel="stylesheet" href="/static/css/footer.css?v=1" />
+    <link rel="stylesheet" href="/static/css/forms.css?v=1" />
+    <link rel="stylesheet" href="/static/css/buttons.css?v=1" />
+    <link rel="stylesheet" href="/static/css/calendar.css?v=1" />
+    <link rel="stylesheet" href="/static/css/modals.css?v=1" />
+    <link rel="stylesheet" href="/static/css/animations.css?v=1" />
+    <link rel="stylesheet" href="/static/css/utilities.css?v=1" />
+    <link rel="stylesheet" href="/static/css/style.css?v=1" />
+    <link rel="stylesheet" href="/static/css/profile.css?v=2" />
+    <link rel="stylesheet" href="/static/css/toast.css?v=1" />
+    
+    <!-- Добавляем мета-тег для предотвращения кэширования стилей -->
+    <meta http-equiv="Cache-Control" content="no-cache, no-store, must-revalidate" />
+    <meta http-equiv="Pragma" content="no-cache" />
+    <meta http-equiv="Expires" content="0" />
+  </head>
+  <body>
+    <div class="container">
+      <header>
+        <div class="header-content">
+          <div class="header-logo">
+            <a href="/">
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            </a>
+          </div>
+          <nav class="header-nav">
+            <a href="/calendar" class="auth-only">Календарь</a>
+            <a href="/profile" class="auth-only">Редактирование</a>
+            <a href="/profile?section=settings" class="auth-only">Настройки</a>
+            <a href="#">Помощь</a>
+            <a href="#" id="profile-button"
+              ><img src="/assets/images/profile.svg" alt="Профиль"
+            /></a>
+            <div id="modal" class="hidden">
+              <div class="modal-content">
+                <!-- Для неавторизованных -->
+                <button class="btn unauth-only" id="openLoginModalBtn">
+                  Авторизироваться
+                </button>
+                <!-- Для авторизованных -->
+                <a href="/profile" class="btn auth-only" id="profileBtn">Профиль</a>
+                <button class="btn auth-only" id="logoutBtn">Выйти</button>
+              </div>
+            </div>
+          </nav>
+          <!-- Модальное окно входа -->
+          <div id="loginModal" class="modal hidden">
+            <div class="login-modal-content">
+              <button class="close-btn" id="closeLoginModal">&times;</button>
+              <h2>Войти или создать профиль</h2>
+
+              <label>Почта (@mai.education)</label>
+              <input
+                type="email"
+                id="emailInput"
+                placeholder="students@mai.education"
+                required
+              />
+              <small id="emailError" style="color: red; display: none">
+                Введите корректный email!
+              </small>
+
+              <label>Пароль</label>
+              <input type="password" id="passwordInput" required />
+
+              <button class="btn btn-blue" id="loginBtn" disabled>
+                Авторизироваться
+              </button>
+
+              <p>
+                <input type="checkbox" id="agreeCheckbox" checked />
+                Соглашаюсь с условиями пользования платформой
+              </p>
+              <small
+                id="agreeError"
+                style="color: red; display: none; margin-top: 0px; margin-bottom: 8px;"
+              >
+                Пожалуйста, подтвердите согласие с условиями
+              </small>
+            </div>
+          </div>
+        </div>
+      </header>
+
+      <main>
+        <section class="profile-section-container">
+          <nav class="side-nav">
+            <button type="button" class="nav-item active" data-section="profile">
+              <img src="/assets/images/info2.svg" alt="Profile">
+            </button>
+            <button type="button" class="nav-item" data-section="safety">
+              <img src="/assets/images/safety.svg" alt="Safety">
+            </button>
+            <button type="button" class="nav-item" data-section="notifications">
+              <img src="/assets/images/noti.svg" alt="Notifications">
+            </button>
+            <button type="button" class="nav-item" data-section="settings">
+              <img src="/assets/images/settings.svg" alt="Settings">
+            </button>
+          </nav>
+          
+          <div class="profile-main-content section-content active" id="profile-section">
+            <div class="profile-section-header">
+              <div class="profile-section-info">
+                <div class="profile-avatar-box" id="avatarBox">
+                  <img
+                    src="/assets/images/profile.svg"
+                    alt="Фото профиля"
+                    id="avatarPreview"
+                  />
+                  <input
+                    type="file"
+                    id="avatarInput"
+                    accept="image/*"
+                    style="display: none"
+                  />
+                </div>
+                <div>
+                  <h2>Имя Фамилия</h2>
+                  <p class="profile-section-email">students@mai.education</p>
+                </div>
+              </div>
+              <button class="profile-edit-btn" type="button" id="editButton">
+                Редактировать
+              </button>
+            </div>
+
+            <form class="profile-form-wrapper">
+              <div class="profile-form-left">
+                <label for="firstName" class="profile-form-label">Имя</label>
+                <input
+                  type="text"
+                  id="firstName"
+                  class="profile-form-input"
+                  placeholder="Введите имя"
+                  disabled
+                />
+
+                <label for="gender" class="profile-form-label">Пол</label>
+                <select
+                  id="gender"
+                  class="profile-form-select selectors-select"
+                  disabled
+                >
+                  <option value="">Выберите пол</option>
+                  <option value="male">Мужской</option>
+                  <option value="female">Женский</option>
+                </select>
+
+                <div class="profile-linked-section">
+                  <h3>Привязанные данные</h3>
+                  <ul class="profile-linked-list">
+                    <li class="profile-linked-item">
+                      <img src="/assets/images/mail.svg" alt="" />
+                      <div class="linked-col">
+                        <span class="linked-value">students@mai.education</span>
+                        <span class="linked-date">1&nbsp;месяц&nbsp;назад</span>
+                      </div>
+                    </li>
+
+                    <li class="profile-linked-item">
+                      <img src="/assets/images/tg.svg" alt="" />
+                      <div class="linked-col">
+                        <span class="linked-value">@mrfast1x</span>
+                        <span class="linked-date">13&nbsp;дней&nbsp;назад</span>
+                      </div>
+                      <button
+                        class="delete-btn"
+                        type="button"
+                        aria-label="Удалить"
+                      ></button>
+                    </li>
+
+                    <li class="profile-linked-item">
+                      <img src="/assets/images/git.svg" alt="" />
+                      <div class="linked-col">
+                        <span class="linked-value">fastixr</span>
+                        <span class="linked-date">только&nbsp;что</span>
+                      </div>
+                      <button
+                        class="delete-btn"
+                        type="button"
+                        aria-label="Удалить"
+                      ></button>
+                    </li>
+                  </ul>
+
+                  <button class="profile-add-btn" type="button">
+                    Добавить данные
+                  </button>
+                </div>
+              </div>
+
+              <div class="profile-form-right">
+                <label for="lastName" class="profile-form-label">Фамилия</label>
+                <input
+                  type="text"
+                  id="lastName"
+                  class="profile-form-input"
+                  placeholder="Введите фамилию"
+                  disabled
+                />
+
+                <label for="group" class="profile-form-label">Учебная группа</label>
+                <input
+                  type="text"
+                  id="group"
+                  class="profile-form-input"
+                  value="М8О-213Б-23"
+                  placeholder="Введите группу"
+                  disabled
+                />
+              </div>
+            </form>
+
+            <button class="profile-logout-btn">Выйти из аккаунта</button>
+          </div>
+
+          <div class="profile-main-content section-content" id="safety-section">
+            <div class="safety-content">
+              <div class="safety-left">
+                <h2 class="safety-title" style="margin-bottom: 0px">Изменение пароля</h2>
+                <div class="safety-form">
+                  <div class="form-group">
+                    <label>Текущий пароль</label>
+                    <input type="password" class="profile-form-input password-input" placeholder="Введите текущий пароль" required>
+                  </div>
+                  <div class="form-group">
+                    <label>Новый пароль</label>
+                    <input type="password" class="profile-form-input password-input" placeholder="Введите новый пароль" required minlength="8">
+                  </div>
+                  <div class="form-group">
+                    <label>Подтверждение пароля</label>
+                    <input type="password" class="profile-form-input password-input" placeholder="Подтвердите новый пароль" required minlength="8">
+                  </div>
+                  <button class="change-password-btn">Изменить пароль</button>
+                </div>
+              </div>
+              <div class="safety-right">
+                <h2 class="safety-title" style="margin-bottom: 0px">Двухфакторная аутентификация</h2>
+                <p class="two-factor-description">
+                  Для дополнительной защиты вашего аккаунта<br>
+                  включите двухфакторную аутентификацию.<br>
+                  <strong>** В разработке **</strong>
+                </p>
+                <button class="enable-2fa-btn" disabled>Включить</button>
+
+                <div class="active-sessions">
+                  <h3 class="sessions-title">Активные сессии</h3>
+                  <div class="sessions-list">
+                    <!-- Здесь будут динамически добавляться сессии через JavaScript -->
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-main-content section-content" id="notifications-section">
+            <div class="notifications-content">
+              <div class="notifications-grid">
+                <div class="notifications-left">
+                  <h2 class="safety-title">Типы уведомлений</h2>
+                  <div class="notifications-settings">
+                    <div class="notification-group">
+                      <div class="notification-item">
+                        <span class="notification-label">Изменения в расписании:</span>
+                        <label class="switch">
+                          <input type="checkbox" id="scheduleChangesToggle" checked>
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                      <div class="notification-item">
+                        <span class="notification-label">Напоминание о парах за</span>
+                        <select class="notification-select" id="reminderTimeSelect">
+                          <option value="15">15</option>
+                          <option value="30">30</option>
+                          <option value="45">45</option>
+                          <option value="60">60</option>
+                        </select>
+                        <span class="notification-label">минут</span>
+                        <label class="switch">
+                          <input type="checkbox" id="lessonRemindersToggle" checked>
+                          <span class="slider round"></span>
+                        </label>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="notifications-right">
+                  <h2 class="safety-title" >Способ получения</h2>
+                  <div class="delivery-methods">
+                    <label class="delivery-method">
+                      <input type="checkbox" id="pushNotificationsToggle" checked>
+                      <span class="checkmark"></span>
+                      Push-уведомления в браузере
+                    </label>
+                    <label class="delivery-method">
+                      <input type="checkbox" id="emailNotificationsToggle" checked>
+                      <span class="checkmark"></span>
+                      Email-уведомления
+                    </label>
+                    <label class="delivery-method">
+                      <input type="checkbox" id="telegramNotificationsToggle">
+                      <span class="checkmark"></span>
+                      Уведомления в Telegram
+                    </label>
+                  </div>
+                </div>
+              </div>
+              <div class="notifications-history-container">
+                <h2 class="safety-title">История уведомлений</h2>
+                <div class="notifications-history" id="notificationsHistory">
+                  <!-- Здесь будут динамически добавляться уведомления -->
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-main-content section-content" id="settings-section">
+            <div class="profile-section-header">
+              <h2>Настройки</h2>
+            </div>
+            <div class="settings-content">
+              <div class="settings-group">
+                <h3>Внешний вид</h3>
+                <div class="theme-selector">
+                  <label>Тема оформления</label>
+                  <select class="profile-form-select">
+                    <option value="light">Светлая</option>
+                    <option value="dark">Темная</option>
+                    <option value="system">Системная</option>
+                  </select>
+                </div>
+              </div>
+              <div class="settings-group">
+                <h3>Язык интерфейса</h3>
+                <select class="profile-form-select">
+                  <option value="ru">Русский</option>
+                  <option value="en">English</option>
+                </select>
+              </div>
+              <div class="settings-group">
+                <h3>Формат времени</h3>
+                <div class="radio-group">
+                  <label>
+                    <input type="radio" name="timeFormat" value="24" checked>
+                    24-часовой
+                  </label>
+                  <label>
+                    <input type="radio" name="timeFormat" value="12">
+                    12-часовой
+                  </label>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      </main>
+
+      <footer>
+        <div class="footer-main-content">
+          <div class="footer-left-section">
+            <div class="footer-logo">
+              <img src="/assets/images/logo.svg" alt="MAI TimeFlow" />
+            </div>
+            <div class="section-title">Контактная информация:</div>
+            <div class="contact-info">
+              <p class="contacts">Почта: support@mai-timeflow.ru</p>
+              <p class="contacts">Телефон: +7 (495) 123-45-67</p>
+              <p class="contacts">
+                Адрес: Москва, Волоколамское шоссе,<br />д. 4, 125993
+              </p>
+            </div>
+          </div>
+
+          <div class="footer-center-section">
+            <div class="resources-title">Дополнительные ресурсы:</div>
+            <div class="resources-list">
+              <a href="#">Документация</a>
+              <a href="#">Политика конфиденциальности</a>
+              <a href="#">Условия использования</a>
+            </div>
+          </div>
+
+          <div class="footer-right-section">
+            <div class="footer-links-wrapper">
+              <div class="footer-links">
+                <a href="#">Главная</a>
+                <a href="#">Помощь</a>
+                <a href="#">О проекте</a>
+                <a href="#">Контакты</a>
+              </div>
+              <div class="social-circles">
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+                <div class="social-circle"></div>
+              </div>
+            </div>
+
+            <div class="subscribe">
+              <input type="email" placeholder="Введите вашу почту" />
+              <button>Подписаться на рассылку</button>
+            </div>
+          </div>
+        </div>
+
+        <div class="footer-bottom">
+          <div class="footer-bottom-content">
+            <p class="copyright">© 2025 MAI TIMEFLOW. Все права защищены.</p>
+            <p class="developed-by">Разработано студентами МАИ, 2025 год</p>
+          </div>
+        </div>
+      </footer>
+    </div>
+    <script type="module" src="/static/js/main.js"></script>
+    <script src="static/js/profile.js"></script>
+    <script src="static/js/notification-settings.js"></script>
+  </body>
+</html>

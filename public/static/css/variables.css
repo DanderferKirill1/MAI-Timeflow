@@ -1,0 +1,189 @@
+:root {
+  /* Цвета */
+  --primary-color: #007bff;
+  --secondary-color: #6c757d;
+  --success-color: #28a745;
+  --danger-color: #dc3545;
+  --warning-color: #ffc107;
+  --info-color: #17a2b8;
+  --light-color: #f8f9fa;
+  --dark-color: #343a40;
+  --white-color: #ffffff;
+  --black-color: #000000;
+  --gray-100: #f8f9fa;
+  --gray-200: #e9ecef;
+  --gray-300: #dee2e6;
+  --gray-400: #ced4da;
+  --gray-500: #adb5bd;
+  --gray-600: #6c757d;
+  --gray-700: #495057;
+  --gray-800: #343a40;
+  --gray-900: #212529;
+
+  /* Типография */
+  --font-family-base: "Cygre", -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-size-base: 1rem;
+  --font-size-sm: 0.875rem;
+  --font-size-lg: 1.25rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2rem;
+  --font-size-3xl: 2.5rem;
+  --font-weight-light: 300;
+  --font-weight-normal: 400;
+  --font-weight-bold: 700;
+  --line-height-base: 1.5;
+  --line-height-sm: 1.25;
+  --line-height-lg: 2;
+
+  /* Отступы */
+  --spacing-0: 0;
+  --spacing-1: 0.25rem;
+  --spacing-2: 0.5rem;
+  --spacing-3: 1rem;
+  --spacing-4: 1.5rem;
+  --spacing-5: 3rem;
+
+  /* Границы */
+  --border-width: 1px;
+  --border-color: #dee2e6;
+  --border-radius: 0.25rem;
+  --border-radius-sm: 0.2rem;
+  --border-radius-lg: 0.3rem;
+  --border-radius-xl: 0.5rem;
+  --border-radius-2xl: 1rem;
+  --border-radius-full: 9999px;
+
+  /* Тени */
+  --shadow-sm: 0 0.125rem 0.25rem rgba(0, 0, 0, 0.075);
+  --shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.15);
+  --shadow-lg: 0 1rem 3rem rgba(0, 0, 0, 0.175);
+  --shadow-inner: inset 0 2px 4px 0 rgba(0, 0, 0, 0.06);
+
+  /* Z-index */
+  --z-index-dropdown: 1000;
+  --z-index-sticky: 1020;
+  --z-index-fixed: 1030;
+  --z-index-modal-backdrop: 1040;
+  --z-index-modal: 1050;
+  --z-index-popover: 1060;
+  --z-index-tooltip: 1070;
+
+  /* Переходы */
+  --transition-base: all 0.2s ease-in-out;
+  --transition-fade: opacity 0.15s linear;
+  --transition-collapse: height 0.35s ease;
+
+  /* Анимации */
+  --animation-duration-base: 1s;
+  --animation-duration-fast: 0.5s;
+  --animation-duration-slow: 2s;
+  --animation-timing-base: ease;
+  --animation-timing-in: ease-in;
+  --animation-timing-out: ease-out;
+  --animation-timing-in-out: ease-in-out;
+
+  /* Медиа-запросы */
+  --breakpoint-xs: 0;
+  --breakpoint-sm: 576px;
+  --breakpoint-md: 768px;
+  --breakpoint-lg: 992px;
+  --breakpoint-xl: 1200px;
+  --breakpoint-xxl: 1400px;
+
+  /* Контейнеры */
+  --container-padding: 1rem;
+  --container-max-width: 1200px;
+
+  /* Сетка */
+  --grid-columns: 12;
+  --grid-gutter-width: 1.5rem;
+
+  /* Формы */
+  --input-padding-y: 0.375rem;
+  --input-padding-x: 0.75rem;
+  --input-font-size: 1rem;
+  --input-line-height: 1.5;
+  --input-border-width: 1px;
+  --input-border-color: #ced4da;
+  --input-border-radius: 0.25rem;
+  --input-bg: #fff;
+  --input-disabled-bg: #e9ecef;
+  --input-color: #495057;
+  --input-placeholder-color: #6c757d;
+  --input-focus-border-color: #80bdff;
+  --input-focus-box-shadow: 0 0 0 0.2rem rgba(0, 123, 255, 0.25);
+
+  /* Кнопки */
+  --btn-padding-y: 0.375rem;
+  --btn-padding-x: 0.75rem;
+  --btn-font-size: 1rem;
+  --btn-line-height: 1.5;
+  --btn-border-width: 1px;
+  --btn-border-radius: 0.25rem;
+  --btn-transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+
+  /* Таблицы */
+  --table-cell-padding: 0.75rem;
+  --table-cell-padding-sm: 0.3rem;
+  --table-bg: transparent;
+  --table-accent-bg: rgba(0, 0, 0, 0.05);
+  --table-hover-bg: rgba(0, 0, 0, 0.075);
+  --table-active-bg: rgba(0, 0, 0, 0.1);
+  --table-border-width: 1px;
+  --table-border-color: #dee2e6;
+  --table-striped-order: odd;
+  --table-caption-color: #6c757d;
+
+  /* Модальные окна */
+  --modal-inner-padding: 1rem;
+  --modal-dialog-margin: 0.5rem;
+  --modal-dialog-margin-y-sm-up: 1.75rem;
+  --modal-title-line-height: 1.5;
+  --modal-content-bg: #fff;
+  --modal-content-border-color: rgba(0, 0, 0, 0.2);
+  --modal-content-border-width: 1px;
+  --modal-content-border-radius: 0.3rem;
+  --modal-content-box-shadow-xs: 0 0.25rem 0.5rem rgba(0, 0, 0, 0.5);
+  --modal-content-box-shadow-sm-up: 0 0.5rem 1rem rgba(0, 0, 0, 0.5);
+  --modal-backdrop-bg: #000;
+  --modal-backdrop-opacity: 0.5;
+  --modal-header-border-color: #dee2e6;
+  --modal-footer-border-color: #dee2e6;
+  --modal-header-border-width: 1px;
+  --modal-footer-border-width: 1px;
+  --modal-header-padding: 1rem;
+  --modal-footer-padding: 1rem;
+
+  /* Всплывающие подсказки */
+  --tooltip-font-size: 0.875rem;
+  --tooltip-max-width: 200px;
+  --tooltip-color: #fff;
+  --tooltip-bg: #000;
+  --tooltip-border-radius: 0.25rem;
+  --tooltip-opacity: 0.9;
+  --tooltip-padding-y: 0.25rem;
+  --tooltip-padding-x: 0.5rem;
+  --tooltip-margin: 0;
+  --tooltip-arrow-width: 0.8rem;
+  --tooltip-arrow-height: 0.4rem;
+
+  /* Выпадающие меню */
+  --dropdown-min-width: 10rem;
+  --dropdown-padding-y: 0.5rem;
+  --dropdown-spacer: 0.125rem;
+  --dropdown-bg: #fff;
+  --dropdown-border-color: rgba(0, 0, 0, 0.15);
+  --dropdown-border-radius: 0.25rem;
+  --dropdown-border-width: 1px;
+  --dropdown-divider-bg: #e9ecef;
+  --dropdown-box-shadow: 0 0.5rem 1rem rgba(0, 0, 0, 0.175);
+  --dropdown-link-color: #212529;
+  --dropdown-link-hover-color: #16181b;
+  --dropdown-link-hover-bg: #f8f9fa;
+  --dropdown-link-active-color: #fff;
+  --dropdown-link-active-bg: #007bff;
+  --dropdown-link-disabled-color: #6c757d;
+  --dropdown-item-padding-y: 0.25rem;
+  --dropdown-item-padding-x: 1.5rem;
+  --dropdown-header-color: #6c757d;
+} 

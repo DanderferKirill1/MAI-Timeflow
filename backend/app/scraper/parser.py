@@ -1,8 +1,9 @@
 from bs4 import BeautifulSoup
+from datetime import datetime
 
 from .downloader import ScheduleDownloader
 from .. import db
-from ..models import Course, Group, Institute, Level, Schedule, Subject, Teacher, Week
+from ..models import Course, Group, Institute, Level, Schedule, Subject, Teacher, Week, Notification, User
 
 DAY_MAP = {
     'Пн': 'Понедельник',
@@ -54,6 +55,63 @@ def parse_schedule_html(html: str):
         result.append(day_obj)
 
     return result
+
+
+def compare_schedules(old_schedule, new_schedule, group_code):
+    """Сравнение старого и нового расписания, отправка уведомлений об изменениях."""
+    try:
+        # Получаем всех пользователей с этой группой
+        users = User.query.filter_by(group_code=group_code).all()
+        if not users:
+            print(f"Пользователи с группой {group_code} не найдены")
+            return
+
+        # Создаем словари для быстрого поиска
+        old_schedule_dict = {(s.day, s.time_slot, s.subject_code): s for s in old_schedule}
+        new_schedule_dict = {(s.day, s.time_slot, s.subject_code): s for s in new_schedule}
+
+        # Находим отмененные пары
+        for key, old_lesson in old_schedule_dict.items():
+            if key not in new_schedule_dict:
+                # Пара отменена
+                for user in users:
+                    notification = Notification(
+                        user_id=user.user_id,
+                        type='cancelled',
+                        subject_name=old_lesson.subject_code,
+                        message=f'Пара "{old_lesson.subject_code}" за {old_lesson.day} {old_lesson.time_slot} была отменена',
+                        created_at=datetime.utcnow(),
+                        is_read=False
+                    )
+                    db.session.add(notification)
+
+        # Находим перенесенные пары
+        for key, new_lesson in new_schedule_dict.items():
+            if key not in old_schedule_dict:
+                # Проверяем, не является ли это новой парой
+                is_moved = False
+                for old_key, old_lesson in old_schedule_dict.items():
+                    if (old_lesson.subject_code == new_lesson.subject_code and 
+                        old_lesson.time_slot != new_lesson.time_slot):
+                        # Пара перенесена
+                        is_moved = True
+                        for user in users:
+                            notification = Notification(
+                                user_id=user.user_id,
+                                type='changed',
+                                subject_name=new_lesson.subject_code,
+                                message=f'Пара "{new_lesson.subject_code}" перенесена с {old_lesson.day} {old_lesson.time_slot} на {new_lesson.day} {new_lesson.time_slot}',
+                                created_at=datetime.utcnow(),
+                                is_read=False
+                            )
+                            db.session.add(notification)
+                        break
+
+        db.session.commit()
+        print("Уведомления об изменениях в расписании отправлены")
+    except Exception as e:
+        db.session.rollback()
+        print(f"Ошибка при сравнении расписаний: {str(e)}")
 
 
 def json_to_db_models(json_data, group_code, week_num):
@@ -109,11 +167,18 @@ def json_to_db_models(json_data, group_code, week_num):
             db.session.add(group)
             db.session.flush()
 
+        # Получаем старое расписание
+        old_schedule = Schedule.query.filter_by(
+            group_code=group_code,
+            week_num=week_num
+        ).all()
+
         # Удаляем прошлые записи группы на заданную неделю
         Schedule.query.filter(Schedule.group_code == group_code, Schedule.week_num == week_num).delete()
         db.session.commit()
 
         # Загружаем данные
+        new_schedule = []
         for day_data in json_data:
             day = day_data['day']
             for lesson in day_data['lessons']:
@@ -145,8 +210,13 @@ def json_to_db_models(json_data, group_code, week_num):
                     teacher_id=teacher.teacher_id,
                 )
                 db.session.add(schedule)
+                new_schedule.append(schedule)
 
         db.session.commit()
+
+        # Сравниваем расписания и отправляем уведомления
+        compare_schedules(old_schedule, new_schedule, group_code)
+
     except Exception as e:
         db.session.rollback()
         raise Exception(f"Ошибка сохранения в БД: {str(e)}")

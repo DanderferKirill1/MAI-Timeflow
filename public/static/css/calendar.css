@@ -3,47 +3,214 @@
   padding: 0 var(--side-padding);
   max-width: 1600px;
   margin: 0 auto;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
 }
-.show-timetable {
-  margin-top: 20px;
-  padding: 10px 20px;
-  font-size: 16px;
-  background: #007bff;
-  color: white;
-  border: none;
-  border-radius: 6px;
-  cursor: pointer;
+
+main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
 }
 
 .day-card {
   background: white;
   border-radius: 12px;
   box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  padding: 16px;
+  padding: 15px;
+  height: fit-content;
+  min-height: 120px;
+  display: flex;
+  flex-direction: column;
+  width: calc((100% - 40px) / 3);
+  min-width: 370px;
+  box-sizing: border-box;
 }
-.day-card h3 {
-  margin: 0 0 10px;
-  font-size: 18px;
+
+.day-card-title {
+  margin: 0 0 15px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 5px;
 }
-.lesson {
+
+.day-card-date {
   font-size: 14px;
-  margin-bottom: 6px;
+  color: #666;
+  font-weight: normal;
+}
+
+.day-card-name {
+  font-size: 18px;
+  color: #333;
+  font-weight: 600;
+}
+
+.day-card-empty {
+  justify-content: center;
+  align-items: center;
+  min-width: 430px;
+  width: auto;
+  padding: 15px 25px;
+}
+
+.day-card-empty .day-card-title {
+  margin: 0;
+}
+
+.lessons-container {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.lesson {
+  display: grid;
+  grid-template-columns: 100px minmax(0, 1fr) 100px;
+  gap: 20px;
+  align-items: start;
+  padding: 12px 0px 12px 0px;
+  background: #f8f9fa;
+  border-radius: 6px;
+  font-size: 14px;
+  line-height: 1.4;
+  width: 100%;
+  box-sizing: border-box;
+}
+
+.lesson-time {
+  color: #555;
+  font-weight: 500;
+  white-space: nowrap;
+  padding-right: 20px;
+  text-align: left;
+  width: 100px;
+}
+
+.lesson-main-info {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-width: 0;
+  padding: 0;
+  overflow: visible;
+}
+
+.lesson-subject {
+  font-weight: 500;
+  color: #333;
+  font-size: 15px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+  position: relative;
+  line-height: 1.4;
+  transition: all 0.3s ease;
+  cursor: pointer;
+}
+
+.lesson-subject.expanded {
+  white-space: normal;
+  word-wrap: break-word;
+  background: #f0f0f0;
+  padding: 8px 12px;
+  border-radius: 6px;
+  margin: 4px -12px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.lesson-subject.truncated {
+  cursor: pointer;
+  position: relative;
+}
+
+.lesson-subject.truncated.tooltip-visible::after {
+  content: attr(data-full-title);
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 10px);
+  transform: translateX(-50%);
+  background: #000;
+  color: #fff;
+  padding: 15px 20px;
+  border-radius: 8px;
+  font-size: 15px;
+  white-space: normal;
+  min-width: 250px;
+  max-width: 400px;
+  z-index: 1000;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.25);
+  pointer-events: none;
+  word-break: break-word;
+  line-height: 1.5;
+  text-align: left;
+  animation: fadeIn 0.2s ease-in-out;
+  font-weight: 500;
+  min-height: auto;
+  display: block;
+}
+
+.lesson-subject.truncated.tooltip-visible::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  bottom: calc(100% + 4px);
+  transform: translateX(-50%);
+  border-width: 6px;
+  border-style: solid;
+  border-color: #000 transparent transparent transparent;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-50%) translateY(5px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(-50%) translateY(0);
+  }
+}
+
+.lesson-additional-info {
+  color: #666;
+  font-size: 12px;
+  margin: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.lesson-room {
+  color: #555;
+  text-align: right;
+  white-space: nowrap;
+  padding-left: 20px;
+  overflow: visible;
+  box-sizing: border-box;
+  width: 100px;
 }
 
 .hidden {
-  display: none;
+  display: none !important;
 }
 .timetable-details > #timetable-wrapper {
   display: none;
 }
 
 .timetable-buttons {
-  display: none; /* прячем */
-  flex-direction: column;
-  gap: 10px;
-  align-items: flex-start; /* левый край */
-  grid-column: 4; /* 4-я колонка */
-  grid-row: 2;
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  margin-top: 20px;
+  padding: 0 20px;
+  box-sizing: border-box;
+  position: relative;
 }
 
 .timetable-details:not([open]) > #timetable-wrapper {
@@ -60,28 +227,13 @@
 }
 .timetable-details[open] .timetable-buttons {
   display: flex;
-  flex-direction: column;
-  gap: 10px;
-}
-
-.week-grid {
-  display: grid;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  grid-auto-rows: auto;
+  flex-direction: row;
   gap: 20px;
 }
 
-.week-grid .timetable-buttons {
-  grid-column: 4;
-  grid-row: 2;
-
-  /* как вам удобно, например: */
-  display: flex;
-  flex-direction: column;
-  gap: 10px;
-
-  /* можно ещё чуть отступ сверху, если нужно */
-  margin-top: -100px;
+#timetable-wrapper > .timetable-buttons {
+  grid-column: 1 / -1;
+  margin-top: 20px;
 }
 
 .timetable-btn {
@@ -92,8 +244,6 @@
   border-radius: 6px;
   cursor: pointer;
   font-size: 14px;
-  width: 100%;
-  height: 13%;
   transition: background-color 0.3s ease;
 }
 
@@ -102,37 +252,289 @@
 }
 
 #timetable-wrapper {
-  display: grid !important;
-  grid-template-columns: repeat(4, minmax(220px, 1fr));
-  grid-auto-rows: auto;
+  position: relative;
+  width: 100%;
+  padding-bottom: 80px;
+}
+
+.week-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
+  width: 100%;
+  margin: 0 auto;
 }
 
-/* 2) Заставляем .week-grid (сетку карточек) растягиваться
-   на все 4 колонки первой строки */
-#timetable-wrapper > .week-grid {
-  grid-column: 1 / -1;
-  /* margin-top, flex-direction и пр. — всё управление теперь через грид */
+.week-grid .day-card:nth-child(7) {
+  grid-column: 2;
+  grid-row: 3;
+  margin: 0 auto;
 }
 
-/* 3) Кнопки ставим в ячейку [4-я колонка, 2-я строка] */
-#timetable-wrapper > .timetable-buttons {
-  grid-column: 4;
-  grid-row: 2;
+.nav-buttons {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  padding: 20px 0;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin: 0 10px;
+}
+
+.timetable-details[open] .nav-btn {
+  margin: 0;
+  margin-right: 20px;
+}
+
+.timetable-details[open] .nav-btn:last-child {
+  margin-right: 0;
+}
+
+@media (max-width: 1600px) {
+  .nav-btn {
+    width: 300px;
+  }
+}
+
+@media (max-width: 1200px) {
+  .nav-btn {
+    position: static;
+    width: 400px;
+    margin: 20px auto 0;
+    transform: none;
+  }
+  
+  .nav-btn + .nav-btn {
+    margin-top: 20px;
+  }
+
+  .timetable-details {
+    align-items: stretch;
+  }
+
+  .timetable-details[open] {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+}
+
+@media (max-width: 800px) {
+  .nav-btn {
+    width: 100%;
+    max-width: 400px;
+  }
+}
+
+/* Стили для селекторов */
+.selectors {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  margin-top: -300px;
+  gap: 15px;
+  margin-bottom: 20px;
+  width: 100%;
+  max-width: 1600px;
+  margin: 0 auto;
+  padding: 0 var(--side-padding);
 }
 
-.timetable-btn .btn-icon {
-  width: 16px;
-  height: 16px;
-  margin-right: 8px;
-  /* optional: чтобы не съезжал текст при загрузке */
-  flex-shrink: 0;
+.selectors-row {
+  display: flex;
+  justify-content: center;
+  gap: 80px;
+  width: 100%;
 }
 
-#profileBtn20 {
-  font-size: 18px; /* или любой другой размер */
+.selectors-select {
+  width: 400px;
+  height: 50px;
+  padding: 12px 15px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  background-color: white;
+  font-size: 16px;
+  text-align: left;
+}
+
+.selectors-select option {
+  padding: 8px;
+  line-height: 1.5;
+}
+
+/* Стили для секции с группами */
+.groups-section {
+  width: 100%;
+  max-width: 1600px;
+  margin: 25px auto 0;
+  padding: 0 var(--side-padding);
+}
+
+.groups-title {
+  display: block !important;
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 15px;
+  text-align: center;
+}
+
+.group-item {
+  padding: 12px 15px;
+  background: #f8f9fa;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  text-align: center;
+  height: 45px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid #dee2e6;
+}
+
+.group-item:hover {
+  background-color: #e9ecef !important;
+  transform: translateY(-2px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.group-item.selected {
+  background-color: #007bff !important;
+  color: white !important;
+  border-color: #0056b3;
+}
+
+/* Сообщение об ошибке */
+.error {
+  color: #dc3545;
+  text-align: center;
+  padding: 15px;
+  font-size: 14px;
+  position: relative;
+  z-index: 11;
+}
+
+.timetable-details {
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#timetable {
+  width: 100%;
+  max-width: 1600px;
+  display: flex;
+  flex-direction: column;
+}
+
+.days-container {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  width: 100%;
+}
+
+@media (max-width: 1400px) {
+  .groups-table {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+@media (max-width: 1100px) {
+  .groups-table {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+@media (max-width: 768px) {
+  .groups-table {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.timetable-details[open] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.timetable-details[open] summary {
+  margin: 0;
+}
+
+.timetable-details[open] #timetable-wrapper {
+  width: 100%;
+  margin-top: 20px;
+}
+
+.nav-btn {
+  padding: 10px 20px;
+  font-size: 16px;
+  background: #007bff;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  white-space: nowrap;
+}
+
+.nav-btn-prev {
+  order: 1;
+}
+
+.nav-btn-next {
+  order: 3;
+}
+
+@media (max-width: 992px) {
+  .timetable-details[open] {
+    flex-direction: column;
+    gap: 10px;
+  }
+  
+  .nav-btn-prev {
+    order: 2;
+  }
+  
+  .show-timetable {
+    order: 1;
+  }
+  
+  .nav-btn-next {
+    order: 3;
+  }
+}
+
+.navigation-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 0 20px;
+}
+
+.nav-btn-container {
+  flex: 0 0 auto;
+}
+
+@media (max-width: 768px) {
+  .navigation-container {
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+  }
+  
+  .nav-btn {
+    width: 100%;
+    min-width: 200px;
+  }
 }
